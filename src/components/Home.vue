@@ -1,46 +1,41 @@
 <template>
     <div class="warpper">
-        <header>
-            欢迎
-        </header>
         <aside class="aside">
-            <el-menu
-                :default-active="activeMenu"
-                active-text-color="#409EFF"
-                background-color="#eee"
-                router>
-                <template v-for="(menu, index) in routes">
-                    <el-submenu :key="index" :index="menu.name">
-                        <template slot="title">
-                            <i :class="menu.iconClass"></i>
-                            {{menu.name}}
-                        </template>
-                        <template v-for="(cRoute, cIndex) in menu.children" >
-                            <el-submenu :key="cIndex" :index="cRoute.name" v-if="cRoute.children && cRoute.children.length !==false">
-                                <template slot="title">
+            <div class="logo">
+                AllOfPays
+            </div>
+            <div class="warpper-menu">
+                <el-menu
+                    :default-active="activeMenu"
+                    active-text-color="#ccc"
+                    background-color="#001529"
+                    text-color="#fff"
+                    class="warpper-menu-bar"
+                    router>
+                    <template v-for="(menu, index) in routes">
+                        <el-submenu :key="index" :index="menu.name" v-if="menu.children && menu.children.length !==false">
+                            <template slot="title">
+                                <i :class="menu.iconClass"></i>
+                                {{menu.name}}
+                            </template>
+                            <template v-for="(cRoute, cIndex) in menu.children">
+                                <el-menu-item :key="cIndex" :index="cRoute.name" :route="cRoute">
                                     {{cRoute.name}}
-                                </template>
-                                <template v-for="(sRoute, sIndex) in cRoute.children">
-                                    <el-menu-item :key="sIndex" :index="sRoute.name" :route="sRoute">
-                                        {{sRoute.name}}
-                                    </el-menu-item>
-                                </template>
-                            </el-submenu>
-
-                            <el-menu-item :key="cIndex" :index="cRoute.name" :route="cRoute" v-else>
-                                 {{cRoute.name}}
-                            </el-menu-item>
-                        </template>
-                    </el-submenu>
-                </template>
-            </el-menu>
+                                </el-menu-item>
+                            </template>
+                        </el-submenu>
+                        <el-menu-item :key="index" :index="menu.name" :route="menu" v-else>
+                            <i :class="menu.iconClass"></i>{{menu.name}}
+                        </el-menu-item>
+                    </template>
+                </el-menu>
+            </div>
         </aside>
-         <!--路由tab -->
-        <!-- <div class="warpper-tabs">
-            <RouterTab></RouterTab>
-        </div> -->
         <div class="warpper-content">
-            <router-view></router-view>
+            <header>123</header>
+            <div class="warpper-content-main">
+                <router-view></router-view>
+            </div>
         </div>
     </div>
 
@@ -74,5 +69,5 @@ export default {
     }
 };
 </script>
-<style lang="less">
+<style lang="less" scoped>
 </style>
