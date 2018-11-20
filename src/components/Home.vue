@@ -35,8 +35,10 @@
             <div class="warpper-header">
                 <img src="../assets/img/side.png">
                 <div class="user-info">
-                    用户名：
-                    <span>
+                    <span class="user-name">
+                        用户名：{{userName}}
+                    </span>
+                    <span class="login-out">
                         <img src="../assets/img/loginOut.png">
                         退出
                     </span>
@@ -57,7 +59,8 @@ export default {
     data() {
         return {
             activeMenu: '',
-            routes: children
+            routes: children,
+            userName: 'Admin'
         };
     },
     components: {

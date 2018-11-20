@@ -1,4 +1,6 @@
 import MyIncomes from './../pages/myIncomes';
+import AccountManage from './../pages/accountManage';
+
 import LegalServiceHousePage from './../pages/legalServiceHousePage';
 import DetentionHousePage from './../pages/detentionHousePage';
 import CourtOverviewPage from './../pages/courtOverviewPage';
@@ -19,7 +21,17 @@ const children = [
         path: 'account',
         name: '收款账号管理',
         iconClass: 'el-icon-message',
-        component: TemplatePage
+        component: Abstract,
+        children: [{
+            path: 'index',
+            name: '收款账号管理',
+            component: AccountManage,
+            children: [{
+                path: 'addAcount',
+                name: '添加收款账号',
+                component: TemplatePage
+            }]
+        }]
     }, {
         path: 'order',
         name: '订单管理',
@@ -27,21 +39,13 @@ const children = [
         component: Abstract,
         children: [
             {
-                path: 'lawyerHome',
-                name: '律师首页轮播图',
+                path: 'myOrder',
+                name: '我的订单',
                 component: LegalServiceHousePage
             }, {
-                path: 'boot',
-                name: '开机广告图',
+                path: 'auto',
+                name: '自动对账',
                 component: DetentionHousePage
-            }, {
-                path: 'application',
-                name: '应用管理',
-                component: CourtOverviewPage
-            }, {
-                path: 'applets',
-                name: '小程序轮播图',
-                component: JudgeInformationPage
             }
         ]
     }, {
@@ -56,8 +60,28 @@ const children = [
         component: Abstract,
         children: [
             {
-                path: 'courtOverview',
-                name: '法院概况',
+                path: 'basicInfo',
+                name: '基本信息',
+                component: RoleManage
+            },{
+                path: 'myPackage',
+                name: '我的套餐',
+                component: RoleManage
+            },{
+                path: 'basicInfo',
+                name: '修改密码',
+                component: CourtOverviewPage
+            },{
+                path: 'basicInfo',
+                name: 'API参数设置',
+                component: RoleManage
+            },{
+                path: 'basicInfo',
+                name: 'API接口信息',
+                component: JudgeInformationPage
+            },{
+                path: 'basicInfo',
+                name: '测试接口',
                 component: RoleManage
             }
         ]
