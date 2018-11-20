@@ -3,14 +3,19 @@
     .warpper {
         position: relative;
         .aside {
+            transition : all .5s ease .1s;
             position: fixed; top: 0; left: 0; height: 100%;
             width: 256px; user-select: none; overflow: scroll; z-index: 98;
             background: #001529; box-shadow:2px 0px 6px 0px rgba(0,21,41,0.35);
             .logo {
+                transition : all .5s ease .1s;
                 height: 64px; background: #002140;
                 text-align: center; color: #fff; line-height: 64px;
                 font-size: 26px; position: fixed; top: 0; left: 0;
                 z-index: 999; width: 256px;
+                img {
+                    vertical-align: middle;
+                }
             }
             .warpper-menu {
                 margin-top: 64px; width: 256px; background: #001529;
@@ -20,43 +25,41 @@
             }
         }
         .warpper-content {
-            margin-left: 256px; position: relative;
-            .warpper-header {
-                box-shadow:0px 1px 4px 0px rgba(0,21,41,0.12);
-                background: #fff; height: 64px;
-                line-height: 64px; padding: 0 24px;
-                z-index: 999;
-                position: fixed; top: 0; left: 256px; right: 0;
-                img {
-                    vertical-align: middle;
-                    cursor: pointer;
+            margin-left: 256px; position: relative; transition : all .5s ease .1s;
+            .warpper-title {
+                height: 120px; position: fixed; top: 0; left: 256px; right: 0;
+                transition : all .5s ease .1s; background: #fff;
+                z-index: 97;
+                .warpper-header {
+                    box-shadow:0px 1px 4px 0px rgba(0,21,41,0.12);
+                    height: 64px;
+                    line-height: 64px; padding: 0 24px;
+                    img {
+                        vertical-align: middle;
+                        cursor: pointer;
+                    }
+                    .user-info {
+                        float: right; margin-right: 40px;
+                        overflow: hidden;
+                        span {
+                            display: block; float: left;
+                        }
+                        .user-name {
+                            width: 130px; overflow: hidden;
+                            margin-right: 20px;
+                        }
+                    }
                 }
-                .user-info {
-                    float: right; margin-right: 40px;
-                    overflow: hidden;
-                    span {
-                        display: block; float: left;
-                    }
-                    .user-name {
-                        width: 130px; overflow: hidden;
-                        margin-right: 20px;
-                    }
+                .warpper-breadcrumb {
+                    height: 55px; padding: 0 32px;
+                    font-size: 14px; line-height: 55px;
                 }
             }
+            
             .warpper-content-main {
-                 padding-top: 64px; position: relative;
-                .breadcrumb {
-                    padding: 0 32px;
-                    height: 55px; width: 100%;
-                    font-size: 14px; line-height: 55px;
-                    background: #fff;
-                    position: fixed; top: 64px;left: 256px; right: 0;
-                }
-                .main-content {
-                    margin-top: 55px;
-                    padding: 27px 24px; background: #F0F2F5;
-                    height: 100%; overflow: scroll;
-                }
+                margin-top: 120px;
+                padding: 27px 24px; position: relative;
+                background: #F0F2F5;
             }
         }
     }

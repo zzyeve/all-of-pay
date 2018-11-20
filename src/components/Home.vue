@@ -1,15 +1,15 @@
 <template>
     <div class="warpper">
-        <aside class="aside">
-            <div class="logo">
-                AllOfPays
+        <aside class="aside" :style="menuStyle">
+            <div class="logo" :style="menuStyle">
+                <img src="../assets/img/logo.png">
             </div>
             <div class="warpper-menu">
                 <el-menu
                     :default-active="activeMenu"
-                    active-text-color="#ccc"
+                    active-text-color="#fff"
                     background-color="#001529"
-                    text-color="#fff"
+                    text-color="#A6ADB4"
                     class="warpper-menu-bar"
                     router>
                     <template v-for="(menu, index) in routes">
@@ -31,16 +31,23 @@
                 </el-menu>
             </div>
         </aside>
-        <div class="warpper-content">
-            <div class="warpper-header">
-                <img src="../assets/img/side.png">
-                <div class="user-info">
-                    <span class="user-name">
-                        用户名：{{userName}}
-                    </span>
-                    <span class="login-out">
-                        <img src="../assets/img/loginOut.png">
-                        退出
+        <div class="warpper-content" :style="contentStyle">
+            <div class="warpper-title" :style="titleStyle">
+                <div class="warpper-header">
+                    <img src="../assets/img/side.png" @click="clickMenu">
+                    <div class="user-info">
+                        <span class="user-name">
+                            用户名：{{userName}}
+                        </span>
+                        <span class="login-out">
+                            <img src="../assets/img/loginOut.png">
+                            退出
+                        </span>
+                    </div>
+                </div>
+                <div class="warpper-breadcrumb">
+                    <span v-for="(item, index) in breadcrumbs" :to="item" :key="index">
+                        {{ item.name }}
                     </span>
                 </div>
             </div>
@@ -60,7 +67,18 @@ export default {
         return {
             activeMenu: '',
             routes: children,
-            userName: 'Admin'
+            userName: 'Admin',
+            menuShow: true,
+            breadcrumbs: [],
+            contentStyle: {
+                marginLeft: '256px'
+            },
+            menuStyle: {
+                left: 0
+            },
+            titleStyle: {
+                left: '256px'
+            }
         };
     },
     components: {
@@ -69,14 +87,30 @@ export default {
     methods: {
         getData() {
             // console.log(this.routes);
+        },
+        clickMenu() {
+            this.menuShow = !this.menuShow;
+            if (this.menuShow) {
+                this.contentStyle.marginLeft = '256px';
+                this.menuStyle.left = 0;
+                this.titleStyle.left = '256px';
+            } else {
+                this.contentStyle.marginLeft = 0;
+                this.menuStyle.left = '-256px';
+                this.titleStyle.left = 0;
+            }
         }
     },
     created() {
         this.activeMenu = this.$route.name;
+        this.breadcrumbs = (this.$parent && this.$parent.$route && this.$parent.$route.matched) || [];
+    },
+    mounted() {
     },
     watch: {
         '$route'() { // 参数to和from
             this.activeMenu = this.$route.name;
+            this.breadcrumbs = (this.$parent && this.$parent.$route && this.$parent.$route.matched) || [];
         }
     }
 };
