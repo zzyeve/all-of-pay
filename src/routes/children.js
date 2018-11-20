@@ -1,6 +1,7 @@
 import MyIncomes from './../pages/myIncomes';
 import AccountManage from './../pages/accountManage';
 
+import AssistUnitManagePage from './../pages/assistUnitManagePage';
 import LegalServiceHousePage from './../pages/legalServiceHousePage';
 import DetentionHousePage from './../pages/detentionHousePage';
 import CourtOverviewPage from './../pages/courtOverviewPage';
@@ -62,7 +63,7 @@ const children = [
             {
                 path: 'basicInfo',
                 name: '基本信息',
-                component: RoleManage
+                component: AssistUnitManagePage
             },{
                 path: 'myPackage',
                 name: '我的套餐',
