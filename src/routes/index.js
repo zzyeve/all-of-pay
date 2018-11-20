@@ -3,15 +3,13 @@ import NotFound from './../components/NotFound';
 import Children from './children';
 import Login from './../pages/login';
 import HomePage from './../pages/homePage';
-// import TemplatePage from './../pages/templatePage';
-// import Abstract from './../components/Abstract';
 
 const routes = [
     {
         path: '/',
         component: Home,
         children: Children,
-        redirect: 'access/home'
+        redirect: 'incomes'
     },
     {
         path: '/access',

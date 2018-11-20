@@ -25,7 +25,7 @@ const children = [
         component: Abstract,
         children: [{
             path: 'index',
-            name: '收款账号管理',
+            name: '收款账号管理 ',
             component: AccountManage,
             children: [{
                 path: 'addAcount',
@@ -69,19 +69,19 @@ const children = [
                 name: '我的套餐',
                 component: RoleManage
             },{
-                path: 'basicInfo',
+                path: 'changePwd',
                 name: '修改密码',
                 component: CourtOverviewPage
             },{
-                path: 'basicInfo',
+                path: 'ApiParams',
                 name: 'API参数设置',
                 component: RoleManage
             },{
-                path: 'basicInfo',
+                path: 'ApiInfo',
                 name: 'API接口信息',
                 component: JudgeInformationPage
             },{
-                path: 'basicInfo',
+                path: 'test',
                 name: '测试接口',
                 component: RoleManage
             }
