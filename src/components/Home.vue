@@ -32,7 +32,16 @@
             </div>
         </aside>
         <div class="warpper-content">
-            <header>123</header>
+            <div class="warpper-header">
+                <img src="../assets/img/side.png">
+                <div class="user-info">
+                    用户名：
+                    <span>
+                        <img src="../assets/img/loginOut.png">
+                        退出
+                    </span>
+                </div>
+            </div>
             <div class="warpper-content-main">
                 <router-view></router-view>
             </div>
