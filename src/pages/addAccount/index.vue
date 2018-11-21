@@ -4,13 +4,9 @@ import './index.less';
 export default {
     data() {
         return {
-            loading: false,
-            totalSize: 100,
-            dataList: [],
             params: {
-                selectType: '',
-                pageSize: 10,
-                pageNo: 1
+                keys: '',
+                status: '1'
             },
             selectType: {
                 id: '',

@@ -1,7 +1,9 @@
 import MyIncomes from './../pages/myIncomes';
 import AccountManage from './../pages/accountManage';
+import AddAccount from './../pages/addAccount';
+import ReserveCode from './../pages/reserveCode';
 
-import AssistUnitManagePage from './../pages/assistUnitManagePage';
+import BasicInfo from './../pages/basicInfo';
 import LegalServiceHousePage from './../pages/legalServiceHousePage';
 import DetentionHousePage from './../pages/detentionHousePage';
 import CourtOverviewPage from './../pages/courtOverviewPage';
@@ -16,27 +18,30 @@ const children = [
     {
         path: 'incomes',
         name: '我的收入统计',
-        iconClass: 'el-icon-setting',
+        iconClass: 'el-icon-goods',
         component: MyIncomes
     }, {
         path: 'account',
         name: '收款账号管理',
-        iconClass: 'el-icon-message',
+        iconClass: 'el-icon-edit-outline',
         component: Abstract,
         children: [{
             path: 'index',
             name: '收款账号管理 ',
-            component: AccountManage,
-            children: [{
-                path: 'addAcount',
-                name: '添加收款账号',
-                component: TemplatePage
-            }]
+            component: AccountManage
+        },{
+            path: 'add',
+            name: '添加收款账号 ',
+            component: AddAccount
+        },{
+            path: 'reserve',
+            name: '储备二维码管理 ',
+            component: ReserveCode
         }]
     }, {
         path: 'order',
         name: '订单管理',
-        iconClass: 'el-icon-picture',
+        iconClass: 'el-icon-date',
         component: Abstract,
         children: [
             {
@@ -52,7 +57,7 @@ const children = [
     }, {
         path: 'noMatch',
         name: '无匹配订单',
-        iconClass: 'el-icon-view',
+        iconClass: 'el-icon-tickets',
         component: PermissionSetting
     }, {
         path: 'content ',
@@ -63,7 +68,7 @@ const children = [
             {
                 path: 'basicInfo',
                 name: '基本信息',
-                component: AssistUnitManagePage
+                component: BasicInfo
             },{
                 path: 'myPackage',
                 name: '我的套餐',
@@ -89,12 +94,12 @@ const children = [
     }, {
         path: 'api ',
         name: 'API接口文档',
-        iconClass: 'el-icon-bell',
+        iconClass: 'el-icon-rank',
         component: TemplatePage
     }, {
         path: 'app',
         name: 'app下载',
-        iconClass: 'el-icon-service',
+        iconClass: 'el-icon-download',
         component: ManagePage
     }
 ];

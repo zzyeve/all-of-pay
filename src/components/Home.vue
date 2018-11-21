@@ -48,11 +48,15 @@
                 <div class="warpper-breadcrumb">
                     <span v-for="(item, index) in breadcrumbs" :to="item" :key="index">
                         {{ item.name }}
+                        <span v-if="breadcrumbs.length === 3 && index === 1"> / </span>
                     </span>
                 </div>
             </div>
             <div class="warpper-content-main">
                 <router-view></router-view>
+                <footer>
+                    Copyright @ 2017-2018. AllofPays Inc. All rights reserved
+                </footer>
             </div>
         </div>
     </div>
