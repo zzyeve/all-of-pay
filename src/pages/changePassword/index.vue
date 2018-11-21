@@ -4,14 +4,11 @@ import './index.less';
 export default {
   data () {
     return {
-      dialogFormOneVisible: false,
-      dialogFormTwoVisible: false,
       labelPosition: 'right',
-      formOneLabelAlign: {
-        password: ''
-      },
-      formTwoLabelAlign: {
-        password: ''
+      formLabelAlign: {
+        oldPassword: '',
+        newPassword: '',
+        reinput: ''
       }
     };
   },

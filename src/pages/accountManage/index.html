@@ -3,17 +3,17 @@
         <div class="search">
             <div>
                 <span>支付类型：</span>
-                <el-select v-model="selectType.id" @change="selectChange">
+                <el-select v-model="selectType.id" @change="selectChange" size="small">
                     <el-option v-for="(item, index) in selectType.list" :label="item.label" :value="item" :key="index">
     
                     </el-option>
                 </el-select>
-                <el-button type="primary" icon="el-icon-search">查询</el-button>
+                <el-button type="primary" size="small" icon="el-icon-search">查询</el-button>
             </div>
             <div class="btn-group">
-                <el-button @click="goAddAcount" type="primary" icon="el-icon-plus">添加收款账户</el-button>
-                <el-button @click="dialogShow = true">收款账户匹配(轮询)</el-button>
-                <el-button>收款码生成模式</el-button>
+                <el-button @click="goAddAcount" type="primary" size="small" icon="el-icon-plus">添加收款账户</el-button>
+                <el-button @click="dialogShow = true" size="small">收款账户匹配(轮询)</el-button>
+                <el-button size="small">收款码生成模式</el-button>
                 <span>（暂时只支持批量）</span>
             </div>
         </div>

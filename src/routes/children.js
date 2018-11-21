@@ -11,10 +11,10 @@ import AppDownload from './../pages/appDownload';
 
 import BasicInformation from './../pages/basicInformation';
 import MyPackage from './../pages/myPackage';
-
-import JudgeInformationPage from './../pages/judgeInformationPage';
-
-import RoleManage from './../pages/roleManage';
+import ChangePassword from './../pages/changePassword';
+import SetAPI from './../pages/setAPI';
+import InfoAPI from './../pages/infoAPI';
+import TestAPI from './../pages/testAPI';
 import Abstract from './../components/Abstract';
 const children = [
     {
@@ -84,19 +84,19 @@ const children = [
             },{
                 path: 'changePwd',
                 name: '修改密码',
-                component: BasicInformation
+                component: ChangePassword
             },{
                 path: 'ApiParams',
                 name: 'API参数设置',
-                component: RoleManage
+                component: SetAPI
             },{
                 path: 'ApiInfo',
                 name: 'API接口信息',
-                component: JudgeInformationPage
+                component: InfoAPI
             },{
                 path: 'test',
                 name: '测试接口',
-                component: RoleManage
+                component: TestAPI
             }
         ]
     }, {

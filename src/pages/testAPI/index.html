@@ -1,0 +1,27 @@
+<div class="test-API">
+  <div class="main-content">
+    <div class="wrap4">
+      <section class="top">
+        <div class="top_main">
+          <el-form :label-position="labelPosition" label-width="145px" :model="formLabelAlign">
+            <el-form-item label="支付类型：">
+              <el-radio-group v-model="formLabelAlign.payType">
+                <el-radio label="支付宝"></el-radio>
+                <el-radio label="微信"></el-radio>
+              </el-radio-group>
+            </el-form-item>
+            <el-form-item label="金额：">
+              <el-input v-model="formLabelAlign.money" placeholder="0.01"></el-input>
+            </el-form-item>
+          </el-form>
+        </div>
+      </section>
+      <el-button type="primary" size="small" style="margin-left: 145px;">支付测试</el-button>
+    </div>
+
+    <div class="bottom">
+      <p>Copyright &#169 2017-2018. AllofPays Inc. All rights reserved</p>
+    </div>
+  </div>
+  <router-view></router-view>
+</div>
