@@ -3,9 +3,10 @@ import AccountManage from './../pages/accountManage';
 
 import BasicInformation from './../pages/basicInformation';
 import MyPackage from './../pages/myPackage';
-import LegalServiceHousePage from './../pages/legalServiceHousePage';
-import DetentionHousePage from './../pages/detentionHousePage';
-import JudgeInformationPage from './../pages/judgeInformationPage';
+import ChangePassword from './../pages/changePassword';
+import SetAPI from './../pages/setAPI';
+import InfoAPI from './../pages/infoAPI';
+import TestAPI from './../pages/testAPI';
 
 import TemplatePage from './../pages/templatePage';
 import ManagePage from './../pages/managePage';
@@ -42,11 +43,11 @@ const children = [
             {
                 path: 'myOrder',
                 name: '我的订单',
-                component: LegalServiceHousePage
+                component: BasicInformation
             }, {
                 path: 'auto',
                 name: '自动对账',
-                component: DetentionHousePage
+                component: ChangePassword
             }
         ]
     }, {
@@ -71,19 +72,19 @@ const children = [
             },{
                 path: 'changePwd',
                 name: '修改密码',
-                component: BasicInformation
+                component: ChangePassword
             },{
                 path: 'ApiParams',
                 name: 'API参数设置',
-                component: RoleManage
+                component: SetAPI
             },{
                 path: 'ApiInfo',
                 name: 'API接口信息',
-                component: JudgeInformationPage
+                component: InfoAPI
             },{
                 path: 'test',
                 name: '测试接口',
-                component: RoleManage
+                component: TestAPI
             }
         ]
     }, {
