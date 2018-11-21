@@ -1,0 +1,86 @@
+<div class="my-package">
+  <div class="main-content">
+    <div class="wrap">
+      <section class="top">
+        <h3 class="t_h3">套餐信息（已购买情况下界面）</h3>
+        <div class="top_bot">
+          <ul style="margin: 0;padding-top: 98px;padding-bottom: 61px;">
+            <li>
+              <span class="s1">套餐名称：</span>
+              <span class="s2">专业版套餐</span>
+            </li>
+            <li>
+              <span class="s1">开始时间：</span>
+              <span class="s2">2018-10-20 19:00:00</span>
+            </li>
+            <li>
+              <span class="s1">结束时间：</span>
+              <span class="s2">2018-10-20 19:00:00</span>
+            </li>
+            <li>
+              <span class="s1">剩余天数：</span>
+              <span class="s2">31天</span>
+            </li>
+          </ul>
+          <div style="padding-left: 618px;padding-bottom: 80px;">
+            <el-button type="primary" @click="dialogFormVisible = true">续&nbsp;&nbsp;费</el-button>  <!--点击弹出续费表单-->
+            <el-button style="margin-left: 22px;">更改套餐</el-button>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <section class="bottom">
+      <h3 class="bot_h3">套餐信息（未购买情况下界面）</h3>
+      <div class="bottom_bot">
+        <h2>尚未购买套餐，回首页进行购买</h2>
+        <div style="padding-bottom: 75px;">
+          <el-button type="primary">返回购买</el-button>
+        </div>
+      </div>
+    </section>
+
+    <div class="main_bot">
+      <div class="btn"></div>
+      <p>Copyright &#169 2017-2018. AllofPays Inc. All rights reserved</p>
+    </div>
+
+    <!--弹出的续费表单-->
+    <el-dialog title="续费" :visible.sync="dialogFormVisible" width="483px" class="pay-for">
+      <el-form :label-position="labelPosition" label-width="145px" :model="formLabelAlign">
+        <el-form-item label="套餐名称：">
+          <span>专业版套餐</span>
+        </el-form-item>
+        <el-form-item label="套餐价格：">
+          <span>99元/月</span>
+        </el-form-item>
+        <el-form-item label="续费时长：">
+          <el-select placeholder="排序"></el-select>
+        </el-form-item>
+        <el-form-item label="开始时间：">
+          <span>2018-02-21</span>
+        </el-form-item>
+        <el-form-item label="结束时间：">
+          <span>2018-08-21</span>
+        </el-form-item>
+        <el-form-item label="总价：" style="position: relative;">
+          <span>原价¥1299</span>
+          <div style="width: 70px;height: 1px;position: absolute;background: #606266;top: 22px;"></div>
+          <span style="padding-left: 8px;font-size: 20px;">¥999</span>
+        </el-form-item>
+        <el-form-item label="账户余额：">
+          <span>¥0.01</span>
+          <span style="color: #FF6262;padding-left: 21px;">余额不足，前往充值</span>
+        </el-form-item>
+        <el-form-item label="登录密码：">
+          <el-input v-model="formLabelAlign.password" placeholder="请输入"></el-input>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button size="small" @click="dialogFormVisible = false">取 消</el-button>
+        <el-button size="small" type="primary" @click="dialogFormVisible = false">续 费</el-button>
+      </div>
+    </el-dialog>
+  </div>
+  <router-view></router-view>
+</div>

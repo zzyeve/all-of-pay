@@ -1,10 +1,10 @@
 import MyIncomes from './../pages/myIncomes';
 import AccountManage from './../pages/accountManage';
 
-import AssistUnitManagePage from './../pages/assistUnitManagePage';
+import BasicInformation from './../pages/basicInformation';
+import MyPackage from './../pages/myPackage';
 import LegalServiceHousePage from './../pages/legalServiceHousePage';
 import DetentionHousePage from './../pages/detentionHousePage';
-import CourtOverviewPage from './../pages/courtOverviewPage';
 import JudgeInformationPage from './../pages/judgeInformationPage';
 
 import TemplatePage from './../pages/templatePage';
@@ -63,15 +63,15 @@ const children = [
             {
                 path: 'basicInfo',
                 name: '基本信息',
-                component: AssistUnitManagePage
+                component: BasicInformation
             },{
                 path: 'myPackage',
                 name: '我的套餐',
-                component: RoleManage
+                component: MyPackage
             },{
                 path: 'changePwd',
                 name: '修改密码',
-                component: CourtOverviewPage
+                component: BasicInformation
             },{
                 path: 'ApiParams',
                 name: 'API参数设置',
