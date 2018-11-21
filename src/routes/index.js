@@ -1,7 +1,6 @@
 import Home from './../components/Home';
 import NotFound from './../components/NotFound';
 import Children from './children';
-import Login from './../pages/login';
 import HomePage from './../pages/homePage';
 
 const routes = [
@@ -23,10 +22,6 @@ const routes = [
                 path: '404',
                 name: '404',
                 component: NotFound
-            }, {
-                path: 'login',
-                name: '登录',
-                component: Login
             }
         ]
     }, {

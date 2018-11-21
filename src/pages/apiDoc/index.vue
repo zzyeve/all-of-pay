@@ -1,19 +1,12 @@
 <template src="./index.html"></template>
 <script>
 import './index.less';
-import Abstract from '../../components/Abstract.vue';
 export default {
-    mixins: [Abstract],
     data() {
         return {
-            loading: false,
-            totalSize: 100,
-            dataList: [],
-            dialogShow: false,
             params: {
-                selectType: '',
-                pageSize: 10,
-                pageNo: 1
+                keys: '',
+                status: '1'
             },
             selectType: {
                 id: '',
@@ -43,14 +36,6 @@ export default {
         handleCurrentChange(val) {
             this.params.pageNo = val;
             this.getData();
-        },
-        // 跳转新增收款账户
-        goAddAcount() {
-            window.location.href = '#/account/add';
-        },
-        // 跳转二维码管理
-        goReserve() {
-            window.location.href = '#/account/reserve';
         },
         selectChange(val) {
             console.log(val);

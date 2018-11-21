@@ -1,18 +1,19 @@
 import MyIncomes from './../pages/myIncomes';
+import MyIncomesDetail from './../pages/myIncomesDetail';
 import AccountManage from './../pages/accountManage';
 import AddAccount from './../pages/addAccount';
 import ReserveCode from './../pages/reserveCode';
 import MyOrder from './../pages/myOrder';
 import AutoCharge from './../pages/autoCharge';
 import NoMatchOrder from './../pages/noMatchOrder';
+import ApiDoc from './../pages/apiDoc';
+import AppDownload from './../pages/appDownload';
 
 import BasicInformation from './../pages/basicInformation';
 import MyPackage from './../pages/myPackage';
 
 import JudgeInformationPage from './../pages/judgeInformationPage';
 
-import TemplatePage from './../pages/templatePage';
-import ManagePage from './../pages/managePage';
 import RoleManage from './../pages/roleManage';
 import Abstract from './../components/Abstract';
 const children = [
@@ -20,17 +21,20 @@ const children = [
         path: 'incomes',
         name: '我的收入统计',
         iconClass: 'el-icon-goods',
-        component: MyIncomes
+        component: MyIncomes,
+        showChildren: false, // 控制是否显示字路由
+        children: [{
+            path: 'detail',
+            name: '收入明细',
+            component: MyIncomesDetail
+        }]
     }, {
         path: 'account',
         name: '收款账号管理',
         iconClass: 'el-icon-edit-outline',
-        component: Abstract,
+        component: AccountManage,
+        showChildren: false,
         children: [{
-            path: 'index',
-            name: '收款账号管理 ',
-            component: AccountManage
-        },{
             path: 'add',
             name: '添加收款账号 ',
             component: AddAccount
@@ -44,6 +48,7 @@ const children = [
         name: '订单管理',
         iconClass: 'el-icon-date',
         component: Abstract,
+        showChildren: true,
         children: [
             {
                 path: 'myOrder',
@@ -59,12 +64,14 @@ const children = [
         path: 'noMatch',
         name: '无匹配订单',
         iconClass: 'el-icon-tickets',
-        component: NoMatchOrder
+        component: NoMatchOrder,
+        showChildren: false
     }, {
         path: 'content ',
         name: '账号管理',
         iconClass: 'el-icon-star-off',
         component: Abstract,
+        showChildren: true,
         children: [
             {
                 path: 'basicInfo',
@@ -96,12 +103,14 @@ const children = [
         path: 'api ',
         name: 'API接口文档',
         iconClass: 'el-icon-rank',
-        component: TemplatePage
+        component: ApiDoc,
+        showChildren: false
     }, {
         path: 'app',
         name: 'app下载',
         iconClass: 'el-icon-download',
-        component: ManagePage
+        component: AppDownload,
+        showChildren: false
     }
 ];
 export default children;

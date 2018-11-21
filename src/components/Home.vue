@@ -13,7 +13,7 @@
                     class="warpper-menu-bar"
                     router>
                     <template v-for="(menu, index) in routes">
-                        <el-submenu :key="index" :index="menu.name" v-if="menu.children && menu.children.length !==false">
+                        <el-submenu :key="index" :index="menu.name" v-if="menu.showChildren && menu.children && menu.children.length !==false">
                             <template slot="title">
                                 <i :class="menu.iconClass"></i>
                                 {{menu.name}}

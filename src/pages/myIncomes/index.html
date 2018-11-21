@@ -1,11 +1,11 @@
 <div class="my-incomes">
-    <div class="main-content">
+    <div class="main-content" v-if="show">
         <div class="notice">
             <img src="../../assets/img/notice.png">
             余额不足 余额应保持10元以上，用于扣除手续费
             <span class="btn-group">
-                <el-button type="warning" plain>余额明细</el-button>
-                <el-button type="warning">充值</el-button>
+                <el-button type="warning" plain @click="goDetail">余额明细</el-button>
+                <el-button type="warning" @click="dialogShow=true;">充值</el-button>
             </span>
         </div>
         <div class="content">
@@ -54,6 +54,22 @@
                 </div>
             </div>
         </div>
+        <el-dialog width="30%" title="充值" :visible.sync="dialogShow">
+            <div class="dialog-content">
+                充值金额
+                <el-select v-model="selectType.id" size="small">
+                    <el-option v-for="(item, index) in selectType.list"
+                        :label="item.label"
+                        :value="item.value"
+                        :key="index">
+                    </el-option>
+                </el-select>
+            </div>
+            <div slot="footer" class="dialog-footer">
+                <el-button @click="dialogShow = false" size="small">取 消</el-button>
+                <el-button type="primary" @click="dialogShow = true" size="small">支付宝充值</el-button>
+            </div>
+        </el-dialog>
     </div>
    <router-view></router-view>
 </div>
