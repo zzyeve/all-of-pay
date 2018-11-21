@@ -55,7 +55,7 @@
             <div class="warpper-content-main">
                 <router-view></router-view>
                 <footer>
-                    Copyright @ 2017-2018. AllofPays Inc. All rights reserved
+                    Copyright &#169; 2017-2018. AllofPays Inc. All rights reserved
                 </footer>
             </div>
         </div>
