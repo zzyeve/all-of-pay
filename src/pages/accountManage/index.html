@@ -1,62 +1,91 @@
 <div class="account-manage">
-    <div class="main-content">
+    <div class="main-content" v-if="show">
         <div class="search">
             <div>
                 <span>支付类型：</span>
-                <el-select v-model="selectType.id" @change="selectChange">
+                <el-select v-model="selectType.id" @change="selectChange" size="small">
                     <el-option v-for="(item, index) in selectType.list" :label="item.label" :value="item" :key="index">
     
                     </el-option>
                 </el-select>
-                <el-button type="primary" icon="el-icon-search">查询</el-button>
+                <el-button type="primary" size="small" icon="el-icon-search">查询</el-button>
             </div>
             <div class="btn-group">
-                <el-button type="primary" icon="el-icon-plus">添加收款账户</el-button>
-                <el-button>收款账户匹配(轮询)</el-button>
-                <el-button>收款码生成模式</el-button>
+                <el-button @click="goAddAcount" type="primary" size="small" icon="el-icon-plus">添加收款账户</el-button>
+                <el-button @click="dialogShow = true" size="small">收款账户匹配(轮询)</el-button>
+                <el-button size="small">收款码生成模式</el-button>
                 <span>（暂时只支持批量）</span>
             </div>
-            <div class="pay-notice">
-                <span>
-                    <img src="../../assets/img/info.png">
-                    支付页收款码生成模式说明：
-                </span><br/>
-                <span>
-                    &nbsp;&nbsp;&nbsp;&nbsp;1、实时生成模式，用户打开支付页时自动向手机生成对应价格收款码；优点：无需上传收款码，无并发；缺点：需要运行APP，需保证手机网络良好。
-                </span><br/>
-                <span>
-                    &nbsp;&nbsp;&nbsp;&nbsp;2、批量储备模式，用户打开支付页时自动匹配已储备的收款码；优点：速度快，掉单率低；缺点：需要配合APP先生成各个金额的收款码。
-                </span><br/>
-            </div>
-            <el-table 
-                :data="dataList" 
-                v-loading="loading" 
-                :row-class-name="tableRowClassName"
-                :cell-class-name="tableCellClassName"
-                element-loading-text="数据拼命加载中...">
-                <el-table-column prop="id" label="支付类型"></el-table-column>
-                <el-table-column prop="status" label="排序/权重"></el-table-column>
-                <el-table-column prop="roleName" label="备注/收款账号"></el-table-column>
-                <el-table-column prop="description" label="今日流水"></el-table-column>
-                <el-table-column prop="id" label="订单"></el-table-column>
-                <el-table-column prop="status" label="限时/限额（每日）"></el-table-column>
-                <el-table-column prop="roleName" label="状态"></el-table-column>
-                <el-table-column label="操作">
-                    <template slot-scope="scope">
-                        <el-button type="text">储备二维码管理</el-button> <br>
-                        <el-button type="text">最近一小时统计</el-button><br>
-                        <el-button type="text">编辑</el-button><br>
-                        <el-button type="text">删除</el-button>
-                    </template>    
-                </el-table-column>
-            </el-table>
-            <el-pagination
-                @current-change="handleCurrentChange"
-                :page-size="params.pageSize"
-                layout="total, prev, pager, next"
-                :total="totalSize">
-            </el-pagination>
         </div>
+        <div class="pay-notice">
+            <span>
+                <img src="../../assets/img/info.png">
+                支付页收款码生成模式说明：
+            </span><br/>
+            <span>
+                &nbsp;&nbsp;&nbsp;&nbsp;1、实时生成模式，用户打开支付页时自动向手机生成对应价格收款码；优点：无需上传收款码，无并发；缺点：需要运行APP，需保证手机网络良好。
+            </span><br/>
+            <span>
+                &nbsp;&nbsp;&nbsp;&nbsp;2、批量储备模式，用户打开支付页时自动匹配已储备的收款码；优点：速度快，掉单率低；缺点：需要配合APP先生成各个金额的收款码。
+            </span><br/>
+        </div>
+        <el-table 
+            :data="dataList" 
+            v-loading="loading" 
+            :row-class-name="tableRowClassName"
+            :cell-class-name="tableCellClassName"
+            element-loading-text="数据拼命加载中...">
+            <el-table-column prop="id" label="支付类型"></el-table-column>
+            <el-table-column prop="status" label="排序/权重"></el-table-column>
+            <el-table-column prop="roleName" label="备注/收款账号"></el-table-column>
+            <el-table-column prop="description" label="今日流水"></el-table-column>
+            <el-table-column prop="id" label="订单"></el-table-column>
+            <el-table-column prop="status" label="限时/限额（每日）"></el-table-column>
+            <el-table-column prop="roleName" label="状态"></el-table-column>
+            <el-table-column label="操作">
+                <template slot-scope="scope">
+                    <el-button type="text" @click="goReserve">储备二维码管理</el-button> <br>
+                    <el-button type="text">最近一小时统计</el-button><br>
+                    <el-button type="text">编辑</el-button><br>
+                    <el-button type="text">删除</el-button>
+                </template>    
+            </el-table-column>
+        </el-table>
+        <el-pagination
+            @current-change="handleCurrentChange"
+            :page-size="params.pageSize"
+            layout="total, prev, pager, next"
+            :total="totalSize">
+        </el-pagination>
+        <el-dialog width="30%" title="收款账号匹配模式" :visible.sync="dialogShow">
+            <div class="dialog-content">
+                <div>
+                    匹配模式
+                    <el-select v-model="selectType.id" size="small">
+                        <el-option v-for="(item, index) in selectType.list"
+                            :label="item.label"
+                            :value="item.value"
+                            :key="index">
+                        </el-option>
+                    </el-select>
+                </div>
+                <div>
+                    轮训模式
+                    <el-select v-model="selectType.id" size="small">
+                        <el-option v-for="(item, index) in selectType.list"
+                            :label="item.label"
+                            :value="item.value"
+                            :key="index">
+                        </el-option>
+                    </el-select>
+                </div>
+            </div>
+            <div slot="footer" class="dialog-footer">
+                <el-button @click="dialogShow = false" size="small">取 消</el-button>
+                <el-button type="primary" @click="dialogShow = true" size="small">确 定</el-button>
+            </div>
+        </el-dialog>
+        
     </div>
    <router-view></router-view>
 </div>

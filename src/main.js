@@ -4,6 +4,7 @@ import router from './router';
 import ElementUI from 'element-ui';
 import store from './store';
 import api from './api';
+import 'babel-polyfill';
 
 import Breadcrumb from './components/breadcrumb';
 
