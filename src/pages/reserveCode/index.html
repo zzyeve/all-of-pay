@@ -1,0 +1,55 @@
+<div class="reserve-code">
+    <div class="main-content">
+        <div class="search">
+            <el-form :inline="true" size="small">
+                <el-form-item label="价格：">
+                    <el-input></el-input>
+                </el-form-item>
+                <el-form-item label="收款码数量：">
+                    <el-input></el-input>
+                </el-form-item>
+                <el-form-item label="并发数量：">
+                    <el-input></el-input>
+                </el-form-item>
+                <el-form-item>
+                    <el-button type="primary">查询</el-button>
+                </el-form-item>
+                <el-form-item>
+                    <el-button >最近一小时统计</el-button>
+                </el-form-item>
+            </el-form>
+            <el-button size="small" type="primary" icon="el-icon-plus">添加金额</el-button>
+            <el-button size="small">批量生成所有价格收款码</el-button>
+        </div>
+        <el-table 
+            :data="dataList" 
+            v-loading="loading" 
+            :row-class-name="tableRowClassName"
+            :cell-class-name="tableCellClassName"
+            element-loading-text="数据拼命加载中...">
+            <el-table-column type="selection" width="55"></el-table-column>
+            <el-table-column prop="id" label="价格"></el-table-column>
+            <el-table-column prop="status" label="收款码数量/当前占用并发/并发量"></el-table-column>
+            <el-table-column prop="roleName" label="创建时间" sort></el-table-column>
+            <el-table-column prop="description" label="状态"></el-table-column>
+            <el-table-column label="操作">
+                <template slot-scope="scope">
+                    <el-button type="text">生成收款码</el-button> <br>
+                    <el-button type="text">删除二维码</el-button><br>
+                    <el-button type="text">删除</el-button>
+                </template>    
+            </el-table-column>
+        </el-table>
+        <div class="btn-group">
+            <el-button size="small">删除所选</el-button>
+            <el-button size="small">批量生成所选二维码</el-button>
+        </div>
+        <el-pagination
+            @current-change="handleCurrentChange"
+            :page-size="params.pageSize"
+            layout="total, prev, pager, next"
+            :total="totalSize">
+        </el-pagination>
+    </div>
+   <router-view></router-view>
+</div>

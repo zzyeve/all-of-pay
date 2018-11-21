@@ -1,0 +1,99 @@
+<div class="no-match-order">
+    <div class="main-content">
+            <!-- <div class="pay-notice">
+                    <span>
+                        <img src="../../assets/img/info.png">
+                        支付页收款码生成模式说明：
+                    </span><br/>
+                    <span>
+                        &nbsp;&nbsp;&nbsp;&nbsp;1、实时生成模式，用户打开支付页时自动向手机生成对应价格收款码；优点：无需上传收款码，无并发；缺点：需要运行APP，需保证手机网络良好。
+                    </span><br/>
+                    <span>
+                        &nbsp;&nbsp;&nbsp;&nbsp;2、批量储备模式，用户打开支付页时自动匹配已储备的收款码；优点：速度快，掉单率低；缺点：需要配合APP先生成各个金额的收款码。
+                    </span><br/>
+                </div> -->
+        <div class="notice">
+            <div>
+                <img src="../../assets/img/info.png">
+                有4种情况可能匹配不到订单：
+            </div>
+            <div>
+                &nbsp;&nbsp;&nbsp;&nbsp;1.有人向您收款二维码直接转账，没走支付接口（可能是朋友，也可能是老客户）。
+            </div>
+            <div>
+                &nbsp;&nbsp;&nbsp;&nbsp;2.用户用支付宝微信扫码后未及时支付，在订单超时后才回来支付，此时订单已关闭。(解决方案：如此情况较多，请在设置中适当延长二维码过期时间)。 
+            </div>
+            <div>
+                &nbsp;&nbsp;&nbsp;&nbsp;3.收款码金额与设置金额不对等时，导致订单匹配不上。
+            </div>
+            <div>
+                &nbsp;&nbsp;&nbsp;&nbsp;4.手机通知延迟到订单超时。支付宝微信的重复通知，也会在这里留下记录。（解决方案：请勿在多台手机安装APP并登录同一个账号，同时确保手机网络通畅。）
+            </div>
+        </div>
+        <div class="search">
+            <el-form :inline="true" label-width="100px" size="small">
+                <el-row>
+                    <el-col :span="10">
+                        <el-form-item label="支付流水号:">
+                            <el-input placeholder="请输入内容"></el-input>
+                        </el-form-item>
+                        <el-form-item label="收付码备注:">
+                            <el-input placeholder="请输入内容"></el-input>
+                        </el-form-item>
+                        <el-form-item label="支付类型:">
+                            <el-select v-model="selectType.id">
+                                <el-option v-for="(item, index) in selectType.list" :label="item.label" :value="item.value"
+                                    :key="index">
+                                </el-option>
+                            </el-select>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="10">
+                        <el-form-item label="实际价格:">
+                            <el-input placeholder="请输入内容"></el-input>
+                        </el-form-item>
+                        <el-form-item label="收款时间:">
+                            <el-input placeholder="请输入内容"></el-input>
+                        </el-form-item>
+                        <el-form-item label="支付状态:">
+                            <el-select v-model="selectType.id">
+                                <el-option v-for="(item, index) in selectType.list" :label="item.label" :value="item.value"
+                                    :key="index">
+                                </el-option>
+                            </el-select>
+                        </el-form-item>
+                    </el-col>
+                    <el-col :span="4">
+                        <div class="btn-group">
+                            <el-button type="primary" size="small">查询</el-button>
+                            <el-button size="small">导出</el-button>
+                        </div>
+                    </el-col>
+                </el-row>
+            </el-form>
+        </div>
+
+        <el-table :data="dataList" v-loading="loading" :row-class-name="tableRowClassName" :cell-class-name="tableCellClassName"
+            element-loading-text="数据拼命加载中...">
+            <el-table-column prop="id" label="支付类型"></el-table-column>
+            <el-table-column prop="status" label="收付码备注"></el-table-column>
+            <el-table-column prop="roleName" label="支付流水号"></el-table-column>
+            <el-table-column prop="description" label="收款金额"></el-table-column>
+            <el-table-column prop="roleName" label="创建时间"></el-table-column>
+            <el-table-column prop="roleName" label="状态"></el-table-column>
+            <el-table-column label="操作">
+                <template slot-scope="scope">
+                    <el-button type="text">我未补单</el-button>
+                    <el-button type="text">我已经补单</el-button>
+                </template>
+            </el-table-column>
+        </el-table>
+        <el-pagination 
+            @current-change="handleCurrentChange" 
+            :page-size="params.pageSize" 
+            layout="total, prev, pager, next"
+            :total="totalSize">
+        </el-pagination>
+    </div>
+    <router-view></router-view>
+</div>

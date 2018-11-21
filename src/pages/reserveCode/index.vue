@@ -11,16 +11,6 @@ export default {
                 selectType: '',
                 pageSize: 10,
                 pageNo: 1
-            },
-            selectType: {
-                id: '',
-                list: [{
-                    label: '类型1',
-                    value: 'val1'
-                }, {
-                    label: '类2',
-                    value: 'val2'
-                }]
             }
         };
     },

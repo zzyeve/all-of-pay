@@ -1,0 +1,54 @@
+<div class="add-account">
+    <div class="main-content">
+        <el-form :inline="true" label-width="100px">
+            <el-row>
+                <el-col :span="10">
+                    <el-form-item label="收款账户:">
+                        <el-input placeholder="请输入内容" v-model="params.keys" class="input-with-select">
+                            <el-select v-model="selectType.id" slot="prepend" placeholder="请选择">
+                                <el-option 
+                                    v-for="(item, index) in selectType.list" 
+                                    :label="item.label"
+                                    :value="item.value"
+                                    :key="index">
+                                </el-option>
+                            </el-select>
+                        </el-input>
+                    </el-form-item>
+                    <el-form-item label="备注:">
+                        <el-input placeholder="请输入内容"></el-input>
+                    </el-form-item>
+                    <el-form-item label="排序:">
+                        <el-input placeholder="请输入内容"></el-input>
+                    </el-form-item>
+                    <el-form-item label="权重:">
+                        <el-input placeholder="请输入内容"></el-input>
+                    </el-form-item>
+                </el-col>
+                <el-col :span="10">
+                    <el-form-item label="实施网关:">
+                        <el-input placeholder="请输入内容"></el-input>
+                    </el-form-item>
+                    <el-form-item label="每日限额:">
+                        <el-input placeholder="请输入内容"></el-input>
+                    </el-form-item>
+                    <el-form-item label="限时(每日):">
+                        <el-time-picker placeholder="任意时间点"></el-time-picker>
+                        至
+                        <el-time-picker placeholder="任意时间点"></el-time-picker>
+                    </el-form-item>
+                    <el-form-item label="状态:">
+                        <el-radio-group v-model="params.status" size="small">
+                            <el-radio label="1">开启</el-radio>
+                            <el-radio label="2">关闭</el-radio>
+                        </el-radio-group>
+                    </el-form-item>
+                </el-col>
+            </el-row>
+            <div class="save-btn">
+                <el-button type="primary">保存</el-button>
+            </div>
+        </el-form>
+    </div>
+   <router-view></router-view>
+</div>
