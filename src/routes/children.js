@@ -2,17 +2,18 @@ import MyIncomes from './../pages/myIncomes';
 import AccountManage from './../pages/accountManage';
 import AddAccount from './../pages/addAccount';
 import ReserveCode from './../pages/reserveCode';
+import MyOrder from './../pages/myOrder';
+import AutoCharge from './../pages/autoCharge';
+import NoMatchOrder from './../pages/noMatchOrder';
 
 import BasicInformation from './../pages/basicInformation';
 import MyPackage from './../pages/myPackage';
-import LegalServiceHousePage from './../pages/legalServiceHousePage';
-import DetentionHousePage from './../pages/detentionHousePage';
+
 import JudgeInformationPage from './../pages/judgeInformationPage';
 
 import TemplatePage from './../pages/templatePage';
 import ManagePage from './../pages/managePage';
 import RoleManage from './../pages/roleManage';
-import PermissionSetting from './../pages/permissionSetting';
 import Abstract from './../components/Abstract';
 const children = [
     {
@@ -47,18 +48,18 @@ const children = [
             {
                 path: 'myOrder',
                 name: '我的订单',
-                component: LegalServiceHousePage
+                component: MyOrder
             }, {
                 path: 'auto',
                 name: '自动对账',
-                component: DetentionHousePage
+                component: AutoCharge
             }
         ]
     }, {
         path: 'noMatch',
         name: '无匹配订单',
         iconClass: 'el-icon-tickets',
-        component: PermissionSetting
+        component: NoMatchOrder
     }, {
         path: 'content ',
         name: '账号管理',
