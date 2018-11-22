@@ -55,7 +55,9 @@
           <span>99元/月</span>
         </el-form-item>
         <el-form-item label="续费时长：">
-          <el-select placeholder="排序"></el-select>
+          <el-select v-model="selectTime.id" placeholder="排序">
+            <el-option v-for="(item, index) in selectTime.list" :key="index" :label="item.label" :value="item.value"></el-option>
+          </el-select>
         </el-form-item>
         <el-form-item label="开始时间：">
           <span>2018-02-21</span>
@@ -86,7 +88,9 @@
     <el-dialog title="套餐更改" :visible.sync="dialogFormTwoVisible" width="483px" class="pay-for">
       <el-form :label-position="labelPosition" label-width="145px" :model="formTwoLabelAlign">
         <el-form-item label="套餐升级到：">
-          <el-select placeholder="高级版套餐"></el-select>
+          <el-select v-model="selectPackage.id" placeholder="高级版套餐">
+            <el-option v-for="(item, index) in selectPackage.list" :key="index" :label="item.label" :value="item.value"></el-option>
+          </el-select>
         </el-form-item>
         <el-form-item label="开始时间：">
           <span>2018-02-21</span>
