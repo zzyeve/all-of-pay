@@ -1,6 +1,6 @@
 <div class="my-package">
   <div class="main-content">
-    <div class="wrap">
+    <div class="wrap" v-show="havePurchase">
       <section class="top">
         <h3 class="t_h3">套餐信息（已购买情况下界面）</h3>
         <div class="top_bot">
@@ -30,7 +30,7 @@
       </section>
     </div>
 
-    <section class="bottom">
+    <section class="bottom" v-show="notPurchase">
       <h3 class="bot_h3">套餐信息（未购买情况下界面）</h3>
       <div class="bottom_bot">
         <h2>尚未购买套餐，回首页进行购买</h2>
