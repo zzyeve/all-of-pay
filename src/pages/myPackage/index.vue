@@ -6,6 +6,8 @@ export default {
     return {
       dialogFormOneVisible: false,
       dialogFormTwoVisible: false,
+      havePurchase: true,
+      notPurchase: false,
       labelPosition: 'right',
       formOneLabelAlign: {
         password: ''
@@ -33,13 +35,13 @@ export default {
         list: [
           {
             value: '选项1',
-            label: '选项111'
+            label: '基础版套餐'
           }, {
             value: '选项2',
-            label: '选项222'
+            label: '高级版套餐'
           }, {
             value: '选项3',
-            label: '选项333'
+            label: '专业版套餐'
           }
         ]
       }
