@@ -24,7 +24,7 @@ axios.interceptors.response.use(response => {
     //     return response.data;
     // }
 }, error => {
-    return Promise.reject(error.response.data);
+    return Promise.reject(error.response);
     // 非200错误
     // console.log(error.response.data.errors)
     // if (error.response.status === 499) {
@@ -49,6 +49,7 @@ let base = 'http://10.73.155.168:8080/aop_server';
 // let base = 'http://10.73.155.169:9842/aop_server';
 // let base = 'https://www.easy-mock.com/mock/5bc452d7c1ba694ea184ee49/api';
 
+// 获取用户信息
 export const getUserInfo = (params) => {
   return axios.post(`${base}/getUserInfo.action`, params).then(res => res);
 };
@@ -58,7 +59,7 @@ export const getUserOrderMsg = (params) => {
 };
 // 用户余额明细查询--我的收入统计明细
 export const getBalanceDetail = (params) => {
-  return axios.post(`${base}/getBalanceDetail`, params).then(res => res);
+  return axios.post(`${base}/getBalanceDetail.action`, params).then(res => res);
 };
 // 用户充值
 export const getUserRecharge = (params) => {
@@ -68,58 +69,62 @@ export const getUserRecharge = (params) => {
 export const getCaptchar = (params) => {
   return axios.get(`${base}/getCaptchar.action`, {params: params}).then(res => res);
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-export const fetchLogin = (params) => {
-  return axios.get(`${base}/login`, {params: params}).then(res => res);
+// 用户账户订单信息查询
+export const getAccountAndOrderInfo = (params) => {
+  return axios.post(`${base}/getAccountAndOrderInfo.action`, params).then(res => res);
 };
-export const fetchManageList = (params) => {
-  return axios.get(`${base}/manage`, {params: params}).then(res => res);
+// 用户账户订单信息查询
+export const addUserReceviceAccount = (params) => {
+  return axios.post(`${base}/addUserReceviceAccount.action`, params).then(res => res);
 };
 
-export const fetchRoleManageList = (params) => {
-    return axios.get(`${base}/roleManage`, {params: params}).then(res => res);
-};
 
-export const fetchVersionUpdateList = (params) => {
-    return axios.get(`${base}/versionUpdate`, {params: params}).then(res => res);
-};
 
-export const assistUnitManageList = (params) => {
-  return axios.get(`${base}/assistManage`, {params: params}).then(res => res);
-};
 
-export const legalAidCenterList = (params) => {
-  return axios.get(`${base}/legalAid`, {params: params}).then(res => res);
-};
 
-export const legalServiceHouseList = (params) => {
-  return axios.get(`${base}/legalService`, {params: params}).then(res => res);
-};
 
-export const detentionHouseList = (params) => {
-  return axios.get(`${base}/detention`, {params: params}).then(res => res);
-};
 
-export const courtOverviewList = (params) => {
-  return axios.get(`${base}/courtDetail`, {params: params}).then(res => res);
-};
 
-export const judgeInformationList = (params) => {
-  return axios.get(`${base}/courtInfo`, {params: params}).then(res => res);
-};
+
+
+
+
+
+// export const fetchLogin = (params) => {
+//   return axios.get(`${base}/login`, {params: params}).then(res => res);
+// };
+// export const fetchManageList = (params) => {
+//   return axios.get(`${base}/manage`, {params: params}).then(res => res);
+// };
+
+// export const fetchRoleManageList = (params) => {
+//     return axios.get(`${base}/roleManage`, {params: params}).then(res => res);
+// };
+
+// export const fetchVersionUpdateList = (params) => {
+//     return axios.get(`${base}/versionUpdate`, {params: params}).then(res => res);
+// };
+
+// export const assistUnitManageList = (params) => {
+//   return axios.get(`${base}/assistManage`, {params: params}).then(res => res);
+// };
+
+// export const legalAidCenterList = (params) => {
+//   return axios.get(`${base}/legalAid`, {params: params}).then(res => res);
+// };
+
+// export const legalServiceHouseList = (params) => {
+//   return axios.get(`${base}/legalService`, {params: params}).then(res => res);
+// };
+
+// export const detentionHouseList = (params) => {
+//   return axios.get(`${base}/detention`, {params: params}).then(res => res);
+// };
+
+// export const courtOverviewList = (params) => {
+//   return axios.get(`${base}/courtDetail`, {params: params}).then(res => res);
+// };
+
+// export const judgeInformationList = (params) => {
+//   return axios.get(`${base}/courtInfo`, {params: params}).then(res => res);
+// };

@@ -10,6 +10,12 @@ const getters = {
             state.username = window.sessionStorage.getItem('username');
         }
         return state.username;
+    },
+    apiUid(state) {
+        if (!state.apiUid) {
+            state.apiUid = window.sessionStorage.getItem('apiUid');
+        }
+        return state.apiUid;
     }
 };
 export default getters;

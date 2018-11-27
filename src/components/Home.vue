@@ -70,6 +70,7 @@ export default {
     data() {
         return {
             activeMenu: '',
+            apiUid: '',
             routes: children,
             userName: 'Admin',
             menuShow: true,
@@ -89,7 +90,12 @@ export default {
         RouterTab
     },
     methods: {
+        // 获取用户信息
         getData() {
+            this.$api.getUserInfo({apiUid: this.apiUid}).then(res => {
+                this.userName = res.userInfoList[0].realName;
+                this.$store.dispatch('set_username', res.userInfoList[0].realName);
+            });
             // console.log(this.routes);
         },
         // 退出
@@ -113,9 +119,11 @@ export default {
         }
     },
     created() {
+        this.apiUid = this.$store.getters.apiUid;
         this.activeMenu = this.$route.name;
         this.breadcrumbs = (this.$parent && this.$parent.$route && this.$parent.$route.matched) || [];
         this.userName = this.$store.getters.username;
+        this.getData();
     },
     mounted() {
     },

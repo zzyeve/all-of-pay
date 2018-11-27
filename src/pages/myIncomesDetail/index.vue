@@ -8,19 +8,9 @@ export default {
             totalSize: 100,
             dataList: [],
             params: {
-                selectType: '',
+                apiUid: 'AOP_5fb32426aeb24e5aa71627dd9294193d',
                 pageSize: 10,
                 pageNo: 1
-            },
-            selectType: {
-                id: '',
-                list: [{
-                    label: '类型1',
-                    value: 'val1'
-                }, {
-                    label: '类2',
-                    value: 'val2'
-                }]
             }
         };
     },
@@ -31,9 +21,14 @@ export default {
         // 获取数据
         getData() {
             this.loading = true;
-            this.$api.fetchRoleManageList().then(res => {
+            let params = {
+               apiUid: 'AOP_5fb32426aeb24e5aa71627dd9294193d',
+               pageSize: '10',
+               pageNo: '1'
+            };
+            this.$api.getBalanceDetail(params).then(res => {
+                this.dataList = res.balanceDetailList;
                 this.loading = false;
-                this.dataList = res.dataList;
             });
         },
         // 页码更改

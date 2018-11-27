@@ -6,6 +6,7 @@ import store from './store';
 import api from './api';
 import 'babel-polyfill';
 
+import './assets/js/filter.js';
 import Breadcrumb from './components/breadcrumb';
 
 Vue.use(ElementUI);

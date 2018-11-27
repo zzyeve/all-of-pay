@@ -1,13 +1,13 @@
 <div class="add-account">
     <div class="main-content">
-        <el-form :inline="true" label-width="100px">
-            <el-row>
-                <el-col :span="10">
-                    <el-form-item label="收款账户:">
-                        <el-input placeholder="请输入内容" v-model="params.keys" class="input-with-select">
-                            <el-select v-model="selectType.id" slot="prepend" placeholder="请选择">
+        <el-form label-width="100px" ref="params" :model="params" :rules="rules">
+            <el-row :gutter="40">
+                <el-col :span="12">
+                    <el-form-item label="收款账户:" prop="receviceAccount">
+                        <el-input placeholder="请输入内容" v-model="params.receviceAccount" class="input-with-select">
+                            <el-select v-model="params.payType" slot="prepend" placeholder="请选择">
                                 <el-option 
-                                    v-for="(item, index) in selectType.list" 
+                                    v-for="(item, index) in selectList" 
                                     :label="item.label"
                                     :value="item.value"
                                     :key="index">
@@ -16,37 +16,37 @@
                         </el-input>
                     </el-form-item>
                     <el-form-item label="备注:">
-                        <el-input placeholder="请输入内容"></el-input>
+                        <el-input placeholder="请输入内容" v-model="params.remark"></el-input>
                     </el-form-item>
-                    <el-form-item label="排序:">
-                        <el-input placeholder="请输入内容"></el-input>
+                    <el-form-item label="排序:" prop="accountSort">
+                        <el-input placeholder="请输入内容" v-model="params.accountSort"></el-input>
                     </el-form-item>
-                    <el-form-item label="权重:">
-                        <el-input placeholder="请输入内容"></el-input>
+                    <el-form-item label="权重:" prop="accountWeight">
+                        <el-input placeholder="请输入内容" v-model="params.accountWeight"></el-input>
                     </el-form-item>
                 </el-col>
-                <el-col :span="10">
+                <el-col :span="12">
                     <el-form-item label="实施网关:">
-                        <el-input placeholder="请输入内容"></el-input>
+                        <el-input placeholder="请输入内容" v-model="params.realTimeGateway"></el-input>
                     </el-form-item>
                     <el-form-item label="每日限额:">
-                        <el-input placeholder="请输入内容"></el-input>
+                        <el-input placeholder="请输入内容" v-model="params.accountAmountLimit"></el-input>
                     </el-form-item>
                     <el-form-item label="限时(每日):">
-                        <el-time-picker placeholder="任意时间点"></el-time-picker>
+                        <el-time-picker placeholder="任意时间点" v-model="params.timeLimitStart"></el-time-picker>
                         至
-                        <el-time-picker placeholder="任意时间点"></el-time-picker>
+                        <el-time-picker placeholder="任意时间点" v-model="params.timerLimitEnd"></el-time-picker>
                     </el-form-item>
                     <el-form-item label="状态:">
-                        <el-radio-group v-model="params.status" size="small">
-                            <el-radio label="1">开启</el-radio>
-                            <el-radio label="2">关闭</el-radio>
+                        <el-radio-group v-model="params.accountStatus" size="small">
+                            <el-radio label="0">开启</el-radio>
+                            <el-radio label="1">关闭</el-radio>
                         </el-radio-group>
                     </el-form-item>
                 </el-col>
             </el-row>
             <div class="save-btn">
-                <el-button type="primary">保存</el-button>
+                <el-button type="primary" @click="saveData">保存</el-button>
             </div>
         </el-form>
     </div>

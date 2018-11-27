@@ -3,9 +3,12 @@
         <div class="search">
             <div>
                 <span>支付类型：</span>
-                <el-select v-model="selectType.id" @change="selectChange" size="small">
-                    <el-option v-for="(item, index) in selectType.list" :label="item.label" :value="item" :key="index">
-    
+                <el-select v-model="params.payType" @change="selectChange" size="small">
+                    <el-option 
+                        v-for="(item, index) in selectList" 
+                        :label="item.label" 
+                        :value="item.value" 
+                        :key="index">
                     </el-option>
                 </el-select>
                 <el-button type="primary" size="small" icon="el-icon-search">查询</el-button>
@@ -35,13 +38,37 @@
             :row-class-name="tableRowClassName"
             :cell-class-name="tableCellClassName"
             element-loading-text="数据拼命加载中...">
-            <el-table-column prop="id" label="支付类型"></el-table-column>
-            <el-table-column prop="status" label="排序/权重"></el-table-column>
-            <el-table-column prop="roleName" label="备注/收款账号"></el-table-column>
-            <el-table-column prop="description" label="今日流水"></el-table-column>
-            <el-table-column prop="id" label="订单"></el-table-column>
-            <el-table-column prop="status" label="限时/限额（每日）"></el-table-column>
-            <el-table-column prop="roleName" label="状态"></el-table-column>
+            <el-table-column prop="payType" label="支付类型">
+                <template slot-scope="scope">
+                    {{scope.row.payType | payTypeSwitch}}
+                </template>
+            </el-table-column>
+            <el-table-column label="排序/权重">
+                <template slot-scope="scope">
+                    {{scope.row.accountSort}}/{{scope.row.accountWeight}}
+                </template>
+            </el-table-column>
+            <el-table-column label="备注/收款账号">
+                <template slot-scope="scope">
+                    <span v-if="scope.row.mark">
+                        {{scope.row.mark}}/
+                    </span>
+                    <span v-else></span>
+                    {{scope.row.receviceAccount}}
+                </template>
+            </el-table-column>
+            <el-table-column prop="totalAmountToday" label="今日流水"></el-table-column>
+            <el-table-column prop="totalOrderToday" label="订单"></el-table-column>
+            <el-table-column label="限时/限额（每日）">
+                <template slot-scope="scope">
+                    <span v-if="scope.row.isTimeLimit">
+                        {{scope.row.isTimeLimit}}/
+                    </span>
+                    <span v-else></span>
+                    {{scope.row.dailyLimitMoney}}
+                </template>
+            </el-table-column>
+            <el-table-column prop="accountStatus" label="状态"></el-table-column>
             <el-table-column label="操作">
                 <template slot-scope="scope">
                     <el-button type="text" @click="goReserve">储备二维码管理</el-button> <br>
@@ -61,23 +88,23 @@
             <div class="dialog-content">
                 <div>
                     匹配模式
-                    <el-select v-model="selectType.id" size="small">
+                    <!-- <el-select v-model="selectType.id" size="small">
                         <el-option v-for="(item, index) in selectType.list"
                             :label="item.label"
                             :value="item.value"
                             :key="index">
                         </el-option>
-                    </el-select>
+                    </el-select> -->
                 </div>
                 <div>
                     轮训模式
-                    <el-select v-model="selectType.id" size="small">
+                    <!-- <el-select v-model="selectType.id" size="small">
                         <el-option v-for="(item, index) in selectType.list"
                             :label="item.label"
                             :value="item.value"
                             :key="index">
                         </el-option>
-                    </el-select>
+                    </el-select> -->
                 </div>
             </div>
             <div slot="footer" class="dialog-footer">
