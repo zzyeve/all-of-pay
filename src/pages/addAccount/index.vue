@@ -2,50 +2,78 @@
 <script>
 import './index.less';
 export default {
-    data() {
-        return {
-            params: {
-                keys: '',
-                status: '1'
-            },
-            selectType: {
-                id: '',
-                list: [{
-                    label: '类型1',
-                    value: 'val1'
-                }, {
-                    label: '类2',
-                    value: 'val2'
-                }]
+  data() {
+    return {
+      params: {
+        apiUid: '',
+        payType: '',
+        receviceAccount: '',
+        remark: '',
+        accountSort: '',
+        accountWeight: '',
+        realTimeGateway: '',
+        timeLimitStart: '',
+        timerLimitEnd: '',
+        accountAmountLimit: '',
+        accountStatus: '0',
+        addOrUpdate: 0 // 0--代表添加 1--代表修改
+      },
+      rules: {
+        receviceAccount: [
+          { required: true, message: '请输入收款账户', trigger: 'blur' }
+        ],
+        accountSort: [
+            { required: false, trigger: 'blur'},
+            {
+                validator: (rule, value, callback) => {
+                    if (/^([1-9]\d|\d)$/.test(value) === false) {
+                        callback(new Error('请输入一个0-99整数'));
+                    }
+                },
+                trigger: 'change'
             }
-        };
-    },
-    created() {
-        this.getData();
-    },
-    methods: {
-        // 获取数据
-        getData() {
-            this.loading = true;
-            this.$api.fetchRoleManageList().then(res => {
-                this.loading = false;
-                this.dataList = res.dataList;
-            });
+        ],
+        accountWeight: [
+            { required: false, trigger: 'blur'},
+            {
+                validator: (rule, value, callback) => {
+                    if (/^([1-9]\d|\d)$/.test(value) === false) {
+                        callback(new Error('请输入一个0-99整数'));
+                    }
+                },
+                trigger: 'change'
+            }
+        ]
+      },
+      selectList: [
+        {
+          label: '支付宝',
+          value: '0'
         },
-        // 页码更改
-        handleCurrentChange(val) {
-            this.params.pageNo = val;
-            this.getData();
-        },
-        selectChange(val) {
-            console.log(val);
-        },
-        tableRowClassName() {
-            return 'table-row-name';
-        },
-        tableCellClassName() {
-            return 'table-cell-name';
+        {
+          label: '微信',
+          value: '1'
         }
+      ]
+    };
+  },
+  created() {
+      this.params.apiUid = this.$store.getters.apiUid;
+  },
+  methods: {
+    // 保存按钮
+    saveData() {
+        let paramsStr = JSON.parse(this.params);
+        this.$api.addUserReceviceAccount(paramsStr).then(res => {
+            console.log(res);
+        });
+    },
+    tableRowClassName() {
+      return 'table-row-name';
+    },
+    tableCellClassName() {
+      return 'table-cell-name';
     }
+  }
 };
 </script>

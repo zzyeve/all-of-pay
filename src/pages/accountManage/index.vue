@@ -9,34 +9,35 @@ export default {
             loading: false,
             totalSize: 100,
             dataList: [],
+            apiUid: '',
             dialogShow: false,
             params: {
-                selectType: '',
-                pageSize: 10,
-                pageNo: 1
+                apiUid: '',
+                payType: '',
+                pageSize: '10',
+                pageNo: '1'
             },
-            selectType: {
-                id: '',
-                list: [{
-                    label: '类型1',
-                    value: 'val1'
-                }, {
-                    label: '类2',
-                    value: 'val2'
-                }]
-            }
+            selectList: [{
+                label: '支付宝',
+                value: '0'
+            }, {
+                label: '微信',
+                value: '1'
+            }]
         };
     },
     created() {
         this.getData();
+        this.params.apiUid = this.$store.getters.apiUid;
     },
     methods: {
         // 获取数据
         getData() {
             this.loading = true;
-            this.$api.fetchRoleManageList().then(res => {
+            this.$api.getAccountAndOrderInfo(this.params).then(res => {
+                console.log(res);
                 this.loading = false;
-                this.dataList = res.dataList;
+                this.dataList = res.accountAndOrderList;
             });
         },
         // 页码更改

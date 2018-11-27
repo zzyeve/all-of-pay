@@ -16,6 +16,7 @@ export default {
                 orderWeek: '234324',
                 orderMonth: '34235'
             },
+            apiUid: '',
             dialogShow: false,
             selectType: {
                 id: '',
@@ -30,8 +31,10 @@ export default {
         };
     },
     created() {
+        this.apiUid = this.$store.getters.apiUid;
         this.getData();
-        this.fetchUserInfo();
+        // this.$store.getters.apiUid
+        // this.fetchUserInfo();
     },
     methods: {
         // 获取用户信息
@@ -47,10 +50,14 @@ export default {
         // 获取数据
         getData() {
             let params = {
-                apiUid: 'AOP_5fb32426aeb24e5aa71627dd9294193d'
+                apiUid: this.apiUid
             };
             this.$api.getUserOrderMsg(params).then(res => {
-                console.log(res);
+                let allData = {};
+                res.orderInfoList.forEach(item => {
+                    allData = Object.assign(allData, item);
+                });
+                this.allData = allData;
             });
         },
         // 跳转到明细页
