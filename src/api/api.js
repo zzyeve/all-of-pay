@@ -2,8 +2,12 @@
 // 引入全局请求的方法axios
 import axios from 'axios';
 // 设置请求头可携带cookie
-axios.defaults.withCredentials = true;
-axios.defaults.headers.post['Content-Type'] = 'application/json';
+axios.defaults.withCredentials = false;
+// axios.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
+axios.defaults.headers['Accept'] = 'application/json;charset=UTF-8';
+axios.defaults.headers.post['Content-Type']='application/json;charset=UTF-8';
+
+
 
 // 请求拦截器,主要截获全局请求数据
 axios.interceptors.response.use(response => {
@@ -39,9 +43,51 @@ axios.interceptors.response.use(response => {
     // }
     // return Promise.reject(error.response.data);
 });
+// 后端本机服务器
+let base = 'http://10.73.155.168:8080/aop_server';
+// 服务器地址
+// let base = 'http://10.73.155.169:9842/aop_server';
+// let base = 'https://www.easy-mock.com/mock/5bc452d7c1ba694ea184ee49/api';
 
-let base = 'https://www.easy-mock.com/mock/5bc452d7c1ba694ea184ee49/api';
+export const getUserInfo = (params) => {
+  return axios.post(`${base}/getUserInfo.action`, params).then(res => res);
+};
+// 用户收入订单信息查询--我的收入统计
+export const getUserOrderMsg = (params) => {
+  return axios.post(`${base}/getUserOrderMsg.action`, params).then(res => res);
+};
+// 用户余额明细查询--我的收入统计明细
+export const getBalanceDetail = (params) => {
+  return axios.post(`${base}/getBalanceDetail`, params).then(res => res);
+};
+// 用户充值
+export const getUserRecharge = (params) => {
+  return axios.post(`${base}/userRecharge`, params).then(res => res);
+};
+// 获取验证码
+export const getCaptchar = (params) => {
+  return axios.get(`${base}/getCaptchar.action`, {params: params}).then(res => res);
+};
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+export const fetchLogin = (params) => {
+  return axios.get(`${base}/login`, {params: params}).then(res => res);
+};
 export const fetchManageList = (params) => {
   return axios.get(`${base}/manage`, {params: params}).then(res => res);
 };

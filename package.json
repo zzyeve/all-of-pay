@@ -1,5 +1,5 @@
 {
-  "name": "court-pro",
+  "name": "all-of-pays",
   "version": "1.0.0",
   "description": "court project",
   "author": "zzy <zzy1186998253@163.com>",
@@ -43,6 +43,7 @@
     "html-webpack-plugin": "^2.30.1",
     "less": "^3.7.1",
     "less-loader": "^4.1.0",
+    "moment": "^2.22.2",
     "node-notifier": "^5.1.2",
     "optimize-css-assets-webpack-plugin": "^3.2.0",
     "ora": "^1.2.0",

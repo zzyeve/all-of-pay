@@ -1,4 +1,5 @@
 import Home from './../components/Home';
+// import Login from './../components/Login';
 import NotFound from './../components/NotFound';
 import Children from './children';
 import HomePage from './../pages/homePage';
@@ -10,6 +11,11 @@ const routes = [
         children: Children,
         redirect: 'incomes'
     },
+    // {
+    //     path: '/login',
+    //     component: Login,
+    //     name: 'login'
+    // },
     {
         path: '/access',
         component: Home,

@@ -39,7 +39,7 @@
                         <span class="user-name">
                             用户名：{{userName}}
                         </span>
-                        <span class="login-out">
+                        <span class="login-out" @click="loginOut">
                             <img src="../assets/img/loginOut.png">
                             退出
                         </span>
@@ -55,7 +55,7 @@
             <div class="warpper-content-main">
                 <router-view></router-view>
                 <footer>
-                    Copyright @ 2017-2018. AllofPays Inc. All rights reserved
+                    Copyright &#169; 2017-2018. AllofPays Inc. All rights reserved
                 </footer>
             </div>
         </div>
@@ -92,6 +92,13 @@ export default {
         getData() {
             // console.log(this.routes);
         },
+        // 退出
+        loginOut() {
+            this.$store.dispatch('set_username', '');
+            this.$store.dispatch('set_login', false);
+            window.location.href = '#/login';
+        },
+        // 是否显示菜单列表
         clickMenu() {
             this.menuShow = !this.menuShow;
             if (this.menuShow) {
@@ -108,6 +115,7 @@ export default {
     created() {
         this.activeMenu = this.$route.name;
         this.breadcrumbs = (this.$parent && this.$parent.$route && this.$parent.$route.matched) || [];
+        this.userName = this.$store.getters.username;
     },
     mounted() {
     },
@@ -120,4 +128,7 @@ export default {
 };
 </script>
 <style lang="less" scoped>
+.login-out {
+    cursor: pointer;
+}
 </style>
