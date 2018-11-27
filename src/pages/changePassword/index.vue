@@ -39,17 +39,36 @@ export default {
         reinput: ''
       },
       rules: {
-
+        oldPassword: [
+          { validator: validateOldPass, trigger: 'blur' }
+        ],
+        newPassword: [
+          { validator: validateNewPass, trigger: 'blur' }
+        ],
+        reinput: [
+          { validator: validateReinput, trigger: 'blur' }
+        ]
       }
     };
   },
   created () {
     // this.getData();
   },
-  metods: {
+  methods: {
     // getData () {
       // console.log('1');
     // }
+
+    submitForm (formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          alert('submit!');
+        } else {
+          console.log('error submit!!');
+          return false;
+        }
+      });
+    }
   }
 };
 </script>
