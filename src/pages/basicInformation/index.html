@@ -4,18 +4,18 @@
       <section class="top">
         <h3 class="t_h3">个人资料</h3>
         <div class="top_bot">
-          <el-form :label-position="labelPosition" label-width="145px" :model="formLabelAlign">
-            <el-form-item label="真实姓名：">
-              <el-input v-model="formLabelAlign.name" placeholder="请输入"></el-input>
+          <el-form :label-position="labelPosition" label-width="145px" :model="formLabelAlign1" ref="formLabelAlign1" :rules="rules1" status-icon>
+            <el-form-item label="真实姓名：" prop="name">
+              <el-input v-model="formLabelAlign1.name" placeholder="请输入"></el-input>
             </el-form-item>
-            <el-form-item label="电话：">
-              <el-input v-model="formLabelAlign.phone" placeholder="请输入"></el-input>
+            <el-form-item label="电话：" prop="phone">
+              <el-input v-model="formLabelAlign1.phone" placeholder="请输入"></el-input>
             </el-form-item>
-            <el-form-item label="微信号：">
-              <el-input v-model="formLabelAlign.wechat" placeholder="请输入"></el-input>
+            <el-form-item label="微信号：" prop="wechat">
+              <el-input v-model="formLabelAlign1.wechat" placeholder="请输入"></el-input>
             </el-form-item>
-            <el-form-item label="QQ：">
-              <el-input v-model="formLabelAlign.qq" placeholder="请输入"></el-input>
+            <el-form-item label="QQ：" prop="qq">
+              <el-input v-model="formLabelAlign1.qq" placeholder="请输入"></el-input>
             </el-form-item>
           </el-form>
         </div>
@@ -24,12 +24,12 @@
       <section class="mid">
         <h3 class="m_h3">支付页信息</h3>
         <div class="mid_bot">
-          <el-form :label-position="labelPosition" label-width="145px" :model="formLabelAlign">
-            <el-form-item label="页面副标题：">
-              <el-input v-model="formLabelAlign.name" placeholder="留空默认为本平台标题"></el-input>
+          <el-form :label-position="labelPosition" label-width="145px" :model="formLabelAlign1">
+            <el-form-item label="页面副标题：" prop="title">
+              <el-input v-model="formLabelAlign1.title" placeholder="留空默认为本平台标题"></el-input>
             </el-form-item>
-            <el-form-item label="页底版权：">
-              <el-input v-model="formLabelAlign.phone" placeholder="留空默认为本平台版权"></el-input>
+            <el-form-item label="页底版权：" prop="authority">
+              <el-input v-model="formLabelAlign1.authority" placeholder="留空默认为本平台版权"></el-input>
             </el-form-item>
           </el-form>
         </div>
@@ -38,9 +38,9 @@
       <section class="bottom">
         <h3 class="bot_h3">通知设置</h3>
         <div class="bottom_bot">
-          <el-form :label-position="labelPosition" label-width="145px" :model="formLabelAlign">
-            <el-form-item label="余额预警通知：">
-              <el-input v-model="formLabelAlign.name" placeholder="0"></el-input>
+          <el-form :label-position="labelPosition" label-width="145px" :model="formLabelAlign1">
+            <el-form-item label="余额预警通知：" prop="announce">
+              <el-input v-model="formLabelAlign1.announce" placeholder="0"></el-input>
             </el-form-item>
           </el-form>
           <p>余额低于预警值则会发送短信提醒充值（频次：1条/天），0为默认系统设置通知</p>
@@ -50,7 +50,7 @@
 
     <div class="main_bot">
       <div class="btn">
-        <el-button type="primary" size="small">保&nbsp;&nbsp;存</el-button>
+        <el-button type="primary" size="small" @click="submitForm1('formLabelAlign1')">保&nbsp;&nbsp;存</el-button>
       </div>
       <!--<p>Copyright &#169 2017-2018. AllofPays Inc. All rights reserved</p>-->
     </div>

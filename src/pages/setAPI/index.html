@@ -3,10 +3,10 @@
     <div class="wrap2">
       <section class="top">
         <div class="top_main">
-          <el-form :label-position="labelPosition" label-width="185px" :model="formLabelAlign">
-            <el-form-item label="二维码过期时间(秒)：">
-              <el-input v-model="formLabelAlign.delayTime" placeholder="请输入"></el-input>
-              <el-button type="primary" size="small" style="position: relative;top: -40px;left: 393px;">保 存</el-button>
+          <el-form :label-position="labelPosition" label-width="185px" :model="formLabelAlign4" ref="formLabelAlign4" :rules="rules4">
+            <el-form-item label="二维码过期时间(秒)：" prop="delayTime">
+              <el-input v-model="formLabelAlign4.delayTime" placeholder="请输入"></el-input>
+              <el-button type="primary" size="small" style="position: relative;top: -40px;left: 393px;" @click="submitForm4('formLabelAlign4')">保 存</el-button>
             </el-form-item>
           </el-form>
         </div>

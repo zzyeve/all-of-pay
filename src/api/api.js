@@ -72,6 +72,30 @@ export const getCaptchar = (params) => {
 
 
 
+// 账号管理模块--用户基本信息修改
+export const changeUserInfo = (params) => {
+  return axios.post(`${base}/updateUserInfo.action`, params).then(res => res);
+};
+// 账号管理模块--密码修改
+export const changeUserPassword = (params) => {
+  return axios.post(`${base}/changeUserPassword.action`, params).then(res => res);
+};
+// 账号管理模块--二维码过期时间修改
+export const changeRqcodeExpiryTime = (params) => {
+  return axios.post(`${base}/changeRqcodeExpiryTime.action`, params).then(res => res);
+};
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

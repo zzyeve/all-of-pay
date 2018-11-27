@@ -5,10 +5,13 @@ export default {
   data () {
     return {
       labelPosition: 'right',
-      formLabelAlign: {
-        oldPassword: '',
-        newPassword: '',
-        reinput: ''
+      formLabelAlign4: {
+        delayTime: ''
+      },
+      rules4: {
+        delayTime: [
+          { required: true, message: '二维码过期时间不能为空'},
+        ]
       }
     };
   },
