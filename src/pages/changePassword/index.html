@@ -3,20 +3,20 @@
     <div class="wrap1">
       <section class="top">
         <div class="top_main">
-          <el-form :label-position="labelPosition" label-width="130px" :model="formLabelAlign">
-            <el-form-item label="旧密码：">
-              <el-input v-model="formLabelAlign.oldPassword" placeholder="请输入"></el-input>
+          <el-form :label-position="labelPosition" label-width="130px" :model="formLabelAlign" ref="formLabelAlign" :rules="rules" status-icon>
+            <el-form-item label="旧密码：" prop="oldPassword">
+              <el-input type="password" v-model="formLabelAlign.oldPassword" placeholder="请输入"></el-input>
             </el-form-item>
-            <el-form-item label="新密码：">
-              <el-input v-model="formLabelAlign.newPassword" placeholder="请输入"></el-input>
+            <el-form-item label="新密码：" prop="newPassword">
+              <el-input type="password" v-model="formLabelAlign.newPassword" placeholder="请输入"></el-input>
             </el-form-item>
-            <el-form-item label="再次输入：">
-              <el-input v-model="formLabelAlign.reinput" placeholder="请输入"></el-input>
+            <el-form-item label="再次输入：" prop="reinput">
+              <el-input type="password" v-model="formLabelAlign.reinput" placeholder="请输入"></el-input>
             </el-form-item>
           </el-form>
         </div>
       </section>
-      <el-button type="primary" size="small" style="margin-left: 131px;">确 认</el-button>
+      <el-button type="primary" size="small" @click="submitForm('formLabelAlign')" style="margin-left: 131px;">确 认</el-button>
     </div>
 
     <!--<div class="bottom">
