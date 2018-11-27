@@ -1,17 +1,17 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import routerTab from './modules/routerTab.js';
+import state from './state.js';
+import mutations from './mutations.js';
+import actions from './actions.js';
+import getters from './getters.js';
 
 Vue.use(Vuex);
 
-/**
- * Vuex全局状态管理
- * @param options {Array} 用于渲染tabs的数组
- */
 const store = new Vuex.Store({
-    modules: {
-        routerTab
-    }
+    state,
+    mutations,
+    actions,
+    getters
 });
 
 export default store;
