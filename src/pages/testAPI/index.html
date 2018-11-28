@@ -3,21 +3,25 @@
     <div class="wrap4">
       <section class="top">
         <div class="top_main">
-          <el-form :label-position="labelPosition" label-width="145px" :model="formLabelAlign">
-            <el-form-item label="支付类型：">
-              <el-radio-group v-model="formLabelAlign.payType">
-                <el-radio label="支付宝"></el-radio>
-                <el-radio label="微信"></el-radio>
+          <el-form :label-position="labelPosition" label-width="145px" :model="formLabelAlign6" ref="formLabelAlign6" :rules="rules6" status-icon>
+            <el-form-item label="支付类型：" prop="payType">
+              <el-radio-group v-model="formLabelAlign6.payType">
+                <el-radio label="0">支付宝</el-radio>
+                <el-radio label="1">微信</el-radio>
               </el-radio-group>
             </el-form-item>
-            <el-form-item label="金额：">
-              <el-input v-model="formLabelAlign.money" placeholder="0.01"></el-input>
+            <el-form-item label="金额：" prop="money">
+              <el-input v-model="formLabelAlign6.money" placeholder="0.01"></el-input>
             </el-form-item>
           </el-form>
         </div>
       </section>
-      <el-button type="primary" size="small" style="margin-left: 145px;">支付测试</el-button>
+      <el-button type="primary" size="small" style="margin-left: 145px;" @click="submitForm6('formLabelAlign6')">支付测试</el-button>
     </div>
+
+    <el-dialog :visible.sync="qrCodeDialog" width="20%">
+      <vue-qr :logoSrc="config.logo" :text="config.value" :size="200" :margin="0"></vue-qr>
+    </el-dialog>
 
     <!--<div class="bottom">
       <p>Copyright &#169 2017-2018. AllofPays Inc. All rights reserved</p>

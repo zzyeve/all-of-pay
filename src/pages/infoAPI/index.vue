@@ -10,7 +10,7 @@ export default {
   created () {
     // this.getData();
   },
-  metods: {
+  methods: {
     // getData () {
       // console.log('1');
     // }
