@@ -5,7 +5,7 @@ export default {
     data() {
         return {
             loading: false,
-            totalSize: 100,
+            totalCount: 0,
             dataList: [],
             params: {
                 apiUid: 'AOP_5fb32426aeb24e5aa71627dd9294193d',
@@ -21,13 +21,9 @@ export default {
         // 获取数据
         getData() {
             this.loading = true;
-            let params = {
-               apiUid: 'AOP_5fb32426aeb24e5aa71627dd9294193d',
-               pageSize: '10',
-               pageNo: '1'
-            };
-            this.$api.getBalanceDetail(params).then(res => {
+            this.$api.getBalanceDetail(this.params).then(res => {
                 this.dataList = res.balanceDetailList;
+                this.totalCount = res.totalCount;
                 this.loading = false;
             });
         },

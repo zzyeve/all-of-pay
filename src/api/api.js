@@ -11,6 +11,10 @@ axios.defaults.headers.post['Content-Type']='application/json;charset=UTF-8';
 
 // 请求拦截器,主要截获全局请求数据
 axios.interceptors.response.use(response => {
+	console.log(response);
+    if (response.status === 200) {
+		return response.data;
+    }
     return response.data;
     // // 200 非业务成功，也算失败
     // if (response.iamStatus !== undefined && response.iamStatus !== 0) {
@@ -44,9 +48,9 @@ axios.interceptors.response.use(response => {
     // return Promise.reject(error.response.data);
 });
 // 后端本机服务器
-let base = 'http://10.73.155.168:8080/aop_server';
+// let base = 'http://10.73.155.168:8080/aop_server';
 // 服务器地址
-// let base = 'http://10.73.155.169:9842/aop_server';
+let base = 'http://10.73.155.169:9842/aop_server';
 // let base = 'https://www.easy-mock.com/mock/5bc452d7c1ba694ea184ee49/api';
 
 // 获取用户信息
@@ -73,9 +77,26 @@ export const getCaptchar = (params) => {
 export const getAccountAndOrderInfo = (params) => {
   return axios.post(`${base}/getAccountAndOrderInfo.action`, params).then(res => res);
 };
-// 用户账户订单信息查询
+// 用户账户添加---修改
 export const addUserReceviceAccount = (params) => {
   return axios.post(`${base}/addUserReceviceAccount.action`, params).then(res => res);
+};
+// 用户账户删除
+export const deleteUserAccount = (params) => {
+  return axios.post(`${base}/deleteUserAccount.action`, params).then(res => res);
+};
+
+// 用户收款账户匹配模式修改
+export const changeAccountMatchingmode = (params) => {
+  return axios.post(`${base}/changeAccountMatchingmode.action`, params).then(res => res);
+};
+// 二维码查询
+export const getAccountRqcodeInfo = (params) => {
+  return axios.post(`${base}/getAccountRqcodeInfo.action`, params).then(res => res);
+};
+// 用户订单详细查询
+export const getUserOrderDetail = (params) => {
+  return axios.post(`${base}/getUserOrderDetail.action`, params).then(res => res);
 };
 
 
@@ -111,60 +132,3 @@ export const aopInterfaceTest = (params) => {
 };
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// export const fetchLogin = (params) => {
-//   return axios.get(`${base}/login`, {params: params}).then(res => res);
-// };
-// export const fetchManageList = (params) => {
-//   return axios.get(`${base}/manage`, {params: params}).then(res => res);
-// };
-
-// export const fetchRoleManageList = (params) => {
-//     return axios.get(`${base}/roleManage`, {params: params}).then(res => res);
-// };
-
-// export const fetchVersionUpdateList = (params) => {
-//     return axios.get(`${base}/versionUpdate`, {params: params}).then(res => res);
-// };
-
-// export const assistUnitManageList = (params) => {
-//   return axios.get(`${base}/assistManage`, {params: params}).then(res => res);
-// };
-
-// export const legalAidCenterList = (params) => {
-//   return axios.get(`${base}/legalAid`, {params: params}).then(res => res);
-// };
-
-// export const legalServiceHouseList = (params) => {
-//   return axios.get(`${base}/legalService`, {params: params}).then(res => res);
-// };
-
-// export const detentionHouseList = (params) => {
-//   return axios.get(`${base}/detention`, {params: params}).then(res => res);
-// };
-
-// export const courtOverviewList = (params) => {
-//   return axios.get(`${base}/courtDetail`, {params: params}).then(res => res);
-// };
-
-// export const judgeInformationList = (params) => {
-//   return axios.get(`${base}/courtInfo`, {params: params}).then(res => res);
-// };

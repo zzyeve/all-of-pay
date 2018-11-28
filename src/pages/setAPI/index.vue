@@ -1,6 +1,6 @@
 <template src="./index.html"></template>
 <script>
-import './index.less';
+import "./index.less";
 export default {
   data () {
     let validateDelayTime = (rule, value, callback) => {
@@ -20,9 +20,9 @@ export default {
 
     };
     return {
-      labelPosition: 'right',
+      labelPosition: "right",
       formLabelAlign4: {
-        delayTime: ''
+        delayTime: ""
       },
       rules4: {
         delayTime: [
@@ -31,12 +31,12 @@ export default {
       }
     };
   },
-  created () {
+  created() {
     // this.getData();
   },
   methods: {
     // getData () {
-      // console.log('1');
+    // console.log('1');
     // }
 
     // 请求用户二维码失效时间更改接口

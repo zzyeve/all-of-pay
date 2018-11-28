@@ -42,7 +42,7 @@ export default {
       };
       let string = JSON.stringify(params);
       this.$api.aopInterfaceTest(string).then(res => {
-        console.log(res.rqcodeUrl);   // http:www.baidu.coom
+        console.log(res.rqcodeUrl); // http:www.baidu.coom
         this.config.value = res.rqcodeUrl;
       });
     },

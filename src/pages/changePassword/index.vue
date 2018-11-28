@@ -69,7 +69,7 @@ export default {
       let string = JSON.stringify(params);
       this.$api.changeUserPassword(string).then(res => {
         console.log(res);
-        if (res.resultCode != '0000') {
+        if (res.resultCode !== '0000') {
           this.$message.warning(res.resultMsg);
         } else {
           this.$message.success('密码修改成功！');
