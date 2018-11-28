@@ -20,7 +20,7 @@ module.exports = {
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-alert': 0,
     'array-bracket-spacing': [2, 'never'],
-    'quotes': [1, 'single'],
+    // 'quotes': [1, 'single'],
     // 'no-console': 1,
     'no-extra-semi': 2,// 禁止多余的冒号
     'no-multi-spaces': 1,

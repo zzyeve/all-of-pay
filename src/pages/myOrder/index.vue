@@ -1,17 +1,27 @@
 <template src="./index.html"></template>
 <script>
 import './index.less';
+import {payTypeList, payStatusList} from '../../utils/selectList.js';
 export default {
     data() {
         return {
             loading: false,
-            totalSize: 100,
+            totalCount: 0,
             dataList: [],
             params: {
-                selectType: '',
-                pageSize: 10,
-                pageNo: 1
+                apiUid: '',
+                orderNumber: '',
+                realPrice: '',
+                rqcodeMark: '',
+                payFlow: '',
+                createTime: '',
+                payType: '',
+                payStatus: '',
+                pageNo: 1,
+                pageSize: 10
             },
+            payTypeList: {...payTypeList},
+            payStatusList: {...payStatusList},
             selectType: {
                 id: '',
                 list: [{
@@ -26,14 +36,16 @@ export default {
     },
     created() {
         this.getData();
+        this.params.apiUid = this.$store.getters.apiUid;
     },
     methods: {
         // 获取数据
         getData() {
             this.loading = true;
-            this.$api.fetchRoleManageList().then(res => {
+            this.$api.getUserOrderDetail(this.params).then(res => {
                 this.loading = false;
-                this.dataList = res.dataList;
+                this.dataList = res.userOrderDetailList;
+                this.totalCount = res.totalCount;
             });
         },
         // 页码更改

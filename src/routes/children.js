@@ -2,6 +2,7 @@ import MyIncomes from './../pages/myIncomes';
 import MyIncomesDetail from './../pages/myIncomesDetail';
 import AccountManage from './../pages/accountManage';
 import AddAccount from './../pages/addAccount';
+import EditAccount from './../pages/editAccount';
 import ReserveCode from './../pages/reserveCode';
 import MyOrder from './../pages/myOrder';
 import AutoCharge from './../pages/autoCharge';
@@ -15,6 +16,7 @@ import ChangePassword from './../pages/changePassword';
 import SetAPI from './../pages/setAPI';
 import InfoAPI from './../pages/infoAPI';
 import TestAPI from './../pages/testAPI';
+// import TemplatePage from './../pages/templatePage';
 import Abstract from './../components/Abstract';
 const children = [
     {
@@ -38,6 +40,10 @@ const children = [
             path: 'add',
             name: '添加收款账号 ',
             component: AddAccount
+        },{
+            path: 'edit',
+            name: '编辑收款账号 ',
+            component: EditAccount
         },{
             path: 'reserve',
             name: '储备二维码管理 ',

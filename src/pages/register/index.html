@@ -1,0 +1,52 @@
+<div class="register">
+    <div class="header">
+        <div class="header-content">
+            <img src="../../assets/img/logo1.png">
+            <el-button size="small">返回首页</el-button>
+        </div>
+    </div>
+    <div class="main">
+        <div class="main-content">
+            <p>新用户注册</p>
+            <el-form label-width="120px" size="medium">
+                <el-form-item label="用户名">
+                    <el-input></el-input>
+                </el-form-item>
+                <el-form-item label="真实姓名">
+                    <el-input></el-input>
+                </el-form-item>
+                <el-form-item label="密码">
+                    <el-input></el-input>
+                </el-form-item>
+                <el-form-item label="确认密码">
+                    <el-input></el-input>
+                </el-form-item>
+                <el-form-item label="手机绑定微信号">
+                    <el-input></el-input>
+                </el-form-item>
+                <el-form-item label="紧急联系电话">
+                    <el-input></el-input>
+                </el-form-item>
+                <el-form-item label=" ">
+                    <el-checkbox v-model="checked"></el-checkbox>
+                    我已同意并阅读AllOfPays免责声明
+                </el-form-item>
+                <el-form-item label=" ">
+                    <el-button>立即注册</el-button>
+                </el-form-item>
+                <el-form-item label=" ">
+                    <div class="go-login">
+                        已拥有账号？
+                        <span class="go-login" @click="goLogin">马上登陆</span>       
+                    </div>
+                </el-form-item>
+            </el-form>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="footer-content">
+
+        </div>
+    </div>
+   <router-view></router-view>
+</div>

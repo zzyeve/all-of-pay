@@ -1,26 +1,24 @@
 <template src="./index.html"></template>
 <script>
-import './index.less';
+import "./index.less";
 export default {
-  data () {
+  data() {
     return {
-      labelPosition: 'right',
+      labelPosition: "right",
       formLabelAlign4: {
-        delayTime: ''
+        delayTime: ""
       },
       rules4: {
-        delayTime: [
-          { required: true, message: '二维码过期时间不能为空'},
-        ]
+        delayTime: [{ required: true, message: "二维码过期时间不能为空" }]
       }
     };
   },
-  created () {
+  created() {
     // this.getData();
   },
   metods: {
     // getData () {
-      // console.log('1');
+    // console.log('1');
     // }
   }
 };

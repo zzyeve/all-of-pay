@@ -1,5 +1,6 @@
 <template src="./index.html"></template>
 <script>
+import moment from 'moment';
 import './index.less';
 export default {
   data() {
@@ -16,7 +17,7 @@ export default {
         timerLimitEnd: '',
         accountAmountLimit: '',
         accountStatus: '0',
-        addOrUpdate: 0 // 0--代表添加 1--代表修改
+        addOrUpdate: '0' // 0--代表添加 1--代表修改
       },
       rules: {
         receviceAccount: [
@@ -27,10 +28,11 @@ export default {
             {
                 validator: (rule, value, callback) => {
                     if (/^([1-9]\d|\d)$/.test(value) === false) {
-                        callback(new Error('请输入一个0-99整数'));
+						callback(new Error('请输入一个0-99整数'));
+						// this.params.accountSort = value.substr(0, 2);
                     }
                 },
-                trigger: 'change'
+                trigger: 'blur'
             }
         ],
         accountWeight: [
@@ -38,10 +40,11 @@ export default {
             {
                 validator: (rule, value, callback) => {
                     if (/^([1-9]\d|\d)$/.test(value) === false) {
-                        callback(new Error('请输入一个0-99整数'));
+						callback(new Error('请输入一个0-99整数'));
+						// this.params.accountSort = value.substr(0, 2);
                     }
                 },
-                trigger: 'change'
+                trigger: 'blur'
             }
         ]
       },
@@ -63,9 +66,15 @@ export default {
   methods: {
     // 保存按钮
     saveData() {
-        let paramsStr = JSON.parse(this.params);
+		this.params.timeLimitStart = moment(this.params.timeLimitStart).format('YYYYMMDD HH:mm:ss');
+		this.params.timerLimitEnd = moment(this.params.timerLimitEnd).format('YYYYMMDD HH:mm:ss');
+        let paramsStr = JSON.stringify(this.params);
         this.$api.addUserReceviceAccount(paramsStr).then(res => {
-            console.log(res);
+			if (res.resultCode === '0000') {
+				this.$message.success("新增成功");
+			} else {
+				this.$message.error(res.resultMsg);
+			}
         });
     },
     tableRowClassName() {
