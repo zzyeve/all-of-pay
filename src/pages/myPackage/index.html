@@ -7,15 +7,15 @@
           <ul style="margin: 0;padding-top: 98px;padding-bottom: 61px;">
             <li>
               <span class="s1">套餐名称：</span>
-              <span class="s2">专业版套餐</span>
+              <span class="s2" v-model="packageInfo.packageName"></span>
             </li>
             <li>
               <span class="s1">开始时间：</span>
-              <span class="s2">2018-10-20 19:00:00</span>
+              <span class="s2" v-model="packageInfo.startTime"></span>
             </li>
             <li>
               <span class="s1">结束时间：</span>
-              <span class="s2">2018-10-20 19:00:00</span>
+              <span class="s2" v-model="packageInfo.endTime"></span>
             </li>
             <li>
               <span class="s1">剩余天数：</span>
@@ -49,10 +49,10 @@
     <el-dialog title="续费" :visible.sync="dialogFormOneVisible" width="483px" class="pay-for">
       <el-form :label-position="labelPosition" label-width="145px" :model="formOneLabelAlign">
         <el-form-item label="套餐名称：">
-          <span>专业版套餐</span>
+          <span v-model="packageInfo.packageName"></span>
         </el-form-item>
         <el-form-item label="套餐价格：">
-          <span>99元/月</span>
+          <span v-model="packageInfo.packagePrice"></span>
         </el-form-item>
         <el-form-item label="续费时长：">
           <el-select v-model="selectTime.id" placeholder="排序">
@@ -60,10 +60,10 @@
           </el-select>
         </el-form-item>
         <el-form-item label="开始时间：">
-          <span>2018-02-21</span>
+          <span v-model="packageInfo.startTime"></span>
         </el-form-item>
         <el-form-item label="结束时间：">
-          <span>2018-08-21</span>
+          <span v-model="packageInfo.endTime"></span>
         </el-form-item>
         <el-form-item label="总价：" style="position: relative;">
           <span>原价¥1299</span>
