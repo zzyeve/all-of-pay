@@ -85,6 +85,10 @@ export const addUserReceviceAccount = (params) => {
 export const changeUserInfo = (params) => {
   return axios.post(`${base}/updateUserInfo.action`, params).then(res => res);
 };
+// 账号管理模块--套餐信息查询
+export const getPackageInfo = (params) => {
+  return axios.post(`${base}/getPackageInfo.action`, params).then(res => res);
+};
 // 账号管理模块--密码修改
 export const changeUserPassword = (params) => {
   return axios.post(`${base}/changeUserPassword.action`, params).then(res => res);
@@ -92,6 +96,10 @@ export const changeUserPassword = (params) => {
 // 账号管理模块--二维码过期时间修改
 export const changeRqcodeExpiryTime = (params) => {
   return axios.post(`${base}/changeRqcodeExpiryTime.action`, params).then(res => res);
+};
+// 账号管理模块--测试接口
+export const aopInterfaceTest = (params) => {
+  return axios.post(`${base}/aopInterfaceTest.action`, params).then(res => res);
 };
 
 
