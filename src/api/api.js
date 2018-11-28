@@ -89,6 +89,14 @@ export const changeUserInfo = (params) => {
 export const getPackageInfo = (params) => {
   return axios.post(`${base}/getPackageInfo.action`, params).then(res => res);
 };
+// 账号管理模块--用户套餐信息查询
+export const getUserPackageInfo = (params) => {
+  return axios.post(`${base}/getUserPackageInfo.action`, params).then(res => res);
+};
+// 账号管理模块--用户更改/续订套餐
+export const updateUserPackageInfo = (params) => {
+  return axios.post(`${base}/updateUserPackageInfo.action`, params).then(res => res);
+};
 // 账号管理模块--密码修改
 export const changeUserPassword = (params) => {
   return axios.post(`${base}/changeUserPassword.action`, params).then(res => res);
