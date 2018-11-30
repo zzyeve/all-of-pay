@@ -126,6 +126,10 @@ export const changeUserPassword = (params) => {
 export const changeRqcodeExpiryTime = (params) => {
   return axios.post(`${base}/changeRqcodeExpiryTime.action`, params).then(res => res);
 };
+// 账号管理模块--用户重置token接口
+export const tokenReset = (params) => {
+  return axios.post(`${base}/tokenReset.action`, params).then(res => res);
+};
 // 账号管理模块--测试接口
 export const aopInterfaceTest = (params) => {
   return axios.post(`${base}/aopInterfaceTest.action`, params).then(res => res);
