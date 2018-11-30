@@ -26,11 +26,6 @@ export default {
     methods: {
         // 获取数据
         getData() {
-            this.loading = true;
-            this.$api.fetchRoleManageList().then(res => {
-                this.loading = false;
-                this.dataList = res.dataList;
-            });
         },
         // 页码更改
         handleCurrentChange(val) {

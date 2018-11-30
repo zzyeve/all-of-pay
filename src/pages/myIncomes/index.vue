@@ -7,14 +7,14 @@ export default {
     data() {
         return {
             allData: {
-                incomeToday: '1111',
-                incomeYesterday: '2222',
-                incomeWeek: '4444',
-                incomeMonth: '5555',
-                orderToday: '22',
-                orderYesterday: '3423',
-                orderWeek: '234324',
-                orderMonth: '34235'
+                incomeToday: '0',
+                incomeYesterday: '0',
+                incomeWeek: '0',
+                incomeMonth: '0',
+                orderToday: '0',
+                orderYesterday: '0',
+                orderWeek: '0',
+                orderMonth: '0'
             },
             apiUid: '',
             dialogShow: false,

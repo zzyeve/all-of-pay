@@ -10,6 +10,7 @@ export default {
             dataList: [],
             params: {
                 apiUid: '',
+                orderUid: '',
                 orderNumber: '',
                 realPrice: '',
                 rqcodeMark: '',
@@ -46,6 +47,26 @@ export default {
                 this.loading = false;
                 this.dataList = res.userOrderDetailList;
                 this.totalCount = res.totalCount;
+            });
+        },
+        resendMessage(row) {
+            this.$confirm('是否要重发消息？', '重发消息提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+            }).then(() => {
+                let params = {
+                    platformId: row.apiUid
+                };
+                this.$api.resendMessage(params).then(res => {
+                    if (res.resultCode === "0000") {
+                        this.$message.success('重发消息成功');
+                    } else {
+                        this.$message.error(res.resultMsg);
+                    }
+                });
+            }).catch(() => {
+                this.$message.info('已取消重发消息');
             });
         },
         // 页码更改

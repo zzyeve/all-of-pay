@@ -8,7 +8,7 @@
                 <el-form-item label="收款码数量：">
                     <el-input v-model="params.rqcodeCount"></el-input>
                 </el-form-item>
-                <el-form-item label="并发数量：">
+                <el-form-item label="并发状态：">
                     <el-select v-model="params.concurrentCount">
                         <el-option
                             v-for="(item, index) in selectList"
@@ -25,23 +25,28 @@
                     <el-button >最近一小时统计</el-button>
                 </el-form-item> -->
             </el-form>
-            <el-button size="small" type="primary" icon="el-icon-plus">添加金额</el-button>
-            <el-button size="small">批量生成所有价格收款码</el-button>
+            <el-button size="small" type="primary" icon="el-icon-plus" @click="dialogShow=true">添加金额</el-button>
+            <!-- <el-button size="small">批量生成所有价格收款码</el-button> -->
         </div>
         <el-table 
             :data="dataList" 
             v-loading="loading" 
             :row-class-name="tableRowClassName"
             :cell-class-name="tableCellClassName"
+            @selection-change="handleSelectionChange"
             element-loading-text="数据拼命加载中...">
             <el-table-column type="selection" width="55"></el-table-column>
-            <el-table-column prop="price" label="价格"></el-table-column>
+            <el-table-column prop="rqcodePrice" label="价格"></el-table-column>
             <el-table-column label="收款码数量/当前占用并发/并发量">
                 <template slot-scope="scope">
                     {{scope.row.rqcodeTotalCount}}/{{scope.row.usedCount}}/{{scope.row.concurrency}}
                 </template>
             </el-table-column>
-            <el-table-column prop="createTim" label="创建时间" sort></el-table-column>
+            <el-table-column prop="createTime" label="创建时间" sort>
+                <template slot-scope="scope">
+                    {{scope.row.createTime | datetimeFormat}}
+                </template>
+            </el-table-column>
             <el-table-column prop="status" label="状态">
                 <template slot-scope="scope">
                     {{scope.row.status | reserveCodeStatus}}
@@ -49,15 +54,15 @@
             </el-table-column>
             <el-table-column label="操作">
                 <template slot-scope="scope">
-                    <el-button type="text">生成收款码</el-button> <br>
+                    <el-button type="text"  @click="createSingleCode(scope.row)">生成收款码</el-button> <br>
                     <el-button type="text">删除二维码</el-button><br>
-                    <el-button type="text">删除</el-button>
+                    <el-button type="text" @click="deleteSingleCode(scope.row)">删除</el-button>
                 </template>    
             </el-table-column>
         </el-table>
         <div class="btn-group">
-            <el-button size="small">删除所选</el-button>
-            <el-button size="small">批量生成所选二维码</el-button>
+            <el-button size="small" @click="deleteCode">删除所选</el-button>
+            <el-button size="small" @click="createCode">批量生成所选二维码</el-button>
         </div>
         <el-pagination
             @current-change="handleCurrentChange"
@@ -65,6 +70,67 @@
             layout="total, prev, pager, next"
             :total="totalCount">
         </el-pagination>
+        <el-dialog width="30%" title="批量生成二维码" @close="closeDialog"  :visible.sync="createCodeShow">
+            <div class="add-price">
+                <el-form 
+                    :inline="true" size="small" 
+                    label-width="150px">
+                    <el-form-item label="支付方式">
+                       <el-select v-model="createCodeParams.payType">
+                           <el-option 
+                                v-for="(item, index) in payList"
+                                :label="item.label"
+                                :value="item.value"
+                                :key="index">
+                           </el-option>
+                       </el-select>
+                    </el-form-item>
+                    <el-form-item label="生成数量">
+                        <el-input 
+                            placeholder="请输入数字"
+                            v-model.number="createCodeParams.createCount">
+                        </el-input>
+                    </el-form-item>
+                </el-form>
+            </div>
+            <div slot="footer" class="dialog-footer">
+                <el-button @click="createCodeShow = false" size="small">取 消</el-button>
+                <el-button type="primary" @click="saveCreateCode" size="small">确 定</el-button>
+            </div>
+        </el-dialog>
+        <el-dialog width="30%" title="添加金额" :visible.sync="dialogShow">
+            <div class="add-price">
+                <el-form 
+                    :inline="true" size="small" 
+                    label-width="150px"
+                    :model="addForm"
+                    ref="addForm">
+                    <el-form-item label="二维码面值范围">
+                        <div class="price-range">
+                            <el-input 
+                                placeholder="请输入数字"
+                                v-model="firstRange">
+                            </el-input> 
+                            -
+                            <el-input 
+                                v-model="lastRange"
+                                placeholder="请输入数字">
+                            </el-input>
+                        </div>
+                    </el-form-item>
+                    <el-form-item label="二维码面值递增值">
+                        <el-input 
+                            placeholder="请输入数字"
+                            v-model="addForm.rqcodeIncreasing">
+                        </el-input>
+                    </el-form-item>
+                </el-form>
+            </div>
+            <div slot="footer" class="dialog-footer">
+                <el-button @click="dialogShow = false" size="small">取 消</el-button>
+                <el-button type="primary" @click="saveData" size="small">确 定</el-button>
+            </div>
+        </el-dialog>
     </div>
    <router-view></router-view>
 </div>

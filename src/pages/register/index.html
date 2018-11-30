@@ -8,31 +8,37 @@
     <div class="main">
         <div class="main-content">
             <p>新用户注册</p>
-            <el-form label-width="120px" size="medium">
-                <el-form-item label="用户名">
-                    <el-input></el-input>
+            <el-form 
+                label-width="150px"
+                size="medium"
+                :model="form"
+                status-icon
+                ref="form"
+                :rules="rules">
+                <el-form-item label="用户名" prop="userName">
+                    <el-input v-model.trim="form.userName" @blur="checkUserName"></el-input>
                 </el-form-item>
-                <el-form-item label="真实姓名">
-                    <el-input></el-input>
+                <el-form-item label="真实姓名" prop="realName">
+                    <el-input v-model.trim="form.realName"></el-input>
                 </el-form-item>
-                <el-form-item label="密码">
-                    <el-input></el-input>
+                <el-form-item label="密码" prop="password">
+                    <el-input type="password" v-model.trim="form.password"></el-input>
                 </el-form-item>
-                <el-form-item label="确认密码">
-                    <el-input></el-input>
+                <el-form-item label="确认密码" prop="confirmPassword">
+                    <el-input type="password" v-model.trim="form.confirmPassword"></el-input>
                 </el-form-item>
-                <el-form-item label="手机绑定微信号">
-                    <el-input></el-input>
+                <el-form-item label="手机绑定微信号" prop="wxAccount">
+                    <el-input v-model.trim="form.wxAccount"></el-input>
                 </el-form-item>
-                <el-form-item label="紧急联系电话">
-                    <el-input></el-input>
+                <el-form-item label="紧急联系电话" prop="msisdn">
+                    <el-input v-model.trim="form.msisdn"></el-input>
                 </el-form-item>
                 <el-form-item label=" ">
                     <el-checkbox v-model="checked"></el-checkbox>
                     我已同意并阅读AllOfPays免责声明
                 </el-form-item>
                 <el-form-item label=" ">
-                    <el-button>立即注册</el-button>
+                    <el-button @click="registerData">立即注册</el-button>
                 </el-form-item>
                 <el-form-item label=" ">
                     <div class="go-login">
@@ -45,7 +51,40 @@
     </div>
     <div class="footer">
         <div class="footer-content">
-
+            <div class="all-of-pays">
+                <div class="foot-title">
+                    <img src="../../assets/img/logo.png" class="logo-img">
+                </div>
+                <div>
+                    专为个人收款而生的支付工具。为支付宝、微信支付的个人账户，提供即时到账收款API接口。安全可靠，费率低。
+                </div>
+            </div>
+            <div class="link">
+                <div class="foot-title">
+                    网站链接
+                </div>
+                <p>首页</p>
+                <p>新手指南</p>
+                <p>API接口文档</p>
+                <p>帮助</p>
+            </div>
+            <div class="contact">
+                <div class="foot-title">
+                    联系我们
+                </div>
+                <p>售前 <img src="../../assets/img/qq.jpg"> <img src="../../assets/img/qq.jpg"></p>
+                <p>技术 <img src="../../assets/img/qq.jpg"> <img src="../../assets/img/qq.jpg"></p>
+                <p>夜间 <img src="../../assets/img/qq.jpg"></p>
+            </div>
+            <div class="focus">
+                <div class="foot-title">
+                    关注微信
+                </div>
+                <img src="../../assets/img/erwima.jpg">
+            </div>
+        </div>
+        <div class="footer-bottom">
+            Copyright &#169; 2017-2018. AllofPays Inc. All rights reserved
         </div>
     </div>
    <router-view></router-view>

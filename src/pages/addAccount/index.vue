@@ -28,8 +28,8 @@ export default {
             {
                 validator: (rule, value, callback) => {
                     if (/^([1-9]\d|\d)$/.test(value) === false) {
-						callback(new Error('请输入一个0-99整数'));
-						// this.params.accountSort = value.substr(0, 2);
+                      callback(new Error('请输入一个0-99整数'));
+                      return false;
                     }
                 },
                 trigger: 'blur'

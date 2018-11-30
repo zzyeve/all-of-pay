@@ -41,3 +41,16 @@ export const wayList = [
       value: "1"
     }
 ];
+
+export const currentList = [
+    {
+        label: '全部',
+        value: '0'
+    },{
+        label: '未满',
+        value: '1'
+    },{
+        label: '全满',
+        value: '2'
+    }
+];
