@@ -41,8 +41,39 @@
     }
 
     .qrcode {
+        .el-dialog__header {
+            border-bottom: 1px solid #e8e8e8;
+        }
+        .el-dialog__body {
+            padding-bottom: 0;
+        }
         .qrcode-content {
             text-align: center;
+            .pay {
+                position: relative;
+                top: -7px;
+            }
+            .p1 {
+                color: #9B9B9B;
+                font-size: 18px;
+                text-align: center;
+                margin-bottom: 12px;
+            }
+            .p2 {
+                color: #000000;
+                font-size: 18px;
+                position: relative;
+                top: -42px;
+            }
+        }
+        .el-dialog__footer {
+            text-align: left;
+            color: #555555;
+            font-size: 24px;
+            border-top: 1px solid #e8e8e8;
+            .dialog-footer {
+                padding-left: 112px;
+            }
         }
     }
 }
