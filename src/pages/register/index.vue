@@ -90,21 +90,12 @@ export default {
                     });
                 }
             });
-            // let params = {
-            //     userName: this.form.userName,
-            //     realName: this.form.realName,
-            //     wxAccount: this.form.wxAccount,
-            //     password: this.form.password,
-            //     msisdn: this.form.msisdn
-            // };
-            // this.$api.userRegister(params).then(res => {
-            //     if (res.resultCode === '0000') {
-            //         this.$message.success('注册成功');
-            //     } else {
-            //         this.$message.error(res.rseultMsg);
-            //     }
-            // });
         },
+        // 回到首页
+        goFirstPage() {
+            window.location.href = '../index.html';
+        },
+        // 跳转登录
         goLogin() {
             window.location.href = '#/login';
         }

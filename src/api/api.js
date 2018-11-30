@@ -76,6 +76,10 @@ let base = 'http://10.73.155.168:8080/aop_server';
 export const userRegister = (params) => {
 	return axios.post(`${base}/userRegister.action`, params).then(res => res);
 };
+// 登录接口
+export const userLogin = (params) => {
+	return axios.post(`${base}/userLogin.action`, params).then(res => res);
+};
 // 用户名校验
 export const accountCheck = (params) => {
 	return axios.post(`${base}/accountCheck.action`, params).then(res => res);

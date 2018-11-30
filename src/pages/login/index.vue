@@ -1,28 +1,9 @@
 <template src="./index.html"></template>
-<script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>  
 <script>
 import './index.less';
+import returnCitySN from 'returnCitySN';
 export default {
     data() {
-        let checkUser = (rule, value, callback) => {
-            if (!value) {
-                return callback(new Error('用户名不能为空'));
-            }
-             if (!this.checkUserName(value)) {
-                callback(new Error('用户名已存在'));
-            } else {
-                callback();
-            }
-        };
-        let checkPassword = (rule, value, callback) => {
-            if (value === '') {
-                callback(new Error('请再次输入密码'));
-            } else if (value !== this.form.password) {
-                callback(new Error('两次输入密码不一致!'));
-            } else {
-                callback();
-            }
-        };
         return {
             dataList: [],
             checked: false,
@@ -37,7 +18,7 @@ export default {
             },
             rules: {
                 userName: [{
-                    required: true, validator: checkUser, trigger: 'blur'
+                    required: true, message: '请输入用户名', trigger: 'blur'
                 }],
                 password: [
                     {required: true, trigger: 'blur', message: '请输入密码'},
@@ -50,17 +31,30 @@ export default {
         };
     },
     created() {
-        console.log(returnCitySN["cip"]+','+returnCitySN["cname"]);
+        this.form.latestLoginIp = returnCitySN.cip;
     },
     methods: {
-        // 获取验证码接口
         // 登录按钮
         loginData() {
-
+             this.$refs.form.validate((valid) => {
+                if (valid) {
+                    this.$api.userLogin(this.form).then(res => {
+                        if (res.resultCode === '0000') {
+                            this.$message.success('登录成功');
+                        } else {
+                            this.$message.error(res.resultMsg);
+                        }
+                    });
+                }
+            });
         },
         // 刷新验证码
         refreshImg() {
             this.imgUrl = 'http://10.73.155.169:9842/aop_server/getCaptchar.action?t=' + Math.random();
+        },
+        // 回到首页
+        goFirstPage() {
+            window.location.href = '../index.html';
         },
         // 跳转注册
         goRegister() {

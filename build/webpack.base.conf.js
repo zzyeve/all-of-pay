@@ -25,6 +25,9 @@ module.exports = {
     app: ['babel-polyfill', './src/main.js']
     // app: './src/main.js'
   },
+  // externals: {
+  //   returnCitySN: 'returnCitySN'
+  // },
   output: {
     path: config.build.assetsRoot,
     filename: '[name].js',
@@ -89,5 +92,8 @@ module.exports = {
     net: 'empty',
     tls: 'empty',
     child_process: 'empty'
+  },
+  externals:  {
+    returnCitySN: 'returnCitySN'
   }
 }
