@@ -1,7 +1,7 @@
 .login {
     width: 100%; position: relative;
     background: #F7F7F7; height: 100%;
-    overflow: scroll;
+    overflow: scroll; user-select: none;
     .header {
         position: fixed; top: 0; left: 0; right: 0;
         background: #fff; height: 88px;  z-index: 99;
@@ -32,12 +32,25 @@
                 .el-button {
                     width: 100%; background: #FFC100; color: #fff;
                 }
-                .go-login {
-                    text-align: center;
-                    span {
-                        color: #FF9700;
+                .cap-url {
+                    img {
+                        display: inline-block; vertical-align: middle;
                     }
-                    
+                    .refresh-img {
+                        text-decoration: underline;
+                        margin-left: 20px; cursor: pointer;
+                    }
+                }
+                .go-register {
+                    .forget {
+                        float: left;
+                    }
+                    .no-account {
+                        float: right;
+                        .go-reg {
+                            color: #FF9700; cursor: pointer;
+                        }
+                    }
                 }
             }
         }

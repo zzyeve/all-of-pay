@@ -21,30 +21,29 @@
                 <el-form-item label="密码" prop="password">
                     <el-input type="password" v-model.trim="form.password"></el-input>
                 </el-form-item>
-                <el-form-item label="验证码" prop="wxAccount">
-                    <el-input v-model.trim="form.wxAccount"></el-input>
+                <el-form-item label="验证码" prop="captcharCode">
+                    <el-input v-model.trim="form.captcharCode"></el-input>
                 </el-form-item>
-                <!-- <el-form-item label="紧急联系电话" prop="msisdn">
-                    <el-input v-model.trim="form.msisdn"></el-input>
-                </el-form-item> -->
                 <el-form-item label=" ">
-                    <img src="" alt="">
+                    <div class="cap-url">
+                        <span class="cap-img" >
+                            <img :src="imgUrl" ref="capImg">
+                        </span>
+                        <span @click="refreshImg" class="refresh-img">看不清楚，换一张</span>
+                    </div>
                 </el-form-item>
                 <el-form-item label=" ">
                     <el-button @click="loginData">登录</el-button>
                 </el-form-item>
                 <el-form-item label=" ">
                     <div class="go-register">
-                        <div>忘记密码</div>
-                        <div>
+                        <div class="forget">忘记密码</div>
+                        <div class="no-account">
                             还没有账号？
-                            <span>
+                            <span class="go-reg" @click="goRegister">
                                 马上注册
                             </span>
                         </div>
-                        <span></span>
-                        <!-- 已拥有账号？
-                        <span class="go-login" @click="goLogin">马上登陆</span>  -->
                     </div>
                 </el-form-item>
             </el-form>

@@ -42,16 +42,13 @@ export default {
           list: [
             {
               value: '选项1',
-              label: '基础版套餐',
-              disabled: false
+              label: '基础版套餐'
             }, {
               value: '选项2',
-              label: '高级版套餐',
-              disabled: false
+              label: '高级版套餐'
             }, {
               value: '选项3',
-              label: '专业版套餐',
-              disabled: false
+              label: '专业版套餐'
             }
           ]
         },
@@ -60,8 +57,8 @@ export default {
       packageInfo: {
         beforePrice: '',
         currentPrice: '',
-        priceDifferences: '',
         accountBalance: '',
+        subscriptAmount: '',
         packageName: '',
         packageId: '',
         newPackageId: '',
@@ -72,7 +69,7 @@ export default {
       },
       rules2_1: {
         id: [
-          { required: true, message: '请选择续费时长', trigger: 'change' }
+          { required: true, message: '请选择续费时长', trigger: 'blur' }
         ],
         password: [
           { required: true, message: '请输入登录密码', trigger: 'blur' }
@@ -80,7 +77,7 @@ export default {
       },
       rules2_2: {
         id: [
-          { required: true, message: '请选择套餐类型', trigger: 'change' }
+          { required: true, message: '请选择套餐类型', trigger: 'blur' }
         ],
         password: [
           { required: true, message: '请输入登录密码', trigger: 'blur' }
@@ -99,9 +96,8 @@ export default {
       let params = {
         apiUid: 'AOP_5fb32426aeb24e5aa71627dd9294193d'
       };
-      let string = JSON.stringify(params);
-      this.$api.getUserPackageInfo(string).then(res => {
-        console.log(res);
+      // let string = JSON.stringify(params);
+      this.$api.getUserPackageInfo(params).then(res => {
         if (res.packageName === '') {
           this.havePurchase = false;
           this.notPurchase = true;
@@ -139,14 +135,14 @@ export default {
     },
 
     // 请求用户更改/续订套餐接口
-    changeOrDelayPackage (passwords, newId, subscript_amount, typeValue) {
+    changeOrDelayPackage (passwords, newId, typeValue) {
       let params = {
         apiUid: 'AOP_5fb32426aeb24e5aa71627dd9294193d',
         password: passwords,
         oldPackageId: this.packageInfo.packageId,
         newPackageId: newId,
         packageExpiryTime: this.packageInfo.packageExpiryTime,
-        subscriptAmount: subscript_amount,
+        subscriptAmount: this.packageInfo.subscriptAmount,
         type: typeValue
       };
       let string = JSON.stringify(params);
@@ -230,61 +226,16 @@ export default {
       }
     },
 
-    // 选购套餐类型发生改变时触发
-    changePackage () {
-      if (this.packageInfo.packageName === '低级版套餐') {
-        if (this.formTwoLabelAlign.id === '选项2') {
-          this.packageInfo.priceDifferences = (199 - 99);
-          if (this.packageInfo.accountBalance < this.packageInfo.priceDifferences) {
-            this.warningWords2 = true;
-          } else {
-            this.warningWords2 = false;
-          }
-        } else if (this.formTwoLabelAlign.id === '选项3') {
-          this.packageInfo.priceDifferences = (699 - 99);
-          if (this.packageInfo.accountBalance < this.packageInfo.priceDifferences) {
-            this.warningWords2 = true;
-          } else {
-            this.warningWords2 = false;
-          }
-        }
-      } else if (this.packageInfo.packageName === '高级版套餐') {
-        if (this.formTwoLabelAlign.id === '选项1') {
-          this.packageInfo.priceDifferences = '0';
-        } else if (this.formTwoLabelAlign.id === '选项3') {
-          this.packageInfo.priceDifferences = (699 - 199);
-          if (this.packageInfo.accountBalance < this.packageInfo.priceDifferences) {
-            this.warningWords2 = true;
-          } else {
-            this.warningWords2 = false;
-          }
-        }
-      } else if (this.packageInfo.packageName === '专业版套餐') {
-        if (this.formTwoLabelAlign.id === '选项1') {
-          this.packageInfo.priceDifferences = '0';
-        } else if (this.formTwoLabelAlign.id === '选项2') {
-          this.packageInfo.priceDifferences = '0';
-        }
-      }
-    },
-
     // 点击更改套餐弹出表单
     dialogFormTwo () {
       this.dialogFormTwoVisible = true;
-      if (this.packageInfo.packageName === '低级版套餐') {
-        this.formTwoLabelAlign.selectPackage.list[0].disabled = true;
-      } else if (this.packageInfo.packageName === '高级版套餐') {
-        this.formTwoLabelAlign.selectPackage.list[1].disabled = true;
-      } else if (this.packageInfo.packageName === '专业版套餐') {
-        this.formTwoLabelAlign.selectPackage.list[2].disabled = true;
-      }
     },
 
     // 弹出的续费表单里点击续费按钮提交
     submitDelayMoney (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.changeOrDelayPackage(this.formOneLabelAlign.password, this.packageInfo.packageId, this.packageInfo.currentPrice, '0');
+          this.changeOrDelayPackage(this.formOneLabelAlign.password, this.packageInfo.packageId, '0');
           this.$refs[formName].resetFields();
           this.showLine = false;
           this.packageInfo.beforePrice = '';
@@ -297,34 +248,8 @@ export default {
       });
     },
 
-    // 弹出的续费表单里点击取消按钮取消
-    cancelDelayMoney (formName) {
-      this.$refs[formName].resetFields();
-      this.showLine = false;
-      this.packageInfo.beforePrice = '';
-      this.packageInfo.currentPrice = '';
-      this.dialogFormOneVisible = false;
-    },
-
     // 弹出的更改套餐表单里点击改套餐按钮提交
     submitChangePackage (formName) {
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
-          this.changeOrDelayPackage(this.formTwoLabelAlign.password, this.packageInfo.packageId, this.packageInfo.priceDifferences, '1');
-          this.$refs[formName].resetFields();
-          this.packageInfo.priceDifferences = '';
-          this.dialogFormTwoVisible = false;
-        } else {
-          this.$message.warning('error submit!');
-          return false;
-        }
-      });
-    },
-
-    // 弹出的更改套餐表单里点击取消按钮取消
-    cancelChangePackage (formName) {
-      this.$refs[formName].resetFields();
-      this.packageInfo.priceDifferences = '';
       this.dialogFormTwoVisible = false;
     }
   }

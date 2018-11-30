@@ -7,7 +7,7 @@ axios.defaults.withCredentials = true;
 axios.defaults.headers['Accept'] = 'application/json;charset=UTF-8';
 axios.defaults.headers['X-Requested-With'] = 'XMLHttpRequest';
 axios.defaults.headers.post['Content-Type']='application/json;charset=UTF-8';
-axios.defaults.headers.get['Content-Type']='image/png;charset=UTF-8';
+
 
 // 对参数进行处理;
 const handleParams = (data) => {

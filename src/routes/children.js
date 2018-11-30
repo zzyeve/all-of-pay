@@ -73,7 +73,7 @@ const children = [
         component: NoMatchOrder,
         showChildren: false
     }, {
-        path: 'content ',
+        path: 'content',
         name: '账号管理',
         iconClass: 'el-icon-star-off',
         component: Abstract,

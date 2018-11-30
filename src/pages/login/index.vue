@@ -1,4 +1,5 @@
 <template src="./index.html"></template>
+<script src="http://pv.sohu.com/cityjson?ie=utf-8"></script>  
 <script>
 import './index.less';
 export default {
@@ -26,10 +27,11 @@ export default {
             dataList: [],
             checked: false,
             confirmPassword: '',
+            imgUrl: 'http://10.73.155.169:9842/aop_server/getCaptchar.action',
             form: {
                 userName: '',
                 password: '',
-                userType: '',
+                userType: '1',
                 latestLoginIp: '',
                 captcharCode: ''
             },
@@ -37,42 +39,32 @@ export default {
                 userName: [{
                     required: true, validator: checkUser, trigger: 'blur'
                 }],
-                realName: [{
-                    required: true, trigger: 'blur', message: '请输入真实姓名'
-                }],
                 password: [
                     {required: true, trigger: 'blur', message: '请输入密码'},
                     {min: 6, max: 15, message: '长度在6到15个字符', trigger: 'blur'}
                 ],
-                confirmPassword: [{
-                    required: true, validator: checkPassword, trigger: 'blur'
-                }],
-                wxAccount:  [{
-                    required: true, trigger: 'blur', message: '请输入手机绑定微信号'
-                }],
-                msisdn:  [{
-                    required: true, trigger: 'blur', message: '请输入紧急联系电话'
+                captcharCode:  [{
+                    required: true, trigger: 'blur', message: '请输入验证码'
                 }]
             }
         };
     },
     created() {
-        this.getCaptchar();
+        console.log(returnCitySN["cip"]+','+returnCitySN["cname"]);
     },
     methods: {
         // 获取验证码接口
-        getCaptchar() {
-            this.$api.getCaptchar().then(res => {
-                console.log(res);
-            });
-        },
         // 登录按钮
         loginData() {
 
         },
+        // 刷新验证码
+        refreshImg() {
+            this.imgUrl = 'http://10.73.155.169:9842/aop_server/getCaptchar.action?t=' + Math.random();
+        },
         // 跳转注册
-        goLogin() {
-            window.location.href = '#/login';
+        goRegister() {
+            window.location.href = '#/register';
         }
     }
 };
