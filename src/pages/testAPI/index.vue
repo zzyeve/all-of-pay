@@ -29,10 +29,6 @@ export default {
     // this.getData();
   },
   methods: {
-    // getData () {
-      // console.log('1');
-    // }
-
     // 请求测试接口
     interfaceTest () {
       let params = {
@@ -40,7 +36,7 @@ export default {
         payType: this.formLabelAlign6.payType,
         amount: this.formLabelAlign6.money
       };
-      let string = JSON.stringify(params);
+      let string = params;
       this.$api.aopInterfaceTest(string).then(res => {
         console.log(res.rqcodeUrl); // http:www.baidu.coom
         this.config.value = res.rqcodeUrl;
