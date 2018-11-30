@@ -4,16 +4,30 @@ import './index.less';
 export default {
   data () {
     return {
-
+      uidName: '535',
+      tokenId: '62537382736hgfjkquwyeiq12944'
     };
   },
   created () {
-    // this.getData();
+
   },
   methods: {
-    // getData () {
-      // console.log('1');
-    // }
+    // 请求用户重置token接口
+    resetToken () {
+      let params = {
+        apiUid: 'AOP_5fb32426aeb24e5aa71627dd9294193d'
+      };
+      let string = JSON.stringify(params);
+      this.$api.tokenReset(string).then(res => {
+        console.log(res);
+        this.tokenId = res.result.token;
+      });
+    },
+
+    // 点击重置Token按钮提交
+    submitToken () {
+      this.resetToken();
+    }
   }
 };
 </script>

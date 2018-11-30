@@ -79,7 +79,7 @@
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button size="small" @click="dialogFormOneVisible = false">取 消</el-button>
+        <el-button size="small" @click="cancelDelayMoney('formOneLabelAlign')">取 消</el-button>
         <el-button size="small" type="primary" @click="submitDelayMoney('formOneLabelAlign')">续 费</el-button>
       </div>
     </el-dialog>
@@ -88,18 +88,18 @@
     <el-dialog title="套餐更改" :visible.sync="dialogFormTwoVisible" width="483px" class="pay-for">
       <el-form :label-position="labelPosition" label-width="145px" :model="formTwoLabelAlign" ref="formTwoLabelAlign" :rules="rules2_2">
         <el-form-item label="套餐升级到：" prop="id">
-          <el-select v-model="formTwoLabelAlign.id" placeholder="高级版套餐">
-            <el-option v-for="(item, index) in formTwoLabelAlign.selectPackage.list" :key="index" :label="item.label" :value="item.value"></el-option>
+          <el-select v-model="formTwoLabelAlign.id" placeholder="请选择套餐" @change="changePackage()">
+            <el-option v-for="(item, index) in formTwoLabelAlign.selectPackage.list" :key="index" :label="item.label" :value="item.value" :disabled="item.disabled"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="开始时间：">
-          <span>2018-02-21</span>
+          <span>{{ packageInfo.startTime | datetimeFormat }}</span>
         </el-form-item>
         <el-form-item label="结束时间：">
-          <span>2018-08-21</span>
+          <span>{{ packageInfo.endTime | datetimeFormat }}</span>
         </el-form-item>
         <el-form-item label="需要补差价：">
-          <span style="font-size: 20px;">¥100.00</span>
+          <span style="font-size: 20px;">¥{{ packageInfo.priceDifferences }}</span>
         </el-form-item>
         <el-form-item label="账户余额：">
           <span>{{ packageInfo.accountBalance }}</span>
@@ -111,7 +111,7 @@
       </el-form>
       <p style="color: #FF9700;padding-top: 26px;padding-left: 27px;">注：降级套餐不会补差价，如再升级需重新补差价，请谨慎操作</p>
       <div slot="footer" class="dialog-footer">
-        <el-button size="small" @click="dialogFormTwoVisible = false">取 消</el-button>
+        <el-button size="small" @click="cancelChangePackage('formTwoLabelAlign')">取 消</el-button>
         <el-button size="small" type="primary" @click="submitChangePackage('formTwoLabelAlign')">改套餐</el-button>
       </div>
     </el-dialog>

@@ -5,13 +5,13 @@
         <div class="top_main">
           <div class="uid">
             <span>UID：</span>
-            <span>535</span>
+            <span>{{ uidName }}</span>
           </div>
           <div class="token">
             <span>Token：</span>
-            <span>62537382736hgfjkquwyeiq12944</span>
+            <span>{{ tokenId }}</span>
           </div>
-          <el-button type="primary" size="small" style="margin-left: 161px;">重置Token</el-button>
+          <el-button type="primary" size="small" style="margin-left: 161px;" @click="submitToken()">重置Token</el-button>
         </div>
       </section>
     </div>
