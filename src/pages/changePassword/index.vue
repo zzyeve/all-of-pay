@@ -40,13 +40,13 @@ export default {
       },
       rules3: {
         oldPassword: [
-          { validator: validateOldPass, trigger: 'blur' }
+          { validator: validateOldPass, trigger: 'blur', required: true }
         ],
         newPassword: [
-          { validator: validateNewPass, trigger: 'blur' }
+          { validator: validateNewPass, trigger: 'blur', required: true }
         ],
         reinput: [
-          { validator: validateReinput, trigger: 'blur' }
+          { validator: validateReinput, trigger: 'blur', required: true }
         ]
       }
     };
