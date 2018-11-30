@@ -47,7 +47,7 @@ export default {
         pageCopyright: this.formLabelAlign1.authority,
         balanceAlarm: this.formLabelAlign1.announce
       };
-      let string = JSON.stringify(params);
+      let string = params;
       this.$api.changeUserInfo(string).then(res => {
         console.log(res);
       });

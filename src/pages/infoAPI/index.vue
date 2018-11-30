@@ -17,7 +17,7 @@ export default {
       let params = {
         apiUid: 'AOP_5fb32426aeb24e5aa71627dd9294193d'
       };
-      let string = JSON.stringify(params);
+      let string = params;
       this.$api.tokenReset(string).then(res => {
         console.log(res);
         this.tokenId = res.result.token;

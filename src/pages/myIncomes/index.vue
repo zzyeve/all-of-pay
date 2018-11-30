@@ -1,6 +1,7 @@
 <template src="./index.html"></template>
 <script>
 import './index.less';
+import VueQr from 'vue-qr';
 import Abstract from '../../components/Abstract.vue';
 export default {
     mixins: [Abstract],
@@ -18,6 +19,11 @@ export default {
             },
             apiUid: '',
             dialogShow: false,
+            qrCodeDialog: false,
+            config: {
+                value: 'http:www.baidu.coom', // 显示的值、跳转的地址
+                logo: '' // 中间logo的地址
+            },
             selectType: {
                 id: '',
                 list: [{
@@ -66,7 +72,21 @@ export default {
             //     path: '/detail'
             // });
             window.location.href = '#/incomes/detail';
+        },
+
+
+
+
+
+        // 点击支付宝充值按钮
+        aliPay () {
+            this.dialogShow = false;
+            this.qrCodeDialog = true;
         }
+
+    },
+    components: {
+        'vue-qr': VueQr
     }
 };
 </script>

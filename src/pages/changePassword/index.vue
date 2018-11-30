@@ -52,13 +52,9 @@ export default {
     };
   },
   created () {
-    // this.getData();
+
   },
   methods: {
-    // getData () {
-      // console.log('1');
-    // }
-
     // 请求用户密码修改接口
     updateUserPassword () {
       let params = {
@@ -66,7 +62,7 @@ export default {
         oldPassword: this.formLabelAlign3.oldPassword,
         newPassword: this.formLabelAlign3.newPassword
       };
-      let string = JSON.stringify(params);
+      let string = params;
       this.$api.changeUserPassword(string).then(res => {
         console.log(res);
         if (res.resultCode !== '0000') {

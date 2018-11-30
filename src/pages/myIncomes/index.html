@@ -67,7 +67,17 @@
             </div>
             <div slot="footer" class="dialog-footer">
                 <el-button @click="dialogShow = false" size="small">取 消</el-button>
-                <el-button type="primary" @click="dialogShow = true" size="small">支付宝充值</el-button>
+                <el-button type="primary" @click="aliPay()" size="small">支付宝充值</el-button>
+            </div>
+        </el-dialog>
+
+        <el-dialog title="充值" :visible.sync="qrCodeDialog" width="25%" class="qrcode">
+            <div class="qrcode-content">
+                <div><img src="../../assets/img/alipay_top.png" alt="" style="width: 110px;height: 42px;"></div>
+                <vue-qr :logoSrc="config.logo" :text="config.value" :size="200" :margin="0"></vue-qr>
+            </div>
+            <div slot="footer" class="dialog-footer">
+                <img src="../../assets/img/sao.png" alt="">
             </div>
         </el-dialog>
     </div>

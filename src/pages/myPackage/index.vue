@@ -99,7 +99,7 @@ export default {
       let params = {
         apiUid: 'AOP_5fb32426aeb24e5aa71627dd9294193d'
       };
-      let string = JSON.stringify(params);
+      let string = params;
       this.$api.getUserPackageInfo(string).then(res => {
         console.log(res);
         if (res.packageName === '') {
@@ -132,7 +132,7 @@ export default {
       let params = {
         packageId: this.packageInfo.packageId
       };
-      let string = JSON.stringify(params);
+      let string = params;
       this.$api.getPackageInfo(string).then(res => {
         console.log(res);
       });
@@ -149,7 +149,7 @@ export default {
         subscriptAmount: subscript_amount,
         type: typeValue
       };
-      let string = JSON.stringify(params);
+      let string = params;
       this.$api.updateUserPackageInfo(string).then(res => {
         console.log(res);
         if (res.resultCode !== '0000') {
@@ -165,7 +165,7 @@ export default {
       let params = {
         apiUid: 'AOP_5fb32426aeb24e5aa71627dd9294193d'
       };
-      let string = JSON.stringify(params);
+      let string = params;
       this.$api.getUserInfo(string).then(res => {
         console.log(res);
         this.packageInfo.accountBalance = '¥' + res.userInfoList[0].userBalance;
