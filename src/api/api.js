@@ -5,7 +5,9 @@ import axios from 'axios';
 axios.defaults.withCredentials = true;
 // axios.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
 axios.defaults.headers['Accept'] = 'application/json;charset=UTF-8';
+axios.defaults.headers['X-Requested-With'] = 'XMLHttpRequest';
 axios.defaults.headers.post['Content-Type']='application/json;charset=UTF-8';
+axios.defaults.headers.get['Content-Type']='image/png;charset=UTF-8';
 
 // 对参数进行处理;
 const handleParams = (data) => {
@@ -95,8 +97,8 @@ export const getUserRecharge = (params) => {
   return axios.post(`${base}/userRecharge`, params).then(res => res);
 };
 // 获取验证码
-export const getCaptchar = (params) => {
-  return axios.get(`${base}/getCaptchar.action`, {params: params}).then(res => res);
+export const getCaptchar = () => {
+  return axios.get(`${base}/getCaptchar.action`).then(res => res);
 };
 // 用户账户订单信息查询
 export const getAccountAndOrderInfo = (params) => {
@@ -122,6 +124,10 @@ export const getAccountRqcodeInfo = (params) => {
 // 二维码批量删除
 export const deleteAccountRqcode = (params) => {
   return axios.post(`${base}/deleteAccountRqcode.action`, params).then(res => res);
+};
+// 二维码信息删除
+export const deleteRqcode = (params) => {
+  return axios.post(`${base}/deleteRqcode.action`, params).then(res => res);
 };
 // 二维码批量生成
 export const rqcodeCreate = (params) => {

@@ -56,7 +56,7 @@ export default {
                 type: 'warning'
             }).then(() => {
                 let params = {
-                    platformId: row.apiUid
+                    platformId: row.platformOrderId
                 };
                 this.$api.resendMessage(params).then(res => {
                     if (res.resultCode === "0000") {

@@ -250,7 +250,7 @@ export default {
     },
 
     // 弹出的更改套餐表单里点击改套餐按钮提交
-    submitChangePackage (formName) {
+    submitChangePackage () {
       this.dialogFormTwoVisible = false;
     }
   }

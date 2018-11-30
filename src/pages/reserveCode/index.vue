@@ -40,6 +40,7 @@ export default {
         };
     },
     created() {
+        this.account = this.$route.query.account;
         this.params.account = this.$route.query.account;
         this.addForm.account = this.$route.query.account;
         this.createCodeParams.account = this.$route.query.account;
@@ -98,6 +99,43 @@ export default {
             } else {
                 this.$message.warning('请先勾选数据');
             }
+        },
+        // 删除二维码
+        deleteQRCode(row) {
+            this.$confirm('是否删除二维码？', '二维码删除提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+            }).then(() => {
+                let arr = [];
+                arr.push({rqcodePrice: row.rqcodePrice});
+                let params = {
+                    account:  this.account,
+                    rqcodePriceList: arr
+                };
+                this.$api.deleteRqcode(params).then(res => {
+                    if (res.resultCode === "0000") {
+                        this.$message.success('删除成功');
+                        this.getData();
+                    } else {
+                        this.$message.error(res.resultMsg);
+                    }
+                });
+                // let params = {
+                //     account:  this.account,
+                //     rqcodePriceList: this.selectionList
+                // };
+                // this.$api.deleteAccountRqcode(params).then(res => {
+                //     if (res.resultCode === "0000") {
+                //         this.$message.success('删除成功');
+                //         this.getData();
+                //     } else {
+                //         this.$message.error(res.resultMsg);
+                //     }
+                // });
+            }).catch(() => {
+                this.$message.info('已取消删除');
+            });
         },
         // 生成收款码按钮
         createSingleCode(row) {

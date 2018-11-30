@@ -1,6 +1,91 @@
-.templatePage {
-    .content {
-        font-size: 20px;
-        // color: #f00;
+.login {
+    width: 100%; position: relative;
+    background: #F7F7F7; height: 100%;
+    overflow: scroll;
+    .header {
+        position: fixed; top: 0; left: 0; right: 0;
+        background: #fff; height: 88px;  z-index: 99;
+        .header-content {
+            width: 1200px; height: 100%; margin: 0 auto;
+            line-height: 88px;
+            img {
+                vertical-align: middle; 
+            }
+            .el-button {
+                background: #FFC100; color: #fff;
+                float: right; margin: 25px 92px 0 0;
+            }
+        }
     }
+    .main {
+        .main-content {
+            width: 563px; height: 448px;
+            background: #fff; margin: 150px auto 63px;
+            padding: 31px;
+            p {
+                text-align: center;
+                color: #FF9700; font-size: 36px;
+                margin-bottom: 20px; 
+            }
+            .el-form {
+                padding-right: 50px;
+                .el-button {
+                    width: 100%; background: #FFC100; color: #fff;
+                }
+                .go-login {
+                    text-align: center;
+                    span {
+                        color: #FF9700;
+                    }
+                    
+                }
+            }
+        }
+    }
+    .footer {
+        background: #2A2A2A; color: #9B9B9B;
+        text-indent: none;
+        .footer-content {
+            width: 1200px; margin: 0 auto;
+            padding: 40px 0 40px 70px; font-size: 18px; line-height: 30px;
+            border-bottom: 2px solid #555; 
+            text-indent: 0;
+            overflow: hidden;
+            >div {
+                float: left;
+            }
+            .foot-title {
+                height: 45px; color: #D8D8D8; font-size: 20px;
+                margin-bottom: 20px;
+            }
+            .all-of-pays {
+                width: 280px; 
+                img {
+                    margin-bottom: 20px;
+                    width: 146px; height: 45px;
+                }
+            }
+            .link {
+                margin: 0 110px 0 90px;
+            }
+            .contact {
+                p {
+                    line-height: 40px;
+                }
+                img {
+                    display: inline-block;
+                    vertical-align: middle;
+                    margin-left: 10px;
+                }
+            }
+            .focus {
+                margin-left: 110px;
+            }
+        }
+        .footer-bottom {
+            text-align: center;
+            height: 73px; line-height: 73px;
+        }
+    }
+    
 }
