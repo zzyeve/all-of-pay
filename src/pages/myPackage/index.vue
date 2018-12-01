@@ -68,7 +68,10 @@ export default {
         packagePrice: '',
         startTime: '',
         endTime: '',
-        residueDays: ''
+        residueDays: '',
+        lowPackageId: '',
+        highPackageId: '',
+        professionalPackageId: ''
       },
       rules2_1: {
         id: [
@@ -135,6 +138,9 @@ export default {
       let string = params;
       this.$api.getPackageInfo(string).then(res => {
         console.log(res);
+        this.packageInfo.lowPackageId = res.packageInfoList[1].packageId;
+        this.packageInfo.highPackageId = res.packageInfoList[2].packageId;
+        this.packageInfo.professionalPackageId = res.packageInfoList[0].packageId;
       });
     },
 
@@ -308,9 +314,29 @@ export default {
 
     // 弹出的更改套餐表单里点击改套餐按钮提交
     submitChangePackage (formName) {
+      console.log(this.formTwoLabelAlign.id);
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.changeOrDelayPackage(this.formTwoLabelAlign.password, this.packageInfo.packageId, this.packageInfo.priceDifferences, '1');
+          if (this.packageInfo.packageName === '低级版套餐') {
+            if (this.formTwoLabelAlign.id === '选项2') {
+              this.changeOrDelayPackage(this.formTwoLabelAlign.password, this.packageInfo.highPackageId, this.packageInfo.priceDifferences, '1');
+            } else if (this.formTwoLabelAlign.id === '选项3') {
+              this.changeOrDelayPackage(this.formTwoLabelAlign.password, this.packageInfo.professionalPackageId, this.packageInfo.priceDifferences, '1');
+            }
+          } else if (this.packageInfo.packageName === '高级版套餐') {
+            if (this.formTwoLabelAlign.id === '选项1') {
+              this.changeOrDelayPackage(this.formTwoLabelAlign.password, this.packageInfo.lowPackageId, this.packageInfo.priceDifferences, '1');
+            } else if (this.formTwoLabelAlign.id === '选项3') {
+              this.changeOrDelayPackage(this.formTwoLabelAlign.password, this.packageInfo.professionalPackageId, this.packageInfo.priceDifferences, '1');
+            }
+          } else if (this.packageInfo.packageName === '专业版套餐') {
+            if (this.formTwoLabelAlign.id === '选项1') {
+              this.changeOrDelayPackage(this.formTwoLabelAlign.password, this.packageInfo.lowPackageId, this.packageInfo.priceDifferences, '1');
+            } else if (this.formTwoLabelAlign.id === '选项2') {
+              this.changeOrDelayPackage(this.formTwoLabelAlign.password, this.packageInfo.highPackageId, this.packageInfo.priceDifferences, '1');
+            }
+          }
+
           this.$refs[formName].resetFields();
           this.packageInfo.priceDifferences = '';
           this.dialogFormTwoVisible = false;
