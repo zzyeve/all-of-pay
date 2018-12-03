@@ -36,10 +36,12 @@
             @selection-change="handleSelectionChange"
             element-loading-text="数据拼命加载中...">
             <el-table-column type="selection" width="55"></el-table-column>
-            <el-table-column prop="rqcodePrice" label="价格"></el-table-column>
+            <el-table-column prop="rqcodePrice" label="价格" width="120"></el-table-column>
             <el-table-column label="收款码数量/当前占用并发/并发量">
                 <template slot-scope="scope">
-                    {{scope.row.rqcodeTotalCount}}/{{scope.row.usedCount}}/{{scope.row.concurrency}}
+                    <span>
+                        {{scope.row.rqcodeTotalCount || 0}}/{{scope.row.usedCount || 0}}/{{scope.row.concurrency || 0}}
+                    </span>
                 </template>
             </el-table-column>
             <el-table-column prop="createTime" label="创建时间" sort>

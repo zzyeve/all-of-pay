@@ -28,6 +28,14 @@ Vue.filter('orderStatus', function (value) {
         case '1': return '已完成未通知';
         case '2': return '已关闭';
         case '3': return '等待付款';
-        default : return '';
+        default: return '';
+    }
+});
+// 账户状态
+Vue.filter('accountStatus', function (value) {
+    switch (value) {
+        case '0': return '开启';
+        case '1': return '关闭';
+        default: return '开启';
     }
 });

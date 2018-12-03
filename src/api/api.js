@@ -98,7 +98,7 @@ export const getBalanceDetail = (params) => {
 };
 // 用户充值
 export const getUserRecharge = (params) => {
-  return axios.post(`${base}/userRecharge`, params).then(res => res);
+  return axios.post(`${base}/userRecharge.action`, params).then(res => res);
 };
 // 获取验证码
 export const getCaptchar = () => {

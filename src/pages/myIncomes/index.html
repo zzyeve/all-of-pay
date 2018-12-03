@@ -57,8 +57,8 @@
         <el-dialog width="30%" title="充值" :visible.sync="dialogShow">
             <div class="dialog-content">
                 充值金额
-                <el-select v-model="selectType.id" size="small" @change="selectMoney()">
-                    <el-option v-for="(item, index) in selectType.list"
+                <el-select v-model="selectTypeId" size="small" @change="selectMoney()">
+                    <el-option v-for="(item, index) in priceList"
                         :label="item.label"
                         :value="item.value"
                         :key="index">

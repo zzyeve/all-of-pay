@@ -1,6 +1,7 @@
 <template src="./index.html"></template>
 <script>
 import moment from 'moment';
+import { payTypeList } from "../../utils/selectList.js";
 import './index.less';
 export default {
   data() {
@@ -48,16 +49,7 @@ export default {
             }
         ]
       },
-      selectList: [
-        {
-          label: '支付宝',
-          value: '0'
-        },
-        {
-          label: '微信',
-          value: '1'
-        }
-      ]
+      selectList: {...payTypeList}
     };
   },
   created() {

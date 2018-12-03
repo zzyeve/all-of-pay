@@ -2,6 +2,7 @@
 <script>
 import './index.less';
 import VueQr from 'vue-qr';
+import {priceList} from '../../utils/selectList.js';
 import Abstract from '../../components/Abstract.vue';
 export default {
     mixins: [Abstract],
@@ -25,23 +26,35 @@ export default {
                 value: 'http:www.baidu.coom', // 显示的值、跳转的地址
                 logo: '' // 中间logo的地址
             },
-            selectType: {
-                id: '',
-                list: [{
-                    value: '50',
-                    label: 50.00
-                },{
-                    value: '100',
-                    label: 100.00
-                }]
-            }
+            selectTypeId: '',
+            priceList: {...priceList}
         };
     },
     created() {
         this.apiUid = this.$store.getters.apiUid;
         this.getData();
+        // this.$store.getters.apiUid
+        // this.fetchUserInfo();
     },
     methods: {
+        // 请求用户充值接口
+        userRechargeMoney () {
+            let params = {
+                apiUid: this.$store.getters.apiUid,
+                rechargeMoney: this.allData.rechargeMoney,
+                rechargeType: '0'
+            };
+            let string = params;
+            this.$api.getUserRecharge(string).then(res => {
+                console.log(res);
+                if (res.resultCode !== '0000') {
+                    this.$message.warning(res.resultMsg);
+                } else {
+                    this.$message.success(res.resultMsg);
+                    this.config.value = res.rqcodeUrl;
+                }
+            });
+        },
         // 获取数据
         getData() {
             let params = {
@@ -61,7 +74,7 @@ export default {
         },
         // 监听选择充值金额
         selectMoney () {
-            this.allData.rechargeMoney = this.selectType.id;
+            this.allData.rechargeMoney = this.selectTypeId;
         },
         // 点击支付宝充值按钮
         aliPay () {
@@ -69,7 +82,6 @@ export default {
             this.qrCodeDialog = true;
             this.userRechargeMoney();
         }
-
     },
     components: {
         'vue-qr': VueQr

@@ -22,17 +22,7 @@ export default {
                 pageSize: 10
             },
             payTypeList: {...payTypeList},
-            payStatusList: {...payStatusList},
-            selectType: {
-                id: '',
-                list: [{
-                    label: '类型1',
-                    value: 'val1'
-                }, {
-                    label: '类2',
-                    value: 'val2'
-                }]
-            }
+            payStatusList: {...payStatusList}
         };
     },
     created() {
