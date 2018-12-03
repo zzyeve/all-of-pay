@@ -48,7 +48,7 @@ export default {
                 if (valid) {
                     this.isLoginLoading = true;
                     this.$api.userLogin(this.form).then(res => {
-                        this.isLoginLoading = true;
+                        this.isLoginLoading = false;
                         if (res.resultCode === '0000') {
                             this.$message.success('登录成功');
                             this.$store.commit('set_login', true);

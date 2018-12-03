@@ -57,7 +57,7 @@
         <el-dialog width="30%" title="充值" :visible.sync="dialogShow">
             <div class="dialog-content">
                 充值金额
-                <el-select v-model="selectType.id" size="small">
+                <el-select v-model="selectType.id" size="small" @change="selectMoney()">
                     <el-option v-for="(item, index) in selectType.list"
                         :label="item.label"
                         :value="item.value"
@@ -79,7 +79,14 @@
                 <img src="../../assets/img/alipay_mid.png" alt="" style="position: relative;top: -131px;">
                 <p class="p2">过期后请勿支付，否则收不到通知信息<br> 付款即时到账，未到账可联系我们</p>
                 <p class="p1" style="position: relative;top: -11px;">过期时间：2018-11-18 19:30:00</p>
-                <div></div>
+                <div class="bot-time">
+                    <span class="yellow-time">00</span>
+                    <span>时</span>
+                    <span class="yellow-time">12</span>
+                    <span>分</span>
+                    <span class="yellow-time">10</span>
+                    <span>秒</span>
+                </div>
             </div>
             <div slot="footer" class="dialog-footer">
                 <img src="../../assets/img/sao.png" alt="" style="width: 23px;height: 23px;position: relative;top: 4px;">

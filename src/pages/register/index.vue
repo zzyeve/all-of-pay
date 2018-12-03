@@ -3,11 +3,22 @@
 import './index.less';
 export default {
     data() {
+        // 密码重复校验
         let checkPassword = (rule, value, callback) => {
             if (value === '') {
                 callback(new Error('请再次输入密码'));
             } else if (value !== this.form.password) {
                 callback(new Error('两次输入密码不一致!'));
+            } else {
+                callback();
+            }
+        };
+        // 密码重复校验
+        let checkNumber = (rule, value, callback) => {
+            if (value === '') {
+                callback(new Error('请输入紧急联系电话'));
+            } else if (!(/^1(3|4|5|7|8)\d{9}$/.test(value))) {
+                callback(new Error('请输入正确的电话号码'));
             } else {
                 callback();
             }
@@ -60,7 +71,7 @@ export default {
                     required: true, trigger: 'blur', message: '请输入手机绑定微信号'
                 }],
                 msisdn: [{
-                    required: true, trigger: 'blur', message: '请输入紧急联系电话'
+                    required: true, trigger: 'blur', validator: checkNumber
                 }]
             }
         };

@@ -15,7 +15,8 @@ export default {
                 orderToday: '0',
                 orderYesterday: '0',
                 orderWeek: '0',
-                orderMonth: '0'
+                orderMonth: '0',
+                rechargeMoney: ''
             },
             apiUid: '',
             dialogShow: false,
@@ -39,7 +40,6 @@ export default {
     created() {
         this.apiUid = this.$store.getters.apiUid;
         this.getData();
-        // this.$store.getters.apiUid
     },
     methods: {
         // 获取数据
@@ -57,20 +57,21 @@ export default {
         },
         // 跳转到明细页
         goDetail() {
-            // this.$router.push({
-            //     path: '/detail'
-            // });
             window.location.href = '#/incomes/detail';
         },
-
-
-
-
-
+        // 监听选择充值金额
+        selectMoney () {
+            if (this.selectType.id === 50) {
+                this.allData.rechargeMoney = '50';
+            } else if (this.selectType.id === 100) {
+                this.allData.rechargeMoney = '100';
+            }
+        },
         // 点击支付宝充值按钮
         aliPay () {
             this.dialogShow = false;
             this.qrCodeDialog = true;
+            this.userRechargeMoney();
         }
 
     },
