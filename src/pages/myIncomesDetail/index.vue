@@ -8,13 +8,14 @@ export default {
             totalCount: 0,
             dataList: [],
             params: {
-                apiUid: 'AOP_5fb32426aeb24e5aa71627dd9294193d',
+                apiUid: '',
                 pageSize: 10,
                 pageNo: 1
             }
         };
     },
     created() {
+        this.params.apiUid = this.$store.getters.apiUid;
         this.getData();
     },
     methods: {
@@ -31,9 +32,6 @@ export default {
         handleCurrentChange(val) {
             this.params.pageNo = val;
             this.getData();
-        },
-        selectChange(val) {
-            console.log(val);
         },
         tableRowClassName() {
             return 'table-row-name';

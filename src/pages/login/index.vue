@@ -8,7 +8,7 @@ export default {
             dataList: [],
             checked: false,
             confirmPassword: '',
-            imgUrl: 'http://10.73.155.169:9842/aop_server/getCaptchar.action',
+            imgUrl: '',
             form: {
                 userName: '',
                 password: '',
@@ -32,6 +32,7 @@ export default {
     },
     created() {
         this.form.latestLoginIp = returnCitySN.cip;
+        this.refreshImg();
     },
     methods: {
         // 登录按钮
@@ -41,6 +42,9 @@ export default {
                     this.$api.userLogin(this.form).then(res => {
                         if (res.resultCode === '0000') {
                             this.$message.success('登录成功');
+                            this.$store.commit('set_login', true);
+                            this.$store.commit('set_apiUid', res.apiUid);
+                            window.location.href = '#/incomes';
                         } else {
                             this.$message.error(res.resultMsg);
                         }

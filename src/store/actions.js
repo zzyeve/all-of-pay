@@ -4,6 +4,9 @@ const actions = {
     },
     set_username: ({commit}, data) => {
         commit('set_username', data);
+    },
+    set_apiUid: ({commit}, data) => {
+        commit('set_apiUid', data);
     }
 };
 export default actions;

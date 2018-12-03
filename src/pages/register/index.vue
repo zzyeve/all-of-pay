@@ -12,9 +12,24 @@ export default {
                 callback();
             }
         };
+        // 用户名重复校验
+        let checkUserName = (rule, value, callback) => {
+            let that = this;
+            let params = {
+                userName: value
+            };
+            that.$api.accountCheck(params).then(res => {
+                if (res.resultCode === '0000') {
+                    callback();
+                } else {
+                    callback(res.rseultMsg);
+                }
+            });
+        };
         return {
             dataList: [],
             checked: false,
+            checkName: false,
             confirmPassword: '',
             form: {
                 userName: '',
@@ -25,8 +40,10 @@ export default {
                 msisdn: ''
             },
             rules: {
-                userName: [{
-                    required: true, message: '请输入用户名', trigger: 'blur'
+                userName: [
+                    { required: true, message: '请输入用户名', trigger: 'blur'}
+                    ,{
+                    required: true, validator: checkUserName, trigger: 'blur'
                 }],
                 realName: [{
                     required: true, trigger: 'blur', message: '请输入真实姓名'
@@ -51,21 +68,6 @@ export default {
     created() {
     },
     methods: {
-        // 用户名单独校验
-        checkUserName() {
-            if (this.form.userName) {
-                let params = {
-                    userName: this.form.userName
-                };
-                this.$api.accountCheck(params).then(res => {
-                    if (res.resultCode === '0000') {
-                        this.$message.success('用户名校验成功');
-                    } else {
-                        this.$message.error(res.resultMsg);
-                    }
-                });
-            }
-        },
         // 立即注册按钮
         registerData() {
              this.$refs.form.validate((valid) => {

@@ -25,6 +25,9 @@ const children = [
         iconClass: 'el-icon-goods',
         component: MyIncomes,
         showChildren: false, // 控制是否显示字路由
+        meta: {
+            requireAuth: true
+        },
         children: [{
             path: 'detail',
             name: '收入明细',
@@ -36,6 +39,9 @@ const children = [
         iconClass: 'el-icon-edit-outline',
         component: AccountManage,
         showChildren: false,
+        meta: {
+            requireAuth: true
+        },
         children: [{
             path: 'add',
             name: '添加收款账号 ',
@@ -47,6 +53,7 @@ const children = [
         },{
             path: 'reserve',
             name: '储备二维码管理 ',
+
             component: ReserveCode
         }]
     }, {
@@ -55,6 +62,9 @@ const children = [
         iconClass: 'el-icon-date',
         component: Abstract,
         showChildren: true,
+        meta: {
+            requireAuth: true
+        },
         children: [
             {
                 path: 'myOrder',
@@ -71,6 +81,9 @@ const children = [
         name: '无匹配订单',
         iconClass: 'el-icon-tickets',
         component: NoMatchOrder,
+        meta: {
+            requireAuth: true
+        },
         showChildren: false
     }, {
         path: 'content',
@@ -78,6 +91,9 @@ const children = [
         iconClass: 'el-icon-star-off',
         component: Abstract,
         showChildren: true,
+        meta: {
+            requireAuth: true
+        },
         children: [
             {
                 path: 'basicInfo',
@@ -110,12 +126,18 @@ const children = [
         name: 'API接口文档',
         iconClass: 'el-icon-rank',
         component: ApiDoc,
+        meta: {
+            requireAuth: true
+        },
         showChildren: false
     }, {
         path: 'app',
         name: 'app下载',
         iconClass: 'el-icon-download',
         component: AppDownload,
+        meta: {
+            requireAuth: true
+        },
         showChildren: false
     }
 ];

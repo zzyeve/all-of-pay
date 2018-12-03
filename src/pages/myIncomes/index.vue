@@ -40,19 +40,8 @@ export default {
         this.apiUid = this.$store.getters.apiUid;
         this.getData();
         // this.$store.getters.apiUid
-        // this.fetchUserInfo();
     },
     methods: {
-        // 获取用户信息
-        fetchUserInfo() {
-            let params = {
-                apiUid: 'AOP_5fb32426aeb24e5aa71627dd9294193d'
-            };
-            let string = JSON.stringify(params);
-            this.$api.getUserInfo(string).then(res => {
-                console.log(res);
-            });
-        },
         // 获取数据
         getData() {
             let params = {

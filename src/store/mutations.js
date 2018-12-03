@@ -7,6 +7,10 @@ const mutations = {
         state.username = data;
         window.sessionStorage.setItem('username', data);
     },
+    set_apiUid(state, data) {
+        state.apiUid = data;
+        window.sessionStorage.setItem('apiUid', data);
+    },
     set_info(state, data) {
         state.info = data;
     }

@@ -72,7 +72,7 @@ export default {
             activeMenu: '',
             apiUid: '',
             routes: children,
-            userName: 'Admin',
+            userName: '',
             menuShow: true,
             breadcrumbs: [],
             contentStyle: {
@@ -96,11 +96,11 @@ export default {
                 this.userName = res.userInfoList[0].realName;
                 this.$store.dispatch('set_username', res.userInfoList[0].realName);
             });
-            // console.log(this.routes);
         },
         // 退出
         loginOut() {
             this.$store.dispatch('set_username', '');
+            this.$store.dispatch('set_apiUid', '');
             this.$store.dispatch('set_login', false);
             window.location.href = '#/login';
         },
