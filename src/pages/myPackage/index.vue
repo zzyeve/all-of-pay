@@ -1,6 +1,7 @@
 <template src="./index.html"></template>
 <script>
 import './index.less';
+import Moment from 'moment';
 export default {
   data () {
     return {
@@ -70,8 +71,11 @@ export default {
         endTime: '',
         residueDays: '',
         lowPackageId: '',
+        lowPackagePrice: '',
         highPackageId: '',
-        professionalPackageId: ''
+        highPackagePrice: '',
+        professionalPackageId: '',
+        professionalPackagePrice: ''
       },
       rules2_1: {
         id: [
@@ -139,8 +143,11 @@ export default {
       this.$api.getPackageInfo(string).then(res => {
         console.log(res);
         this.packageInfo.lowPackageId = res.packageInfoList[1].packageId;
+        this.packageInfo.lowPackagePrice = res.packageInfoList[1].packagePrice;
         this.packageInfo.highPackageId = res.packageInfoList[2].packageId;
+        this.packageInfo.highPackagePrice = res.packageInfoList[2].packagePrice;
         this.packageInfo.professionalPackageId = res.packageInfoList[0].packageId;
+        this.packageInfo.professionalPackagePrice = res.packageInfoList[0].packagePrice;
       });
     },
 
@@ -151,11 +158,12 @@ export default {
         password: passwords,
         oldPackageId: this.packageInfo.packageId,
         newPackageId: newId,
-        packageExpiryTime: this.packageInfo.packageExpiryTime,
+        packageExpiryTime: Moment(this.packageInfo.endTime).format('YYYYMMDD HH:mm:ss'),
         subscriptAmount: subscript_amount,
         type: typeValue
       };
       let string = params;
+      console.log(string);
       this.$api.updateUserPackageInfo(string).then(res => {
         console.log(res);
         if (res.resultCode !== '0000') {
@@ -240,14 +248,14 @@ export default {
     changePackage () {
       if (this.packageInfo.packageName === '低级版套餐') {
         if (this.formTwoLabelAlign.id === '选项2') {
-          this.packageInfo.priceDifferences = (199 - 99);
+          this.packageInfo.priceDifferences = this.packageInfo.highPackagePrice - this.packageInfo.lowPackagePrice;
           if (this.packageInfo.accountBalance < this.packageInfo.priceDifferences) {
             this.warningWords2 = true;
           } else {
             this.warningWords2 = false;
           }
         } else if (this.formTwoLabelAlign.id === '选项3') {
-          this.packageInfo.priceDifferences = (699 - 99);
+          this.packageInfo.priceDifferences = this.packageInfo.professionalPackagePrice - this.packageInfo.lowPackagePrice;
           if (this.packageInfo.accountBalance < this.packageInfo.priceDifferences) {
             this.warningWords2 = true;
           } else {
@@ -258,7 +266,7 @@ export default {
         if (this.formTwoLabelAlign.id === '选项1') {
           this.packageInfo.priceDifferences = '0';
         } else if (this.formTwoLabelAlign.id === '选项3') {
-          this.packageInfo.priceDifferences = (699 - 199);
+          this.packageInfo.priceDifferences = this.packageInfo.professionalPackagePrice - this.packageInfo.highPackagePrice;
           if (this.packageInfo.accountBalance < this.packageInfo.priceDifferences) {
             this.warningWords2 = true;
           } else {
@@ -290,7 +298,7 @@ export default {
     submitDelayMoney (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.changeOrDelayPackage(this.formOneLabelAlign.password, this.packageInfo.packageId, this.packageInfo.currentPrice, '0');
+          this.changeOrDelayPackage(this.formOneLabelAlign.password, this.packageInfo.packageId, this.packageInfo.currentPrice.substring(1), '0');
           this.$refs[formName].resetFields();
           this.showLine = false;
           this.packageInfo.beforePrice = '';
@@ -314,26 +322,25 @@ export default {
 
     // 弹出的更改套餐表单里点击改套餐按钮提交
     submitChangePackage (formName) {
-      console.log(this.formTwoLabelAlign.id);
       this.$refs[formName].validate((valid) => {
         if (valid) {
           if (this.packageInfo.packageName === '低级版套餐') {
             if (this.formTwoLabelAlign.id === '选项2') {
-              this.changeOrDelayPackage(this.formTwoLabelAlign.password, this.packageInfo.highPackageId, this.packageInfo.priceDifferences, '1');
+              this.changeOrDelayPackage(this.formTwoLabelAlign.password, this.packageInfo.highPackageId, String(this.packageInfo.priceDifferences), '1');
             } else if (this.formTwoLabelAlign.id === '选项3') {
-              this.changeOrDelayPackage(this.formTwoLabelAlign.password, this.packageInfo.professionalPackageId, this.packageInfo.priceDifferences, '1');
+              this.changeOrDelayPackage(this.formTwoLabelAlign.password, this.packageInfo.professionalPackageId, String(this.packageInfo.priceDifferences), '1');
             }
           } else if (this.packageInfo.packageName === '高级版套餐') {
             if (this.formTwoLabelAlign.id === '选项1') {
-              this.changeOrDelayPackage(this.formTwoLabelAlign.password, this.packageInfo.lowPackageId, this.packageInfo.priceDifferences, '1');
+              this.changeOrDelayPackage(this.formTwoLabelAlign.password, this.packageInfo.lowPackageId, String(this.packageInfo.priceDifferences), '1');
             } else if (this.formTwoLabelAlign.id === '选项3') {
-              this.changeOrDelayPackage(this.formTwoLabelAlign.password, this.packageInfo.professionalPackageId, this.packageInfo.priceDifferences, '1');
+              this.changeOrDelayPackage(this.formTwoLabelAlign.password, this.packageInfo.professionalPackageId, String(this.packageInfo.priceDifferences), '1');
             }
           } else if (this.packageInfo.packageName === '专业版套餐') {
             if (this.formTwoLabelAlign.id === '选项1') {
-              this.changeOrDelayPackage(this.formTwoLabelAlign.password, this.packageInfo.lowPackageId, this.packageInfo.priceDifferences, '1');
+              this.changeOrDelayPackage(this.formTwoLabelAlign.password, this.packageInfo.lowPackageId, String(this.packageInfo.priceDifferences), '1');
             } else if (this.formTwoLabelAlign.id === '选项2') {
-              this.changeOrDelayPackage(this.formTwoLabelAlign.password, this.packageInfo.highPackageId, this.packageInfo.priceDifferences, '1');
+              this.changeOrDelayPackage(this.formTwoLabelAlign.password, this.packageInfo.highPackageId, String(this.packageInfo.priceDifferences), '1');
             }
           }
 

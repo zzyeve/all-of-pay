@@ -68,9 +68,9 @@ axios.interceptors.response.use(response => {
     // return Promise.reject(error.response.data);
 });
 // 后端本机服务器
-// let base = 'http://10.73.155.168:8080/aop_server';
+let base = 'http://10.73.155.168:8080/aop_server';
 // 服务器地址
-let base = 'http://10.73.155.169:9842/aop_server';
+// let base = 'http://10.73.155.169:9842/aop_server';
 
 // 注册接口
 export const userRegister = (params) => {
@@ -94,7 +94,7 @@ export const getBalanceDetail = (params) => {
 };
 // 用户充值
 export const getUserRecharge = (params) => {
-  return axios.post(`${base}/userRecharge`, params).then(res => res);
+  return axios.post(`${base}/userRecharge.action`, params).then(res => res);
 };
 // 获取验证码
 export const getCaptchar = () => {
