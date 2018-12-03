@@ -28,10 +28,10 @@ export default {
             selectType: {
                 id: '',
                 list: [{
-                    value: 50,
+                    value: '50',
                     label: 50.00
                 },{
-                    value: 100,
+                    value: '100',
                     label: 100.00
                 }]
             }
@@ -61,11 +61,7 @@ export default {
         },
         // 监听选择充值金额
         selectMoney () {
-            if (this.selectType.id === 50) {
-                this.allData.rechargeMoney = '50';
-            } else if (this.selectType.id === 100) {
-                this.allData.rechargeMoney = '100';
-            }
+            this.allData.rechargeMoney = this.selectType.id;
         },
         // 点击支付宝充值按钮
         aliPay () {
