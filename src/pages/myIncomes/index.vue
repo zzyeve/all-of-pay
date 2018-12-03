@@ -46,7 +46,6 @@ export default {
             };
             let string = params;
             this.$api.getUserRecharge(string).then(res => {
-                console.log(res);
                 if (res.resultCode !== '0000') {
                     this.$message.warning(res.resultMsg);
                 } else {
