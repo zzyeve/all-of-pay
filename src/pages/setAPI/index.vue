@@ -32,17 +32,13 @@ export default {
     };
   },
   created() {
-    // this.getData();
+
   },
   methods: {
-    // getData () {
-    // console.log('1');
-    // }
-
     // 请求用户二维码失效时间更改接口
     updateRqcodeExpiryTime () {
       let params = {
-        apiUid: 'AOP_5fb32426aeb24e5aa71627dd9294193d',
+        apiUid: this.$store.getters.apiUid,
         rqcodeExpiryTime: this.formLabelAlign4.delayTime
       };
       let string = params;

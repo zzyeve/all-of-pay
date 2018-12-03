@@ -58,7 +58,7 @@ export default {
     // 请求用户密码修改接口
     updateUserPassword () {
       let params = {
-        apiUid: 'AOP_5fb32426aeb24e5aa71627dd9294193d',
+        apiUid: this.$store.getters.apiUid,
         oldPassword: this.formLabelAlign3.oldPassword,
         newPassword: this.formLabelAlign3.newPassword
       };
