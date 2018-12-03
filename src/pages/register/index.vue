@@ -22,7 +22,7 @@ export default {
                 if (res.resultCode === '0000') {
                     callback();
                 } else {
-                    callback(res.rseultMsg);
+                    callback(new Error('用户名已存在'));
                 }
             });
         };
@@ -85,7 +85,10 @@ export default {
                     };
                     this.$api.userRegister(params).then(res => {
                         if (res.resultCode === '0000') {
-                            this.$message.success('注册成功');
+                            this.$message.success('注册成功,请登录');
+                            setTimeout(function() {
+                                window.location.href = '#/login';
+                            }, 2000);
                         } else {
                             this.$message.error(res.rseultMsg);
                         }

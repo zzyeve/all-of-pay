@@ -74,9 +74,6 @@ export default {
             this.params.pageNo = val;
             this.getData();
         },
-        selectChange(val) {
-            console.log(val);
-        },
         tableRowClassName() {
             return 'table-row-name';
         },

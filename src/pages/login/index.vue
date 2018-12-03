@@ -7,6 +7,7 @@ export default {
         return {
             dataList: [],
             checked: false,
+            isLoginLoading: false,
             confirmPassword: '',
             imgUrl: '',
             form: {
@@ -34,12 +35,20 @@ export default {
         this.form.latestLoginIp = returnCitySN.cip;
         this.refreshImg();
     },
+    computed: {
+        loginText() {
+            if (this.isLoginLoading) return '登录中...';
+            return '登录';
+        }
+    },
     methods: {
         // 登录按钮
         loginData() {
              this.$refs.form.validate((valid) => {
                 if (valid) {
+                    this.isLoginLoading = true;
                     this.$api.userLogin(this.form).then(res => {
+                        this.isLoginLoading = true;
                         if (res.resultCode === '0000') {
                             this.$message.success('登录成功');
                             this.$store.commit('set_login', true);

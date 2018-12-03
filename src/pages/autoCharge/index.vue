@@ -4,37 +4,11 @@ import './index.less';
 export default {
     data() {
         return {
-            params: {
-                keys: '',
-                status: '1'
-            },
-            selectType: {
-                id: '',
-                list: [{
-                    label: '类型1',
-                    value: 'val1'
-                }, {
-                    label: '类2',
-                    value: 'val2'
-                }]
-            }
         };
     },
     created() {
-        this.getData();
     },
     methods: {
-        // 获取数据
-        getData() {
-        },
-        // 页码更改
-        handleCurrentChange(val) {
-            this.params.pageNo = val;
-            this.getData();
-        },
-        selectChange(val) {
-            console.log(val);
-        },
         tableRowClassName() {
             return 'table-row-name';
         },

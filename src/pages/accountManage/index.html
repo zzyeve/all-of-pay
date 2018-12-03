@@ -3,7 +3,7 @@
         <div class="search">
             <div>
                 <span>支付类型：</span>
-                <el-select v-model="params.payType" @change="selectChange" size="small">
+                <el-select v-model="params.payType" size="small">
                     <el-option 
                         v-for="(item, index) in selectList" 
                         :label="item.label" 

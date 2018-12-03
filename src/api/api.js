@@ -33,7 +33,7 @@ axios.interceptors.request.use((config) => {
 axios.interceptors.response.use(response => {
 	// console.log(response);
     if (response.status === 200) {
-		return response.data;
+		  return response.data;
     }
     return response.data;
     // // 200 非业务成功，也算失败

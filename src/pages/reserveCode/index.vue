@@ -121,18 +121,6 @@ export default {
                         this.$message.error(res.resultMsg);
                     }
                 });
-                // let params = {
-                //     account:  this.account,
-                //     rqcodePriceList: this.selectionList
-                // };
-                // this.$api.deleteAccountRqcode(params).then(res => {
-                //     if (res.resultCode === "0000") {
-                //         this.$message.success('删除成功');
-                //         this.getData();
-                //     } else {
-                //         this.$message.error(res.resultMsg);
-                //     }
-                // });
             }).catch(() => {
                 this.$message.info('已取消删除');
             });

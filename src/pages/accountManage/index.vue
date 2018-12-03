@@ -2,7 +2,7 @@
 <script>
 import "./index.less";
 import Abstract from "../../components/Abstract.vue";
-import {payTypeList, modeList, wayList} from '../../utils/selectList.js';
+import { payTypeList, modeList, wayList } from "../../utils/selectList.js";
 export default {
   mixins: [Abstract],
   data() {
@@ -23,9 +23,9 @@ export default {
         matchingMode: "0",
         pollingWay: "0"
       },
-      selectList: {...payTypeList},
-      modeList: {...modeList},
-      wayList: {...wayList}
+      selectList: { ...payTypeList },
+      modeList: { ...modeList },
+      wayList: { ...wayList }
     };
   },
   created() {
@@ -56,25 +56,27 @@ export default {
     },
     // 删除按钮
     deleteAccount(row) {
-        this.$confirm('是否删除此条数据？', '删除提示', {
-            confirmButtonText: '确定',
-            cancelButtonText: '取消',
-            type: 'warning'
-        }).then(() => {
-            let params = {
-                receviceAccount: row.receviceAccount,
-                apiUid: this.params.apiUid
-            };
-            this.$api.deleteUserAccount(params).then(res => {
-                if (res.resultCode === "0000") {
-                    this.$message.success('删除成功');
-                    this.getData();
-                } else {
-                    this.$message.error(res.resultMsg);
-                }
-            });
-        }).catch(() => {
-            this.$message.info('已取消删除');
+      this.$confirm("是否删除此条数据？", "删除提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(() => {
+          let params = {
+            receviceAccount: row.receviceAccount,
+            apiUid: this.params.apiUid
+          };
+          this.$api.deleteUserAccount(params).then(res => {
+            if (res.resultCode === "0000") {
+              this.$message.success("删除成功");
+              this.getData();
+            } else {
+              this.$message.error(res.resultMsg);
+            }
+          });
+        })
+        .catch(() => {
+          this.$message.info("已取消删除");
         });
     },
     // 页码更改
@@ -84,9 +86,9 @@ export default {
     },
     // 跳转编辑收款账户
     goEdit(row) {
-        let accountDetail = JSON.stringify(row);
-        window.sessionStorage.setItem('accountDetail', accountDetail);
-        window.location.href = "#/account/edit";
+      let accountDetail = JSON.stringify(row);
+      window.sessionStorage.setItem("accountDetail", accountDetail);
+      window.location.href = "#/account/edit";
     },
     // 跳转新增收款账户
     goAddAcount() {
@@ -94,10 +96,7 @@ export default {
     },
     // 跳转二维码管理
     goReserve(row) {
-      window.location.href = '#/account/reserve?account=' + row.receviceAccount;
-    },
-    selectChange(val) {
-      console.log(val);
+      window.location.href = "#/account/reserve?account=" + row.receviceAccount;
     },
     tableRowClassName() {
       return "table-row-name";
