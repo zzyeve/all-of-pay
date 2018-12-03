@@ -15,7 +15,8 @@ export default {
                 orderToday: '0',
                 orderYesterday: '0',
                 orderWeek: '0',
-                orderMonth: '0'
+                orderMonth: '0',
+                rechargeMoney: ''
             },
             apiUid: '',
             dialogShow: false,
@@ -46,13 +47,33 @@ export default {
         // 获取用户信息
         fetchUserInfo() {
             let params = {
-                apiUid: 'AOP_5fb32426aeb24e5aa71627dd9294193d'
+                apiUid: this.$store.getters.apiUid
             };
             let string = JSON.stringify(params);
             this.$api.getUserInfo(string).then(res => {
                 console.log(res);
             });
         },
+
+        // 请求用户充值接口
+        userRechargeMoney () {
+            let params = {
+                apiUid: this.$store.getters.apiUid,
+                rechargeMoney: this.allData.rechargeMoney,
+                rechargeType: '0'
+            };
+            let string = params;
+            this.$api.getUserRecharge(string).then(res => {
+                console.log(res);
+                if (res.resultCode !== '0000') {
+                    this.$message.warning(res.resultMsg);
+                } else {
+                    this.$message.success(res.resultMsg);
+                    this.config.value = res.rqcodeUrl;
+                }
+            });
+        },
+
         // 获取数据
         getData() {
             let params = {
@@ -77,11 +98,19 @@ export default {
 
 
 
-
+        // 监听选择充值金额
+        selectMoney () {
+            if (this.selectType.id === 50) {
+                this.allData.rechargeMoney = '50';
+            } else if (this.selectType.id === 100) {
+                this.allData.rechargeMoney = '100';
+            }
+        },
         // 点击支付宝充值按钮
         aliPay () {
             this.dialogShow = false;
             this.qrCodeDialog = true;
+            this.userRechargeMoney();
         }
 
     },

@@ -44,6 +44,7 @@ export default {
       let string = params;
       this.$api.changeRqcodeExpiryTime(string).then(res => {
         console.log(res);
+        this.$message.success(res.resultMsg);
       });
     },
 
@@ -52,7 +53,6 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.updateRqcodeExpiryTime();
-          this.$message.success('二维码过期时间修改成功！');
           this.$refs[formName].resetFields();
         } else {
           this.$message.warning('error submit!');
