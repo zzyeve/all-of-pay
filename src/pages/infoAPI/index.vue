@@ -15,7 +15,7 @@ export default {
     // 请求用户重置token接口
     resetToken () {
       let params = {
-        apiUid: 'AOP_5fb32426aeb24e5aa71627dd9294193d'
+        apiUid: this.$store.getters.apiUid
       };
       let string = params;
       this.$api.tokenReset(string).then(res => {

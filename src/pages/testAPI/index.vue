@@ -32,7 +32,7 @@ export default {
     // 请求测试接口
     interfaceTest () {
       let params = {
-        apiUid: 'AOP_5fb32426aeb24e5aa71627dd9294193d',
+        apiUid: this.$store.getters.apiUid,
         payType: this.formLabelAlign6.payType,
         amount: this.formLabelAlign6.money
       };

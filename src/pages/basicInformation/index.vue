@@ -28,17 +28,30 @@ export default {
     };
   },
   created () {
-    // this.getData();
+    this.getUserInformation();
   },
   methods: {
-    // getData () {
-      // console.log('1');
-    // }
+    // 请求用户基本信息查询接口
+    getUserInformation () {
+      let params = {
+        apiUid: this.$store.getters.apiUid
+      };
+      let string = params;
+      this.$api.getUserInfo(string).then(res => {
+        console.log(res);
+        this.formLabelAlign1.name = res.userInfoList[0].realName;
+        this.formLabelAlign1.phone = res.userInfoList[0].msisdn;
+        this.formLabelAlign1.wechat = res.userInfoList[0].weixinAccount;
+        this.formLabelAlign1.qq = res.userInfoList[0].qqNumber;
+        this.formLabelAlign1.authority = res.userInfoList[0].pageCopyright;
+        this.formLabelAlign1.announce = res.userInfoList[0].balanceAlarm;
+      });
+    },
 
     // 请求用户基本信息修改接口
     updateUserInfo () {
       let params = {
-        apiUid: 'AOP_5fb32426aeb24e5aa71627dd9294193d',
+        apiUid: this.$store.getters.apiUid,
         realName: this.formLabelAlign1.name,
         msisdn: this.formLabelAlign1.phone,
         weixinAccount: this.formLabelAlign1.wechat,

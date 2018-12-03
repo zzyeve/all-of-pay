@@ -100,7 +100,7 @@ export default {
     // 请求用户套餐信息查询接口
     getUserPackageInformation () {
       let params = {
-        apiUid: 'AOP_5fb32426aeb24e5aa71627dd9294193d'
+        apiUid: this.$store.getters.apiUid
       };
       let string = params;
       this.$api.getUserPackageInfo(string).then(res => {
@@ -147,7 +147,7 @@ export default {
     // 请求用户更改/续订套餐接口
     changeOrDelayPackage (passwords, newId, subscript_amount, typeValue) {
       let params = {
-        apiUid: 'AOP_5fb32426aeb24e5aa71627dd9294193d',
+        apiUid: this.$store.getters.apiUid,
         password: passwords,
         oldPackageId: this.packageInfo.packageId,
         newPackageId: newId,
@@ -169,7 +169,7 @@ export default {
     // 请求用户基本信息查询接口来查找账户的余额
     getUserInfo () {
       let params = {
-        apiUid: 'AOP_5fb32426aeb24e5aa71627dd9294193d'
+        apiUid: this.$store.getters.apiUid
       };
       let string = params;
       this.$api.getUserInfo(string).then(res => {
