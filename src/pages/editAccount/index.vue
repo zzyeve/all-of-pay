@@ -68,10 +68,12 @@ export default {
 		saveData() {
 			this.params.timeLimitStart = this.params.timeLimitStart ? moment(this.params.timeLimitStart).format('YYYYMMDD HH:mm:ss') : '';
 			this.params.timerLimitEnd = this.params.timerLimitEnd ? moment(this.params.timerLimitEnd).format('YYYYMMDD HH:mm:ss') : '';
-			let paramsStr = JSON.stringify(this.params);
-			this.$api.addUserReceviceAccount(paramsStr).then(res => {
+			this.$api.addUserReceviceAccount(this.params).then(res => {
 				if (res.resultCode === "0000") {
 					this.$message.success("编辑成功");
+					setTimeout(function() {
+						window.location.href = '#/account';
+					}, 2000);
 				} else {
 					this.$message.error(res.resultMsg);
 				}

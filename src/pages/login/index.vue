@@ -63,7 +63,7 @@ export default {
         },
         // 刷新验证码
         refreshImg() {
-            this.imgUrl = 'http://10.73.155.169:9842/aop_server/getCaptchar.action?t=' + Math.random();
+            this.imgUrl = this.$api.getCaptchar + '?t=' + Math.random();
         },
         // 回到首页
         goFirstPage() {

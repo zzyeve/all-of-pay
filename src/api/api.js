@@ -68,9 +68,9 @@ axios.interceptors.response.use(response => {
     // return Promise.reject(error.response.data);
 });
 // 后端本机服务器
-let base = 'http://10.73.155.168:8080/aop_server';
+// let base = 'http://10.73.155.168:8080/aop_server';
 // 服务器地址
-// let base = 'http://10.73.155.169:9842/aop_server';
+let base = 'http://10.73.155.169:9842/aop_server';
 
 // 注册接口
 export const userRegister = (params) => {
@@ -100,10 +100,12 @@ export const getBalanceDetail = (params) => {
 export const getUserRecharge = (params) => {
   return axios.post(`${base}/userRecharge.action`, params).then(res => res);
 };
-// 获取验证码
-export const getCaptchar = () => {
-  return axios.get(`${base}/getCaptchar.action`).then(res => res);
-};
+// 获取验证码---图片链接
+export const getCaptchar = `${base}/getCaptchar.action`;
+// export const getCaptchar = () => {
+//   console.log(base);
+//   return (base + `/getCaptchar.action`);
+// };
 // 用户账户订单信息查询
 export const getAccountAndOrderInfo = (params) => {
   return axios.post(`${base}/getAccountAndOrderInfo.action`, params).then(res => res);
