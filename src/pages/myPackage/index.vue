@@ -295,6 +295,7 @@ export default {
           this.packageInfo.beforePrice = '';
           this.packageInfo.currentPrice = '';
           this.dialogFormOneVisible = false;
+          this.getUserPackageInformation();
         } else {
           this.$message.warning('error submit!');
           return false;
