@@ -55,7 +55,7 @@
           <span>{{ packageInfo.packagePrice }}元/月</span>
         </el-form-item>
         <el-form-item label="续费时长：" prop="id">
-          <el-select v-model="formOneLabelAlign.id" placeholder="排序" @change="changeTime()">
+          <el-select v-model="formOneLabelAlign.id" placeholder="一个月" @change="changeTime()">
             <el-option v-for="(item, index) in formOneLabelAlign.selectTime.list" :key="index" :label="item.label" :value="item.value"></el-option>
           </el-select>
         </el-form-item>
