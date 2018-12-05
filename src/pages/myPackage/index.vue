@@ -96,7 +96,6 @@ export default {
         apiUid: this.$store.getters.apiUid
       };
       this.$api.getUserPackageInfo(params).then(res => {
-        console.log(res);
         if (res.resultCode === '0000') {
           if (res.packageName === '') {
             this.havePurchase = false;
@@ -145,9 +144,7 @@ export default {
         subscriptAmount: subscript_amount,
         type: typeValue
       };
-      console.log(string);
       this.$api.updateUserPackageInfo(params).then(res => {
-        console.log(res);
         if (res.resultCode !== '0000') {
           this.$message.warning(res.resultMsg);
         } else {
@@ -162,7 +159,6 @@ export default {
         apiUid: this.$store.getters.apiUid
       };
       this.$api.getUserInfo(params).then(res => {
-        console.log(res);
         this.packageInfo.accountBalance = '¥' + res.userInfoList[0].userBalance;
       });
     },

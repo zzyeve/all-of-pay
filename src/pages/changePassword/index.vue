@@ -63,7 +63,6 @@ export default {
         newPassword: this.formLabelAlign3.newPassword
       };
       this.$api.changeUserPassword(params).then(res => {
-        console.log(res);
         if (res.resultCode !== '0000') {
           this.$message.warning(res.resultMsg);
         } else {

@@ -105,7 +105,7 @@ export default {
                         }
                     });
                 } else {
-                    this.$message.warnning('请填写内容');
+                    this.$message.warning('请填写内容');
                 }
             });
         },
