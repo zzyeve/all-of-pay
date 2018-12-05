@@ -36,8 +36,7 @@ export default {
       let params = {
         apiUid: this.$store.getters.apiUid
       };
-      let string = params;
-      this.$api.getUserInfo(string).then(res => {
+      this.$api.getUserInfo(params).then(res => {
         console.log(res);
         this.formLabelAlign1.name = res.userInfoList[0].realName;
         this.formLabelAlign1.phone = res.userInfoList[0].msisdn;
@@ -60,9 +59,14 @@ export default {
         pageCopyright: this.formLabelAlign1.authority,
         balanceAlarm: this.formLabelAlign1.announce
       };
-      let string = params;
-      this.$api.changeUserInfo(string).then(res => {
+      this.$api.changeUserInfo(params).then(res => {
         console.log(res);
+        if (res.resultCode === '0000') {
+          this.$message.success('修改成功！');
+          this.getUserInformation();
+        } else {
+          this.$message.warning(res.resultMsg);
+        }
       });
     },
 
@@ -71,10 +75,8 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.updateUserInfo();
-          this.$message.success('修改成功！');
-          this.$refs[formName].resetFields();
         } else {
-          this.$message.warning('error submit!');
+          this.$message.warning('请填写内容');
           return false;
         }
       });
