@@ -41,7 +41,7 @@
     </section>
 
     <!--弹出的续费表单-->
-    <el-dialog title="续费" :visible.sync="dialogFormOneVisible" width="483px" class="pay-for">
+    <el-dialog title="续费" :visible.sync="dialogFormOneVisible" width="483px" class="pay-for" @close="closeDialogOne('formOneLabelAlign')">
       <el-form :label-position="labelPosition" label-width="145px" :model="formOneLabelAlign" ref="formOneLabelAlign" :rules="rules2_1">
         <el-form-item label="套餐名称：">
           <span v-text="packageInfo.packageName"></span>
@@ -80,7 +80,7 @@
     </el-dialog>
 
     <!--弹出的套餐更改表单-->
-    <el-dialog title="套餐更改" :visible.sync="dialogFormTwoVisible" width="483px" class="pay-for">
+    <el-dialog title="套餐更改" :visible.sync="dialogFormTwoVisible" width="483px" class="pay-for" @close="closeDialogTwo('formTwoLabelAlign')">
       <el-form :label-position="labelPosition" label-width="145px" :model="formTwoLabelAlign" ref="formTwoLabelAlign" :rules="rules2_2">
         <el-form-item label="套餐升级到：" prop="id">
           <el-select v-model="formTwoLabelAlign.id" placeholder="请选择套餐" @change="changePackage()">

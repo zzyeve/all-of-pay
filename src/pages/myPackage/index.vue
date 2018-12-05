@@ -353,6 +353,14 @@ export default {
       this.$refs[formName].resetFields();
       this.packageInfo.priceDifferences = '';
       this.dialogFormTwoVisible = false;
+    },
+    // 点击续费对话框关闭按钮
+    closeDialogOne (formName) {
+      this.$refs[formName].resetFields();
+    },
+    // 点击更改套餐对话框关闭按钮
+    closeDialogTwo (formName) {
+      this.$refs[formName].resetFields();
     }
   }
 };
