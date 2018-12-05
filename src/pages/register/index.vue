@@ -104,6 +104,8 @@ export default {
                             this.$message.error(res.rseultMsg);
                         }
                     });
+                } else {
+                    this.$message.warnning('请填写内容');
                 }
             });
         },

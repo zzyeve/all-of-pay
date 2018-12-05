@@ -152,7 +152,7 @@ export default {
         saveData() {
             let patern = /^[1-9]\d{0,3}|1000$/;
             if (!this.firstRange || !this.lastRange || !this.addForm.rqcodeIncreasing) {
-                this.$message.error('请输入');
+                this.$message.error('请填写内容');
                 return;
             } else if (patern.test(this.firstRange) && patern.test(this.lastRange)) {
                 this.addForm.rqcodePriceRange = this.firstRange + '-' + this.lastRange;

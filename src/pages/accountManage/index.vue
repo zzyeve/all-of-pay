@@ -59,26 +59,25 @@ export default {
 		},
 		// 删除按钮
 		deleteAccount(row) {
-		this.$confirm("是否删除此条数据？", "删除提示", {
-			confirmButtonText: "确定",
-			cancelButtonText: "取消",
-			type: "warning"
-		}).then(() => {
-			let params = {
-				receviceAccount: row.receviceAccount,
-				apiUid: this.params.apiUid
-			};
-			this.$api.deleteUserAccount(params).then(res => {
-				if (res.resultCode === "0000") {
-				this.$message.success("删除成功");
-				this.getData();
-				} else {
-				this.$message.error(res.resultMsg);
-				}
-			});
-			})
-			.catch(() => {
-			this.$message.info("已取消删除");
+			this.$confirm("是否删除此条数据？", "删除提示", {
+				confirmButtonText: "确定",
+				cancelButtonText: "取消",
+				type: "warning"
+			}).then(() => {
+				let params = {
+					receviceAccount: row.receviceAccount,
+					apiUid: this.params.apiUid
+				};
+				this.$api.deleteUserAccount(params).then(res => {
+					if (res.resultCode === "0000") {
+					this.$message.success("删除成功");
+					this.getData();
+					} else {
+					this.$message.error(res.resultMsg);
+					}
+				});
+			}).catch(() => {
+				this.$message.info("已取消删除");
 			});
 		},
 		// 页码更改

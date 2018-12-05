@@ -56,8 +56,11 @@ export default {
                             window.location.href = '#/incomes';
                         } else {
                             this.$message.error(res.resultMsg);
+                            this.refreshImg();
                         }
                     });
+                } else {
+                    this.$message.warnning('请填写内容');
                 }
             });
         },

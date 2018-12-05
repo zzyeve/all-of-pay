@@ -13,7 +13,7 @@ export default {
       labelPosition: 'right',
       formLabelAlign6: {
         money: '',
-        payType: ''
+        payType: '0'
       },
       rules6: {
         money: [

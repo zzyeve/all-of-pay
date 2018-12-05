@@ -60,7 +60,7 @@ export default {
 		// 保存按钮
 		saveData() {
 			this.$refs.params.validate((valid) => {
-			if (valid) {
+				if (valid) {
 					this.params.timeLimitStart = this.params.timeLimitStart ? moment(this.params.timeLimitStart).format('YYYYMMDD HH:mm:ss') : '';
 					this.params.timerLimitEnd = this.params.timerLimitEnd ? moment(this.params.timerLimitEnd).format('YYYYMMDD HH:mm:ss') : '';
 					this.$api.addUserReceviceAccount(this.params).then(res => {
@@ -74,7 +74,7 @@ export default {
 						}
 					});
 				} else {
-					return false;
+					this.$message.warnning('请填写内容');
 				}
 			});
 		},
