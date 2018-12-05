@@ -37,7 +37,6 @@ export default {
         amount: this.formLabelAlign6.money
       };
       this.$api.aopInterfaceTest(params).then(res => {
-        console.log(res);
         if (res.resultCode === '0000') {
           this.$message.success('提交成功！');
           this.config.value = res.rqcodeUrl;

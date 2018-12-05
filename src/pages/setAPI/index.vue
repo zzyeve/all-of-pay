@@ -44,7 +44,6 @@ export default {
         rqcodeExpiryTime: this.formLabelAlign4.delayTime
       };
       this.$api.changeRqcodeExpiryTime(params).then(res => {
-        console.log(res);
         if (res.resultCode === '0000') {
           this.$message.success(res.resultMsg);
         } else {

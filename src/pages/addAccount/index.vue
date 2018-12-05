@@ -7,7 +7,8 @@ export default {
 	data() {
 		let checkAccountSort = (rule, value, callback) => {
 			if (value === '') {
-				return true; // 如果没值的时候默认不校验，输入值的时候再进行校验
+				callback();
+				 // 如果没值的时候默认不校验，输入值的时候再进行校验
 			} else if (!/^([1-9]\d|\d)$/.test(value)) {
                 callback(new Error('请输入一个0-99整数'));
             } else {
@@ -16,7 +17,7 @@ export default {
 		};
 		let checkAccountWeight = (rule, value, callback) => {
 			if (value === '') {
-				return true;
+				callback();
 			} else if (!/^([1-9]\d|\d)$/.test(value)) {
                 callback(new Error('请输入一个0-99整数'));
             } else {
@@ -74,7 +75,7 @@ export default {
 						}
 					});
 				} else {
-					this.$message.warnning('请填写内容');
+					this.$message.warning('请填写内容');
 				}
 			});
 		},

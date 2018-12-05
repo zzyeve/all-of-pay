@@ -18,7 +18,6 @@ export default {
         apiUid: this.$store.getters.apiUid
       };
       this.$api.tokenReset(params).then(res => {
-        console.log(res);
         this.tokenId = res.result.token;
       });
     },

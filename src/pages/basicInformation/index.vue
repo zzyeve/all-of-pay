@@ -37,7 +37,6 @@ export default {
         apiUid: this.$store.getters.apiUid
       };
       this.$api.getUserInfo(params).then(res => {
-        console.log(res);
         this.formLabelAlign1.name = res.userInfoList[0].realName;
         this.formLabelAlign1.phone = res.userInfoList[0].msisdn;
         this.formLabelAlign1.wechat = res.userInfoList[0].weixinAccount;
@@ -60,7 +59,6 @@ export default {
         balanceAlarm: this.formLabelAlign1.announce
       };
       this.$api.changeUserInfo(params).then(res => {
-        console.log(res);
         if (res.resultCode === '0000') {
           this.$message.success('修改成功！');
           this.getUserInformation();
