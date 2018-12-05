@@ -43,10 +43,13 @@ export default {
         apiUid: this.$store.getters.apiUid,
         rqcodeExpiryTime: this.formLabelAlign4.delayTime
       };
-      let string = params;
-      this.$api.changeRqcodeExpiryTime(string).then(res => {
+      this.$api.changeRqcodeExpiryTime(params).then(res => {
         console.log(res);
-        this.$message.success(res.resultMsg);
+        if (res.resultCode === '0000') {
+          this.$message.success(res.resultMsg);
+        } else {
+          this.$message.warning(res.resultMsg);
+        }
       });
     },
 
@@ -57,7 +60,7 @@ export default {
           this.updateRqcodeExpiryTime();
           this.$refs[formName].resetFields();
         } else {
-          this.$message.warning('error submit!');
+          this.$message.warning('请填写内容');
           return false;
         }
       });

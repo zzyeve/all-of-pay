@@ -62,8 +62,7 @@ export default {
         oldPassword: this.formLabelAlign3.oldPassword,
         newPassword: this.formLabelAlign3.newPassword
       };
-      let string = params;
-      this.$api.changeUserPassword(string).then(res => {
+      this.$api.changeUserPassword(params).then(res => {
         console.log(res);
         if (res.resultCode !== '0000') {
           this.$message.warning(res.resultMsg);
@@ -80,7 +79,7 @@ export default {
           this.updateUserPassword();
           this.$refs[formName].resetFields();
         } else {
-          this.$message.warning('error submit!');
+          this.$message.warning('请填写内容');
           return false;
         }
       });

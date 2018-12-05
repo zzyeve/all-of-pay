@@ -26,7 +26,7 @@ export default {
     };
   },
   created () {
-    // this.getData();
+
   },
   methods: {
     // 请求测试接口
@@ -36,10 +36,15 @@ export default {
         payType: this.formLabelAlign6.payType,
         amount: this.formLabelAlign6.money
       };
-      let string = params;
-      this.$api.aopInterfaceTest(string).then(res => {
-        console.log(res.rqcodeUrl); // http:www.baidu.coom
-        this.config.value = res.rqcodeUrl;
+      this.$api.aopInterfaceTest(params).then(res => {
+        console.log(res);
+        if (res.resultCode === '0000') {
+          this.$message.success('提交成功！');
+          this.config.value = res.rqcodeUrl;
+          this.qrCodeDialog = true; // 弹出相应的二维码图片
+        } else {
+          this.$message.warning(res.resultMsg);
+        }
       });
     },
 
@@ -48,11 +53,9 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.interfaceTest();
-          this.$message.success('提交成功！');
           this.$refs[formName].resetFields();
-          this.qrCodeDialog = true; // 弹出相应的二维码图片
         } else {
-          this.$message.warning('error submit!');
+          this.$message.warning('请填写内容');
           return false;
         }
       });

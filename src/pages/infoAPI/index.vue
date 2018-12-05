@@ -17,8 +17,7 @@ export default {
       let params = {
         apiUid: this.$store.getters.apiUid
       };
-      let string = params;
-      this.$api.tokenReset(string).then(res => {
+      this.$api.tokenReset(params).then(res => {
         console.log(res);
         this.tokenId = res.result.token;
       });

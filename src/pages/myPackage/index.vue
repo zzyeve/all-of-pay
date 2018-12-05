@@ -106,29 +106,32 @@ export default {
       let params = {
         apiUid: this.$store.getters.apiUid
       };
-      let string = params;
-      this.$api.getUserPackageInfo(string).then(res => {
+      this.$api.getUserPackageInfo(params).then(res => {
         console.log(res);
-        if (res.packageName === '') {
-          this.havePurchase = false;
-          this.notPurchase = true;
+        if (res.resultCode === '0000') {
+          if (res.packageName === '') {
+            this.havePurchase = false;
+            this.notPurchase = true;
+          } else {
+            this.havePurchase = true;
+            this.notPurchase = false;
+          }
+          this.packageInfo.packageName = res.packageName;
+          this.packageInfo.packageId = res.packageId;
+          this.packageInfo.packagePrice = parseInt(res.packagePrice);
+          this.packageInfo.startTime = res.packageSubscriptTime;
+          this.packageInfo.endTime = res.packageExpiryTime;
+          // 计算剩余天数
+          let date = new Date();
+          let currentTime = parseInt(date.getTime() / 1000); // 获取距离1970年1月1日00:00:00的毫秒数，并转换成秒数，通过parseInt转成整秒数；
+          let residualTime = (res.packageExpiryTime / 1000) - currentTime; // res.packageExpiryTime是从后台获取的结束时间，单位是毫秒
+          if ((residualTime / (24 * 3600)) > 0 && (residualTime / (24 * 3600)) < 1) {
+            this.packageInfo.residueDays = '不足1天';
+          } else {
+            this.packageInfo.residueDays = Math.ceil(residualTime / (24 * 3600)) + '天'; // 剩余天数
+          }
         } else {
-          this.havePurchase = true;
-          this.notPurchase = false;
-        }
-        this.packageInfo.packageName = res.packageName;
-        this.packageInfo.packageId = res.packageId;
-        this.packageInfo.packagePrice = parseInt(res.packagePrice);
-        this.packageInfo.startTime = res.packageSubscriptTime;
-        this.packageInfo.endTime = res.packageExpiryTime;
-        // 计算剩余天数
-        let date = new Date();
-        let currentTime = parseInt(date.getTime() / 1000); // 获取距离1970年1月1日00:00:00的毫秒数，并转换成秒数，通过parseInt转成整秒数；
-        let residualTime = (res.packageExpiryTime / 1000) - currentTime; // res.packageExpiryTime是从后台获取的结束时间，单位是毫秒
-        if ((residualTime / (24 * 3600)) > 0 && (residualTime / (24 * 3600)) < 1) {
-          this.packageInfo.residueDays = '不足1天';
-        } else {
-          this.packageInfo.residueDays = Math.ceil(residualTime / (24 * 3600)) + '天'; // 剩余天数
+          this.packageInfo.residueDays = '0天';
         }
       });
     },
@@ -137,8 +140,7 @@ export default {
       let params = {
         packageId: this.packageInfo.packageId
       };
-      let string = params;
-      this.$api.getPackageInfo(string).then(res => {
+      this.$api.getPackageInfo(params).then(res => {
         console.log(res);
         this.packageInfo.lowPackageId = res.packageInfoList[1].packageId;
         this.packageInfo.lowPackagePrice = res.packageInfoList[1].packagePrice;
@@ -159,14 +161,14 @@ export default {
         subscriptAmount: subscript_amount,
         type: typeValue
       };
-      let string = params;
       console.log(string);
-      this.$api.updateUserPackageInfo(string).then(res => {
+      this.$api.updateUserPackageInfo(params).then(res => {
         console.log(res);
         if (res.resultCode !== '0000') {
           this.$message.warning(res.resultMsg);
         } else {
           this.$message.success('提交成功！');
+          this.getUserPackageInformation();
         }
       });
     },
@@ -175,8 +177,7 @@ export default {
       let params = {
         apiUid: this.$store.getters.apiUid
       };
-      let string = params;
-      this.$api.getUserInfo(string).then(res => {
+      this.$api.getUserInfo(params).then(res => {
         console.log(res);
         this.packageInfo.accountBalance = '¥' + res.userInfoList[0].userBalance;
       });
@@ -191,6 +192,7 @@ export default {
         this.packageInfo.beforePrice = '原价¥' + this.packageInfo.packagePrice;
         this.packageInfo.currentPrice = '¥' + this.packageInfo.packagePrice;
         this.showLine = true;
+        this.packageInfo.endTime = Moment(this.packageInfo.endTime).add(1, 'M');
         if (this.packageInfo.accountBalance < this.packageInfo.currentPrice) {
           this.warningWords = true;
         } else {
@@ -200,6 +202,7 @@ export default {
         this.packageInfo.beforePrice = '原价¥' + this.packageInfo.packagePrice * 6;
         this.packageInfo.currentPrice = '¥' + parseFloat(this.packageInfo.packagePrice * 6 * 0.8).toFixed(1);
         this.showLine = true;
+        this.packageInfo.endTime = Moment(this.packageInfo.endTime).add(6, 'M');
         if (this.packageInfo.accountBalance < this.packageInfo.currentPrice) {
           this.warningWords = true;
         } else {
@@ -209,6 +212,7 @@ export default {
         this.packageInfo.beforePrice = '原价¥' + this.packageInfo.packagePrice * 12;
         this.packageInfo.currentPrice = '¥' + parseFloat(this.packageInfo.packagePrice * 12 * 0.7).toFixed(1);
         this.showLine = true;
+        this.packageInfo.endTime = Moment(this.packageInfo.endTime).add(1, 'y');
         if (this.packageInfo.accountBalance < this.packageInfo.currentPrice) {
           this.warningWords = true;
         } else {
@@ -218,6 +222,7 @@ export default {
         this.packageInfo.beforePrice = '原价¥' + this.packageInfo.packagePrice * 24;
         this.packageInfo.currentPrice = '¥' + parseFloat(this.packageInfo.packagePrice * 24 * 0.6).toFixed(1);
         this.showLine = true;
+        this.packageInfo.endTime = Moment(this.packageInfo.endTime).add(2, 'y');
         if (this.packageInfo.accountBalance < this.packageInfo.currentPrice) {
           this.warningWords = true;
         } else {
@@ -227,6 +232,7 @@ export default {
         this.packageInfo.beforePrice = '原价¥' + this.packageInfo.packagePrice * 36;
         this.packageInfo.currentPrice = '¥' + parseFloat(this.packageInfo.packagePrice * 36 * 0.4).toFixed(1);
         this.showLine = true;
+        this.packageInfo.endTime = Moment(this.packageInfo.endTime).add(3, 'y');
         if (this.packageInfo.accountBalance < this.packageInfo.currentPrice) {
           this.warningWords = true;
         } else {
@@ -295,9 +301,8 @@ export default {
           this.packageInfo.beforePrice = '';
           this.packageInfo.currentPrice = '';
           this.dialogFormOneVisible = false;
-          this.getUserPackageInformation();
         } else {
-          this.$message.warning('error submit!');
+          this.$message.warning('请填写内容');
           return false;
         }
       });
@@ -338,7 +343,7 @@ export default {
           this.packageInfo.priceDifferences = '';
           this.dialogFormTwoVisible = false;
         } else {
-          this.$message.warning('error submit!');
+          this.$message.warning('请填写内容');
           return false;
         }
       });
