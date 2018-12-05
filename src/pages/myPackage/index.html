@@ -50,8 +50,8 @@
           <span>{{ packageInfo.packagePrice }}元/月</span>
         </el-form-item>
         <el-form-item label="续费时长：" prop="id">
-          <el-select v-model="formOneLabelAlign.id" placeholder="一个月" @change="changeTime()">
-            <el-option v-for="(item, index) in formOneLabelAlign.selectTime.list" :key="index" :label="item.label" :value="item.value"></el-option>
+          <el-select v-model="formOneLabelAlign.id" placeholder="一个月" @change="changeTime">
+            <el-option v-for="(item, index) in formOneLabelAlign.selectTime.list" :key="index" :label="item.label" :value="item"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="开始时间：">
@@ -83,8 +83,8 @@
     <el-dialog title="套餐更改" :visible.sync="dialogFormTwoVisible" width="483px" class="pay-for" @close="closeDialogTwo('formTwoLabelAlign')">
       <el-form :label-position="labelPosition" label-width="145px" :model="formTwoLabelAlign" ref="formTwoLabelAlign" :rules="rules2_2">
         <el-form-item label="套餐升级到：" prop="id">
-          <el-select v-model="formTwoLabelAlign.id" placeholder="请选择套餐" @change="changePackage()">
-            <el-option v-for="(item, index) in formTwoLabelAlign.selectPackage.list" :key="index" :label="item.label" :value="item.value" :disabled="item.disabled"></el-option>
+          <el-select v-model="formTwoLabelAlign.id" placeholder="请选择套餐" @change="changePackage" value-key="packageName">
+            <el-option v-for="(item, index) in formTwoLabelAlign.selectPackageList" :key="index" :label="item.packageName" :value="item" :disabled="packageInfo.packageId === item.packageId"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="开始时间：">
@@ -94,7 +94,7 @@
           <span>{{ packageInfo.endTime | datetimeFormat }}</span>
         </el-form-item>
         <el-form-item label="需要补差价：">
-          <span style="font-size: 20px;">¥{{ packageInfo.priceDifferences }}</span>
+          <span style="font-size: 20px;" v-show="show">¥{{ packageInfo.priceDifferences }}</span>
         </el-form-item>
         <el-form-item label="账户余额：">
           <span>{{ packageInfo.accountBalance }}</span>
