@@ -1,9 +1,16 @@
 <div class="templatePage">
-    <div class="breadcrumb">
+    <!-- <div class="breadcrumb">
         我的收入统计
-    </div>
+    </div> -->
     <div class="main-content">
-            <div id="qrcode" ref="qrcode"></div>
+        <el-select v-model="selectObj" value-key="packageId">
+            <el-option v-for="(item, index) in selectList"
+            :label="item.packageName"
+            :value="item"
+                :key="index">
+
+            </el-option>
+        </el-select>
     </div>
    <router-view></router-view>
 </div>
