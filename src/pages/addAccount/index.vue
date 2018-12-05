@@ -5,6 +5,24 @@ import { payTypeList } from "../../utils/selectList.js";
 import './index.less';
 export default {
 	data() {
+		let checkAccountSort = (rule, value, callback) => {
+			if (value === '') {
+				return true; // 如果没值的时候默认不校验，输入值的时候再进行校验
+			} else if (!/^([1-9]\d|\d)$/.test(value)) {
+                callback(new Error('请输入一个0-99整数'));
+            } else {
+                callback();
+            }
+		};
+		let checkAccountWeight = (rule, value, callback) => {
+			if (value === '') {
+				return true;
+			} else if (!/^([1-9]\d|\d)$/.test(value)) {
+                callback(new Error('请输入一个0-99整数'));
+            } else {
+                callback();
+            }
+		};
 		return {
 			params: {
 				apiUid: '',
@@ -20,34 +38,17 @@ export default {
 				accountStatus: '0',
 				addOrUpdate: '0' // 0--代表添加 1--代表修改
 			},
+			isDisabled: true,
 			selectList: {...payTypeList},
 			rules: {
 				receviceAccount: [
-				{ required: true, message: '请输入收款账户', trigger: 'blur' }
+					{ required: true, message: '请输入收款账户', trigger: 'blur' }
 				],
 				accountSort: [
-					{ required: false, trigger: 'blur'},
-					{
-						validator: (rule, value, callback) => {
-							if (/^([1-9]\d|\d)$/.test(value) === false) {
-							callback(new Error('请输入一个0-99整数'));
-							return false;
-							}
-						},
-						trigger: 'blur'
-					}
+					{ required: false, validator: checkAccountWeight, trigger: 'blur' }
 				],
 				accountWeight: [
-					{ required: false, trigger: 'blur'},
-					{
-						validator: (rule, value, callback) => {
-							if (/^([1-9]\d|\d)$/.test(value) === false) {
-								callback(new Error('请输入一个0-99整数'));
-								// this.params.accountSort = value.substr(0, 2);
-							}
-						},
-						trigger: 'blur'
-					}
+					{ required: false, validator: checkAccountSort, trigger: 'blur' }
 				]
 			}
 		};
@@ -58,16 +59,22 @@ export default {
 	methods: {
 		// 保存按钮
 		saveData() {
-			this.params.timeLimitStart = this.params.timeLimitStart ? moment(this.params.timeLimitStart).format('YYYYMMDD HH:mm:ss') : '';
-			this.params.timerLimitEnd = this.params.timerLimitEnd ? moment(this.params.timerLimitEnd).format('YYYYMMDD HH:mm:ss') : '';
-			this.$api.addUserReceviceAccount(this.params).then(res => {
-				if (res.resultCode === '0000') {
-					this.$message.success("新增成功");
-					setTimeout(function() {
-						window.location.href = '#/account';
-					}, 2000);
+			this.$refs.params.validate((valid) => {
+			if (valid) {
+					this.params.timeLimitStart = this.params.timeLimitStart ? moment(this.params.timeLimitStart).format('YYYYMMDD HH:mm:ss') : '';
+					this.params.timerLimitEnd = this.params.timerLimitEnd ? moment(this.params.timerLimitEnd).format('YYYYMMDD HH:mm:ss') : '';
+					this.$api.addUserReceviceAccount(this.params).then(res => {
+						if (res.resultCode === '0000') {
+							this.$message.success("新增成功");
+							setTimeout(function() {
+								window.location.href = '#/account';
+							}, 2000);
+						} else {
+							this.$message.error(res.resultMsg);
+						}
+					});
 				} else {
-					this.$message.error(res.resultMsg);
+					return false;
 				}
 			});
 		},

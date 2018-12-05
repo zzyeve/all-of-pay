@@ -2,7 +2,12 @@
     <div class="main-content" v-if="show">
         <div class="notice">
             <img src="../../assets/img/notice.png">
-            余额不足 余额应保持10元以上，用于扣除手续费
+            <span v-if="!userInfo.needAlarm">
+                当前余额：¥{{userInfo.userBalance}}
+            </span>
+            <span v-else>
+                余额不足 余额应保持10元以上，用于扣除手续费
+            </span>
             <span class="btn-group">
                 <el-button type="warning" plain @click="goDetail">余额明细</el-button>
                 <el-button type="warning" @click="dialogShow=true;">充值</el-button>

@@ -22,6 +22,10 @@ export default {
             apiUid: '',
             dialogShow: false,
             qrCodeDialog: false,
+            userInfo: {
+                needAlarm: 'false',
+                userBalance: '0'
+            },
             config: {
                 value: 'http:www.baidu.coom', // 显示的值、跳转的地址
                 logo: '' // 中间logo的地址
@@ -33,10 +37,17 @@ export default {
     created() {
         this.apiUid = this.$store.getters.apiUid;
         this.getData();
+        this.getUserInfo();
         // this.$store.getters.apiUid
         // this.fetchUserInfo();
     },
     methods: {
+        // 获取用户信息接口
+        getUserInfo() {
+            this.$api.getUserInfo({apiUid: this.apiUid}).then(res => {
+                this.userInfo = Object.assign({}, res.userInfoList[0]);
+            });
+        },
         // 请求用户充值接口
         userRechargeMoney () {
             let params = {

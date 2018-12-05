@@ -1,6 +1,7 @@
 <template src="./index.html"></template>
 <script>
 import './index.less';
+import moment from 'moment';
 import {payTypeList, payStatusList} from '../../utils/selectList.js';
 export default {
     data() {
@@ -8,6 +9,7 @@ export default {
             loading: false,
             totalCount: 0,
             dataList: [],
+            createTime: '',
             params: {
                 apiUid: '',
                 orderUid: '',
@@ -32,6 +34,9 @@ export default {
     methods: {
         // 获取数据
         getData() {
+            if (this.createTime) {
+                this.params.createTime = moment(this.createTime).format('YYYYMMDD HH:mm:ss');
+            }
             this.loading = true;
             this.$api.getUserOrderDetail(this.params).then(res => {
                 this.loading = false;

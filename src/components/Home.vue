@@ -95,6 +95,7 @@ export default {
             this.$api.getUserInfo({apiUid: this.apiUid}).then(res => {
                 this.userName = res.userInfoList[0].realName;
                 this.$store.dispatch('set_username', res.userInfoList[0].realName);
+                this.$store.dispatch('set_info', res.userInfoList[0]);
             });
         },
         // 退出

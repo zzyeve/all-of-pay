@@ -1,6 +1,7 @@
 // 接口定义转为方法，调用请用this.$api + 方法名称
 // 引入全局请求的方法axios
 import axios from 'axios';
+import {Message} from 'element-ui';
 // 设置请求头可携带cookie
 axios.defaults.withCredentials = true;
 // axios.defaults.headers['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
@@ -48,7 +49,8 @@ axios.interceptors.response.use(response => {
     //     return response.data;
     // }
 }, error => {
-    return Promise.reject(error.response);
+    Message.error('接口出错了');
+    return error.response;
     // 非200错误
     // console.log(error.response.data.errors)
     // if (error.response.status === 499) {

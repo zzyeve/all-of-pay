@@ -12,8 +12,8 @@
                         </el-form-item>
                         <el-form-item label="支付类型:">
                             <el-select v-model="params.payType">
-                                <el-option 
-                                    v-for="(item, index) in payTypeList" 
+                                <el-option
+                                    v-for="(item, index) in payTypeList"
                                     :label="item.label" :value="item.value"
                                     :key="index">
                                 </el-option>
@@ -29,8 +29,8 @@
                         </el-form-item>
                         <el-form-item label="支付状态:">
                             <el-select v-model="params.payStatus">
-                                <el-option 
-                                    v-for="(item, index) in payStatusList" 
+                                <el-option
+                                    v-for="(item, index) in payStatusList"
                                     :label="item.label" :value="item.value"
                                     :key="index">
                                 </el-option>
@@ -43,7 +43,7 @@
                         </el-form-item>
                         <el-form-item label="创建日期:" >
                             <el-date-picker
-                                v-model="params.createTime"
+                                v-model="createTime"
                                 type="datetime"
                                 placeholder="选择日期时间">
                             </el-date-picker>
@@ -64,7 +64,7 @@
                     <img :src="scope.row.rqcodeUrl">
                 </template>
             </el-table-column>
-            <el-table-column prop="status" label="商品名称" show-overflow-tooltip>
+            <el-table-column label="商品名称" show-overflow-tooltip>
                 <template slot-scope="scope">
                     <div class="product-name">
                         <span>用户名：{{scope.row.merchantName}}</span><br>
@@ -108,9 +108,9 @@
                 </template>
             </el-table-column>
         </el-table>
-        <el-pagination 
-            @current-change="handleCurrentChange" 
-            :page-size="params.pageSize" 
+        <el-pagination
+            @current-change="handleCurrentChange"
+            :page-size="params.pageSize"
             layout="total, prev, pager, next"
             :total="totalCount">
         </el-pagination>
