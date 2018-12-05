@@ -5,6 +5,7 @@ import Moment from 'moment';
 export default {
   data () {
     return {
+      show: false,
       showLine: false,
       warningWords: false,
       warningWords2: false,
@@ -14,48 +15,42 @@ export default {
       notPurchase: false,
       labelPosition: 'right',
       formOneLabelAlign: {
-        id: '',
+        id: {},
         selectTime: {
           list: [
             {
               value: '选项1',
-              label: '一个月'
+              label: '一个月',
+              discount: 1,
+              times: 1
             }, {
               value: '选项2',
-              label: '6个月-8折'
+              label: '6个月-8折',
+              discount: 0.8,
+              times: 6
             }, {
               value: '选项3',
-              label: '1年-7折'
+              label: '1年-7折',
+              discount: 0.7,
+              times: 12
             }, {
               value: '选项4',
-              label: '2年-6折'
+              label: '2年-6折',
+              discount: 0.6,
+              times: 24
             }, {
               value: '选项5',
-              label: '3年-4折'
+              label: '3年-4折',
+              discount: 0.4,
+              times: 36
             }
           ]
         },
         password: ''
       },
       formTwoLabelAlign: {
-        id: '',
-        selectPackage: {
-          list: [
-            {
-              value: '选项1',
-              label: '基础版套餐',
-              disabled: false
-            }, {
-              value: '选项2',
-              label: '高级版套餐',
-              disabled: false
-            }, {
-              value: '选项3',
-              label: '专业版套餐',
-              disabled: false
-            }
-          ]
-        },
+        id: {},
+        selectPackageList: [],
         password: ''
       },
       packageInfo: {
@@ -69,13 +64,7 @@ export default {
         packagePrice: '',
         startTime: '',
         endTime: '',
-        residueDays: '',
-        lowPackageId: '',
-        lowPackagePrice: '',
-        highPackageId: '',
-        highPackagePrice: '',
-        professionalPackageId: '',
-        professionalPackagePrice: ''
+        residueDays: ''
       },
       rules2_1: {
         id: [
@@ -140,12 +129,8 @@ export default {
         packageId: this.packageInfo.packageId
       };
       this.$api.getPackageInfo(params).then(res => {
-        this.packageInfo.lowPackageId = res.packageInfoList[1].packageId;
-        this.packageInfo.lowPackagePrice = res.packageInfoList[1].packagePrice;
-        this.packageInfo.highPackageId = res.packageInfoList[2].packageId;
-        this.packageInfo.highPackagePrice = res.packageInfoList[2].packagePrice;
-        this.packageInfo.professionalPackageId = res.packageInfoList[0].packageId;
-        this.packageInfo.professionalPackagePrice = res.packageInfoList[0].packagePrice;
+        console.log(res);
+        this.formTwoLabelAlign.selectPackageList = res.packageInfoList;
       });
     },
     // 请求用户更改/续订套餐接口
@@ -182,52 +167,13 @@ export default {
       this.dialogFormOneVisible = true;
     },
     // 续费时长改变时触发
-    changeTime () {
-      if (this.formOneLabelAlign.id === '选项1') {
-        this.packageInfo.beforePrice = '原价¥' + this.packageInfo.packagePrice;
-        this.packageInfo.currentPrice = '¥' + this.packageInfo.packagePrice;
+    changeTime (value) {
+      console.log(value);
+      if (value) {
+        this.packageInfo.beforePrice = '原价¥' + (this.packageInfo.packagePrice * value.times);
+        this.packageInfo.currentPrice = '¥' + parseFloat(this.packageInfo.packagePrice * value.times * value.discount).toFixed(1);
         this.showLine = true;
-        this.packageInfo.endTime = Moment(this.packageInfo.endTime).add(1, 'M');
-        if (this.packageInfo.accountBalance < this.packageInfo.currentPrice) {
-          this.warningWords = true;
-        } else {
-          this.warningWords = false;
-        }
-      } else if (this.formOneLabelAlign.id === '选项2') {
-        this.packageInfo.beforePrice = '原价¥' + this.packageInfo.packagePrice * 6;
-        this.packageInfo.currentPrice = '¥' + parseFloat(this.packageInfo.packagePrice * 6 * 0.8).toFixed(1);
-        this.showLine = true;
-        this.packageInfo.endTime = Moment(this.packageInfo.endTime).add(6, 'M');
-        if (this.packageInfo.accountBalance < this.packageInfo.currentPrice) {
-          this.warningWords = true;
-        } else {
-          this.warningWords = false;
-        }
-      } else if (this.formOneLabelAlign.id === '选项3') {
-        this.packageInfo.beforePrice = '原价¥' + this.packageInfo.packagePrice * 12;
-        this.packageInfo.currentPrice = '¥' + parseFloat(this.packageInfo.packagePrice * 12 * 0.7).toFixed(1);
-        this.showLine = true;
-        this.packageInfo.endTime = Moment(this.packageInfo.endTime).add(1, 'y');
-        if (this.packageInfo.accountBalance < this.packageInfo.currentPrice) {
-          this.warningWords = true;
-        } else {
-          this.warningWords = false;
-        }
-      } else if (this.formOneLabelAlign.id === '选项4') {
-        this.packageInfo.beforePrice = '原价¥' + this.packageInfo.packagePrice * 24;
-        this.packageInfo.currentPrice = '¥' + parseFloat(this.packageInfo.packagePrice * 24 * 0.6).toFixed(1);
-        this.showLine = true;
-        this.packageInfo.endTime = Moment(this.packageInfo.endTime).add(2, 'y');
-        if (this.packageInfo.accountBalance < this.packageInfo.currentPrice) {
-          this.warningWords = true;
-        } else {
-          this.warningWords = false;
-        }
-      } else if (this.formOneLabelAlign.id === '选项5') {
-        this.packageInfo.beforePrice = '原价¥' + this.packageInfo.packagePrice * 36;
-        this.packageInfo.currentPrice = '¥' + parseFloat(this.packageInfo.packagePrice * 36 * 0.4).toFixed(1);
-        this.showLine = true;
-        this.packageInfo.endTime = Moment(this.packageInfo.endTime).add(3, 'y');
+        this.packageInfo.endTime = Moment(this.packageInfo.endTime).add(value.times, 'M');
         if (this.packageInfo.accountBalance < this.packageInfo.currentPrice) {
           this.warningWords = true;
         } else {
@@ -239,63 +185,35 @@ export default {
       }
     },
     // 选购套餐类型发生改变时触发
-    changePackage () {
-      if (this.packageInfo.packageName === '低级版套餐') {
-        if (this.formTwoLabelAlign.id === '选项2') {
-          this.packageInfo.priceDifferences = this.packageInfo.highPackagePrice - this.packageInfo.lowPackagePrice;
-          if (this.packageInfo.accountBalance < this.packageInfo.priceDifferences) {
-            this.warningWords2 = true;
-          } else {
-            this.warningWords2 = false;
-          }
-        } else if (this.formTwoLabelAlign.id === '选项3') {
-          this.packageInfo.priceDifferences = this.packageInfo.professionalPackagePrice - this.packageInfo.lowPackagePrice;
-          if (this.packageInfo.accountBalance < this.packageInfo.priceDifferences) {
-            this.warningWords2 = true;
-          } else {
-            this.warningWords2 = false;
-          }
-        }
-      } else if (this.packageInfo.packageName === '高级版套餐') {
-        if (this.formTwoLabelAlign.id === '选项1') {
+    changePackage (value) {
+      console.log(value);
+      if (value) {
+        this.show = true;
+        this.packageInfo.newPackageId = value.packageId;
+        if (value.packagePrice < this.packageInfo.packagePrice) {
           this.packageInfo.priceDifferences = '0';
-        } else if (this.formTwoLabelAlign.id === '选项3') {
-          this.packageInfo.priceDifferences = this.packageInfo.professionalPackagePrice - this.packageInfo.highPackagePrice;
+        } else {
+          this.packageInfo.priceDifferences = value.packagePrice - this.packageInfo.packagePrice;
           if (this.packageInfo.accountBalance < this.packageInfo.priceDifferences) {
             this.warningWords2 = true;
           } else {
             this.warningWords2 = false;
           }
         }
-      } else if (this.packageInfo.packageName === '专业版套餐') {
-        if (this.formTwoLabelAlign.id === '选项1') {
-          this.packageInfo.priceDifferences = '0';
-        } else if (this.formTwoLabelAlign.id === '选项2') {
-          this.packageInfo.priceDifferences = '0';
-        }
+      } else {
+        this.show = false;
       }
     },
     // 点击更改套餐弹出表单
     dialogFormTwo () {
       this.dialogFormTwoVisible = true;
-      if (this.packageInfo.packageName === '低级版套餐') {
-        this.formTwoLabelAlign.selectPackage.list[0].disabled = true;
-      } else if (this.packageInfo.packageName === '高级版套餐') {
-        this.formTwoLabelAlign.selectPackage.list[1].disabled = true;
-      } else if (this.packageInfo.packageName === '专业版套餐') {
-        this.formTwoLabelAlign.selectPackage.list[2].disabled = true;
-      }
     },
     // 弹出的续费表单里点击续费按钮提交
     submitDelayMoney (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.changeOrDelayPackage(this.formOneLabelAlign.password, this.packageInfo.packageId, this.packageInfo.currentPrice.substring(1), '0');
-          this.$refs[formName].resetFields();
-          this.showLine = false;
-          this.packageInfo.beforePrice = '';
-          this.packageInfo.currentPrice = '';
-          this.dialogFormOneVisible = false;
+          this.onlyDelayMoney(formName);
         } else {
           this.$message.warning('请填写内容');
           return false;
@@ -304,39 +222,18 @@ export default {
     },
     // 弹出的续费表单里点击取消按钮取消
     cancelDelayMoney (formName) {
-      this.$refs[formName].resetFields();
-      this.showLine = false;
-      this.packageInfo.beforePrice = '';
-      this.packageInfo.currentPrice = '';
-      this.dialogFormOneVisible = false;
+      this.onlyDelayMoney(formName);
+    },
+    // 点击续费对话框关闭按钮
+    closeDialogOne (formName) {
+      this.onlyDelayMoney(formName);
     },
     // 弹出的更改套餐表单里点击改套餐按钮提交
     submitChangePackage (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          if (this.packageInfo.packageName === '低级版套餐') {
-            if (this.formTwoLabelAlign.id === '选项2') {
-              this.changeOrDelayPackage(this.formTwoLabelAlign.password, this.packageInfo.highPackageId, String(this.packageInfo.priceDifferences), '1');
-            } else if (this.formTwoLabelAlign.id === '选项3') {
-              this.changeOrDelayPackage(this.formTwoLabelAlign.password, this.packageInfo.professionalPackageId, String(this.packageInfo.priceDifferences), '1');
-            }
-          } else if (this.packageInfo.packageName === '高级版套餐') {
-            if (this.formTwoLabelAlign.id === '选项1') {
-              this.changeOrDelayPackage(this.formTwoLabelAlign.password, this.packageInfo.lowPackageId, String(this.packageInfo.priceDifferences), '1');
-            } else if (this.formTwoLabelAlign.id === '选项3') {
-              this.changeOrDelayPackage(this.formTwoLabelAlign.password, this.packageInfo.professionalPackageId, String(this.packageInfo.priceDifferences), '1');
-            }
-          } else if (this.packageInfo.packageName === '专业版套餐') {
-            if (this.formTwoLabelAlign.id === '选项1') {
-              this.changeOrDelayPackage(this.formTwoLabelAlign.password, this.packageInfo.lowPackageId, String(this.packageInfo.priceDifferences), '1');
-            } else if (this.formTwoLabelAlign.id === '选项2') {
-              this.changeOrDelayPackage(this.formTwoLabelAlign.password, this.packageInfo.highPackageId, String(this.packageInfo.priceDifferences), '1');
-            }
-          }
-
-          this.$refs[formName].resetFields();
-          this.packageInfo.priceDifferences = '';
-          this.dialogFormTwoVisible = false;
+          this.changeOrDelayPackage(this.formTwoLabelAlign.password, this.packageInfo.newPackageId, String(this.packageInfo.priceDifferences), '1');
+          this.onlyChangePackage(formName);
         } else {
           this.$message.warning('请填写内容');
           return false;
@@ -345,17 +242,26 @@ export default {
     },
     // 弹出的更改套餐表单里点击取消按钮取消
     cancelChangePackage (formName) {
-      this.$refs[formName].resetFields();
-      this.packageInfo.priceDifferences = '';
-      this.dialogFormTwoVisible = false;
-    },
-    // 点击续费对话框关闭按钮
-    closeDialogOne (formName) {
-      this.$refs[formName].resetFields();
+      this.onlyChangePackage(formName);
     },
     // 点击更改套餐对话框关闭按钮
     closeDialogTwo (formName) {
+      this.onlyChangePackage(formName);
+    },
+    // 续费表单专属
+    onlyDelayMoney (formName) {
       this.$refs[formName].resetFields();
+      this.showLine = false;
+      this.packageInfo.beforePrice = '';
+      this.packageInfo.currentPrice = '';
+      this.dialogFormOneVisible = false;
+    },
+    // 更改套餐表单专属
+    onlyChangePackage (formName) {
+      this.$refs[formName].resetFields();
+      this.show = false;
+      this.packageInfo.priceDifferences = '';
+      this.dialogFormTwoVisible = false;
     }
   }
 };
