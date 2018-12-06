@@ -72,7 +72,7 @@ axios.interceptors.response.use(response => {
 // 后端本机服务器
 // let base = 'http://10.73.155.168:8080/aop_server';
 // 服务器地址
-let base = 'http://10.73.155.169:9842/aop_server';
+let base = 'http://101.37.169.186:9842/aop_server';
 
 // 注册接口
 export const userRegister = (params) => {
