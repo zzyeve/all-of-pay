@@ -18,7 +18,12 @@ export default {
         apiUid: this.$store.getters.apiUid
       };
       this.$api.tokenReset(params).then(res => {
-        this.tokenId = res.result.token;
+        if (res.resultCode === '0000') {
+          this.tokenId = res.result.token;
+          this.$message.success('重置成功！');
+        } else {
+          this.$message.warning(res.resultMsg);
+        }
       });
     },
 

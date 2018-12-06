@@ -38,7 +38,6 @@ export default {
         amount: this.formLabelAlign6.money
       };
       this.$api.aopInterfaceTest(params).then(res => {
-        console.log(res);
         this.qrCodeDialog = true;
         this.returnPage = res;
       });

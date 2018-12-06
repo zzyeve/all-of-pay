@@ -6,12 +6,13 @@ export default {
     let validateDelayTime = (rule, value, callback) => {
       if (!value) {
         return callback(new Error('二维码过期时间不能为空'));
+      } else {
+        if (value < 120 || value > 600) {
+          callback(new Error('过期时间必须设置在120-600秒之间'));
+        } else {
+          callback();
+        }
       }
-          if (value < 120 || value > 600) {
-            callback(new Error('过期时间必须设置在120-600秒之间'));
-          } else {
-            callback();
-          }
     };
     return {
       labelPosition: "right",
@@ -31,12 +32,13 @@ export default {
     this.getUserInfo();
   },
   methods: {
-     // 获取用户信息接口
-    getUserInfo() {
-        this.$api.getUserInfo({apiUid: this.apiUid}).then(res => {
-            this.formLabelAlign4.delayTime = res.userInfoList[0].qrcodeExpiryTime;
-        });
+    // 获取用户信息接口
+    getUserInfo () {
+      this.$api.getUserInfo({apiUid: this.apiUid}).then(res => {
+        this.formLabelAlign4.delayTime = res.userInfoList[0].qrcodeExpiryTime;
+      });
     },
+
     // 请求用户二维码失效时间更改接口
     updateRqcodeExpiryTime () {
       let params = {

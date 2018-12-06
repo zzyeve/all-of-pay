@@ -127,7 +127,9 @@ export default {
       };
       this.$api.getPackageInfo(params).then(res => {
         console.log(res);
-        this.formTwoLabelAlign.selectPackageList = res.packageInfoList;
+        if (res.resultCode === '0000') {
+          this.formTwoLabelAlign.selectPackageList = res.packageInfoList;
+        }
       });
     },
     // 请求用户更改/续订套餐接口
@@ -156,7 +158,9 @@ export default {
         apiUid: this.$store.getters.apiUid
       };
       this.$api.getUserInfo(params).then(res => {
-        this.packageInfo.accountBalance = '¥' + res.userInfoList[0].userBalance;
+        if (res.resultCode === '0000') {
+          this.packageInfo.accountBalance = '¥' + res.userInfoList[0].userBalance;
+        }
       });
     },
     // 点击续费弹出表单

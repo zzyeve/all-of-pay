@@ -37,12 +37,17 @@ export default {
         apiUid: this.$store.getters.apiUid
       };
       this.$api.getUserInfo(params).then(res => {
-        this.formLabelAlign1.name = res.userInfoList[0].realName;
-        this.formLabelAlign1.phone = res.userInfoList[0].msisdn;
-        this.formLabelAlign1.wechat = res.userInfoList[0].weixinAccount;
-        this.formLabelAlign1.qq = res.userInfoList[0].qqNumber;
-        this.formLabelAlign1.authority = res.userInfoList[0].pageCopyright;
-        this.formLabelAlign1.announce = res.userInfoList[0].balanceAlarm;
+        if (res.resultCode === '0000') {
+          this.formLabelAlign1.name = res.userInfoList[0].realName;
+          this.formLabelAlign1.phone = res.userInfoList[0].msisdn;
+          this.formLabelAlign1.wechat = res.userInfoList[0].weixinAccount;
+          this.formLabelAlign1.qq = res.userInfoList[0].qqNumber;
+          this.formLabelAlign1.title = res.userInfoList[0].pageSubtitle;
+          this.formLabelAlign1.authority = res.userInfoList[0].pageCopyright;
+          this.formLabelAlign1.announce = res.userInfoList[0].balanceAlarm;
+        } else {
+          this.$message.warning(res.resultMsg);
+        }
       });
     },
 
@@ -73,6 +78,7 @@ export default {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.updateUserInfo();
+          this.$refs[formName].resetFields();
         } else {
           this.$message.warning('请填写内容');
           return false;
