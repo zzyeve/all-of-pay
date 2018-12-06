@@ -97,13 +97,8 @@ export default {
       };
       this.$api.getUserPackageInfo(params).then(res => {
         if (res.resultCode === '0000') {
-          if (res.packageName === '') {
-            this.havePurchase = false;
-            this.notPurchase = true;
-          } else {
-            this.havePurchase = true;
-            this.notPurchase = false;
-          }
+          this.havePurchase = true;
+          this.notPurchase = false;
           this.packageInfo.packageName = res.packageName;
           this.packageInfo.packageId = res.packageId;
           this.packageInfo.packagePrice = parseInt(res.packagePrice);
@@ -119,6 +114,8 @@ export default {
             this.packageInfo.residueDays = Math.ceil(residualTime / (24 * 3600)) + '天'; // 剩余天数
           }
         } else {
+          this.havePurchase = false;
+          this.notPurchase = true;
           this.packageInfo.residueDays = '0天';
         }
       });

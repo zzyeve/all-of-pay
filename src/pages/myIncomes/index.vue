@@ -8,17 +8,6 @@ export default {
     mixins: [Abstract],
     data() {
         return {
-            news: '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">'+
-                                '<html>'+
-                                '<head>'
-                                +'<meta http-equiv="Content-Type" content="text/html; charset=utf-8">'
-                                +'<title>pay fail</title>'
-                                +'</head>'
-                                +'<body>'
-                                +'<div></div>'
-                                +'</body>'
-                                +'</html>',
-
             allData: {
                 incomeToday: '0',
                 incomeYesterday: '0',
@@ -38,7 +27,7 @@ export default {
                 userBalance: '0'
             },
             config: {
-                value: 'http:www.baidu.coom', // 显示的值、跳转的地址
+                value: '', // 显示的值、跳转的地址
                 logo: '' // 中间logo的地址
             },
             selectTypeId: '',
