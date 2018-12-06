@@ -192,5 +192,8 @@ export const tokenReset = (params) => {
 export const aopInterfaceTest = (params) => {
   return axios.post(`${base}/aopInterfaceTest.action`, params).then(res => res);
 };
-
+// 账号管理模块--查询订单支付状态接口
+export const queryOrderIsPaySuccess = (params) => {
+  return axios.post(`${base}/queryOrderIsPaySuccess.action`, params).then(res => res);
+};
 

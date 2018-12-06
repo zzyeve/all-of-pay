@@ -27,7 +27,7 @@ export default {
                 userBalance: '0'
             },
             config: {
-                value: 'http:www.baidu.coom', // 显示的值、跳转的地址
+                value: '', // 显示的值、跳转的地址
                 logo: '' // 中间logo的地址
             },
             selectTypeId: '',
@@ -55,14 +55,8 @@ export default {
                 rechargeMoney: this.allData.rechargeMoney,
                 rechargeType: '0'
             };
-            let string = params;
-            this.$api.getUserRecharge(string).then(res => {
-                if (res.resultCode !== '0000') {
-                    this.$message.warning(res.resultMsg);
-                } else {
-                    this.$message.success(res.resultMsg);
-                    this.config.value = res.rqcodeUrl;
-                }
+            this.$api.getUserRecharge(params).then(res => {
+                console.log(res);
             });
         },
         // 获取数据
