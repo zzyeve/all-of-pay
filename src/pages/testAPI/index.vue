@@ -6,6 +6,7 @@ export default {
   data () {
     return {
       qrCodeDialog: false,
+      returnPage: '',
       config: {
         value: '', // 显示的值、跳转的地址
         logo: '' // 中间logo的地址
@@ -37,13 +38,9 @@ export default {
         amount: this.formLabelAlign6.money
       };
       this.$api.aopInterfaceTest(params).then(res => {
-        if (res.resultCode === '0000') {
-          this.$message.success('提交成功！');
-          this.config.value = res.rqcodeUrl;
-          this.qrCodeDialog = true; // 弹出相应的二维码图片
-        } else {
-          this.$message.warning(res.resultMsg);
-        }
+        console.log(res);
+        this.qrCodeDialog = true;
+        this.returnPage = res;
       });
     },
 

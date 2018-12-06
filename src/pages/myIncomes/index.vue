@@ -21,6 +21,7 @@ export default {
             },
             apiUid: '',
             dialogShow: false,
+            returnPage: '',
             qrCodeDialog: false,
             userInfo: {
                 needAlarm: 'false',
@@ -57,6 +58,9 @@ export default {
             };
             this.$api.getUserRecharge(params).then(res => {
                 console.log(res);
+                this.dialogShow = false;
+                this.qrCodeDialog = true;
+                this.returnPage = res;
             });
         },
         // 获取数据
@@ -82,8 +86,6 @@ export default {
         },
         // 点击支付宝充值按钮
         aliPay () {
-            this.dialogShow = false;
-            this.qrCodeDialog = true;
             this.userRechargeMoney();
         }
     },
