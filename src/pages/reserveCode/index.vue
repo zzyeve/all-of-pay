@@ -95,7 +95,7 @@ export default {
         createCode() {
             if (this.selectionList.length) {
                 this.createCodeShow = true;
-                this.createCodeParams.rqcodePriceList = this.selectionList;
+                // this.createCodeParams.rqcodePriceList = this.selectionList;
             } else {
                 this.$message.warning('请先勾选数据');
             }
@@ -139,6 +139,7 @@ export default {
                 this.$message.warning('请输入1-1000的数字');
                 return false;
             }
+            this.createCodeParams.rqcodePriceList = this.selectionList;
             this.$api.rqcodeCreate(this.createCodeParams).then(res => {
                 if (res.resultCode === '0000') {
                     this.$message.success('生成二维码成功');
@@ -182,7 +183,9 @@ export default {
             this.getData();
         },
         closeDialog() {
+            this.$refs.codeTable.clearSelection();
             this.selectionList = [];
+            this.createCodeParams.createCount = '';
         },
         tableRowClassName() {
             return 'table-row-name';

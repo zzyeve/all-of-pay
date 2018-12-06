@@ -28,9 +28,10 @@
             <el-button size="small" type="primary" icon="el-icon-plus" @click="dialogShow=true">添加金额</el-button>
             <!-- <el-button size="small">批量生成所有价格收款码</el-button> -->
         </div>
-        <el-table 
-            :data="dataList" 
-            v-loading="loading" 
+        <el-table
+            ref="codeTable"
+            :data="dataList"
+            v-loading="loading"
             :row-class-name="tableRowClassName"
             :cell-class-name="tableCellClassName"
             @selection-change="handleSelectionChange"
@@ -59,7 +60,7 @@
                     <el-button type="text"  @click="createSingleCode(scope.row)">生成收款码</el-button> <br>
                     <el-button type="text" @click="deleteQRCode(scope.row)">删除二维码</el-button><br>
                     <el-button type="text" @click="deleteSingleCode(scope.row)">删除</el-button>
-                </template>    
+                </template>
             </el-table-column>
         </el-table>
         <div class="btn-group">
@@ -74,12 +75,12 @@
         </el-pagination>
         <el-dialog width="30%" title="批量生成二维码" @close="closeDialog"  :visible.sync="createCodeShow">
             <div class="add-price">
-                <el-form 
-                    :inline="true" size="small" 
+                <el-form
+                    :inline="true" size="small"
                     label-width="150px">
                     <el-form-item label="支付方式">
                        <el-select v-model="createCodeParams.payType">
-                           <el-option 
+                           <el-option
                                 v-for="(item, index) in payList"
                                 :label="item.label"
                                 :value="item.value"
@@ -88,7 +89,7 @@
                        </el-select>
                     </el-form-item>
                     <el-form-item label="生成数量">
-                        <el-input 
+                        <el-input
                             placeholder="请输入数字"
                             v-model.number="createCodeParams.createCount">
                         </el-input>
@@ -102,26 +103,26 @@
         </el-dialog>
         <el-dialog width="30%" title="添加金额" :visible.sync="dialogShow">
             <div class="add-price">
-                <el-form 
-                    :inline="true" size="small" 
+                <el-form
+                    :inline="true" size="small"
                     label-width="150px"
                     :model="addForm"
                     ref="addForm">
                     <el-form-item label="二维码面值范围">
                         <div class="price-range">
-                            <el-input 
+                            <el-input
                                 placeholder="请输入数字"
                                 v-model="firstRange">
-                            </el-input> 
+                            </el-input>
                             -
-                            <el-input 
+                            <el-input
                                 v-model="lastRange"
                                 placeholder="请输入数字">
                             </el-input>
                         </div>
                     </el-form-item>
                     <el-form-item label="二维码面值递增值">
-                        <el-input 
+                        <el-input
                             placeholder="请输入数字"
                             v-model="addForm.rqcodeIncreasing">
                         </el-input>

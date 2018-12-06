@@ -1,7 +1,9 @@
 <template src="./index.html"></template>
 <script>
 import './index.less';
+import Abstract from "../../components/Abstract.vue";
 export default {
+    mixins: [Abstract],
     data() {
         // 密码重复校验
         let checkPassword = (rule, value, callback) => {
