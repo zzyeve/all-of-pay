@@ -50,7 +50,7 @@ export default {
         // 请求用户充值接口
         userRechargeMoney () {
             if (!this.allData.rechargeMoney) {
-                this.$message.warning('请勾选数据');
+                this.$message.warning('请选择数据');
                 return;
             }
             let params = {

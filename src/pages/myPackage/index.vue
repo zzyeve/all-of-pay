@@ -263,8 +263,6 @@ export default {
         this.packageInfo.beforePrice = '原价¥' + (this.packageInfo.packagePrice * value.times);
         this.packageInfo.currentPrice = '¥' + parseFloat(this.packageInfo.packagePrice * value.times * value.discount).toFixed(1);
         this.showLine = true;
-        console.log(String(this.packageInfo.accountBalance).substring(1));
-        console.log(String(this.packageInfo.currentPrice).substring(1));
         if (String(this.packageInfo.accountBalance).substring(1) < String(this.packageInfo.currentPrice).substring(1)) {
           this.warningWords3 = true;
         } else {
