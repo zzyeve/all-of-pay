@@ -36,7 +36,8 @@
             :cell-class-name="tableCellClassName"
             @selection-change="handleSelectionChange"
             element-loading-text="数据拼命加载中...">
-            <el-table-column type="selection" width="55"></el-table-column>
+            <el-table-column type="selection" width="55" :selectable="selectable">
+            </el-table-column>
             <el-table-column prop="rqcodePrice" label="价格" width="120"></el-table-column>
             <el-table-column label="收款码数量/当前占用并发/并发量">
                 <template slot-scope="scope">

@@ -170,12 +170,22 @@ export default {
                 this.$message.error('请输入1-1000的数字');
             }
         },
+        // 勾选改变
         handleSelectionChange(val) {
             let arr = [];
             val.forEach(item =>{
                 arr.push({rqcodePrice: item.rqcodePrice});
             });
             this.selectionList = arr;
+        },
+        // 是否勾选
+        selectable(row) {
+            return row.status !== '2'; // 收款状态为验证码生成中禁用
+            // if (row.status === '2') {
+            //     return false;
+            // } else {
+            //     return true;
+            // }
         },
         // 页码更改
         handleCurrentChange(val) {
