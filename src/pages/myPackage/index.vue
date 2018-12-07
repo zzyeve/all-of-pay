@@ -148,7 +148,6 @@ export default {
         packageId: this.packageInfo.packageId
       };
       this.$api.getPackageInfo(params).then(res => {
-        console.log(res);
         if (res.resultCode === '0000') {
           this.formTwoLabelAlign.selectPackageList = res.packageInfoList;
         }
@@ -183,9 +182,8 @@ export default {
         packageStartTime: Moment(this.packageInfo.currentTime).format('YYYYMMDD HH:mm:ss'),
         packageExpiryTime: Moment(this.packageInfo.endTimeBuy).format('YYYYMMDD HH:mm:ss'),
         subscriptAmount: this.packageInfo.currentPrice.substring(1),
-        rate: this.packageInfo.rate
+        rate: String(this.packageInfo.rate)
       };
-      console.log(params.packageExpiryTime);
       this.$api.userSubscribuPackage(params).then(res => {
         console.log(res);
         if (res.resultCode !== '0000') {
@@ -218,6 +216,7 @@ export default {
     // 点击返回购买弹出表单
     dialogFormThree () {
       this.dialogFormThreeVisible = true;
+      this.warningWords3 = false;
       let cdate = new Date().getTime();
       this.packageInfo.currentTime = Moment(cdate).format('YYYY-MM-DD HH:mm:ss');
     },
@@ -264,7 +263,9 @@ export default {
         this.packageInfo.beforePrice = '原价¥' + (this.packageInfo.packagePrice * value.times);
         this.packageInfo.currentPrice = '¥' + parseFloat(this.packageInfo.packagePrice * value.times * value.discount).toFixed(1);
         this.showLine = true;
-        if (this.packageInfo.accountBalance < this.packageInfo.currentPrice) {
+        console.log(String(this.packageInfo.accountBalance).substring(1));
+        console.log(String(this.packageInfo.currentPrice).substring(1));
+        if (String(this.packageInfo.accountBalance).substring(1) < String(this.packageInfo.currentPrice).substring(1)) {
           this.warningWords3 = true;
         } else {
           this.warningWords3 = false;
