@@ -35,7 +35,7 @@
       <div class="bottom_bot">
         <h2>尚未购买套餐，回首页进行购买</h2>
         <div style="padding-bottom: 75px;">
-          <el-button type="primary" size="small">返回购买</el-button>
+          <el-button type="primary" size="small" @click="dialogFormThree">返回购买</el-button>
         </div>
       </div>
     </section>
@@ -108,6 +108,47 @@
       <div slot="footer" class="dialog-footer">
         <el-button size="small" @click="cancelChangePackage('formTwoLabelAlign')">取 消</el-button>
         <el-button size="small" type="primary" @click="submitChangePackage('formTwoLabelAlign')">改套餐</el-button>
+      </div>
+    </el-dialog>
+
+    <!--弹出的购买套餐表单-->
+    <el-dialog title="套餐购买" :visible.sync="dialogFormThreeVisible" width="483px" class="pay-for" @close="closeDialogThree('formThreeLabelAlign')">
+      <el-form :label-position="labelPosition" label-width="145px" :model="formThreeLabelAlign" ref="formThreeLabelAlign" :rules="rules2_3">
+        <el-form-item label="套餐类型：" prop="type">
+          <el-select v-model="formThreeLabelAlign.type" placeholder="请选择套餐" @change="changePurchasePackageType" value-key="packageName">
+            <el-option v-for="(item, index) in formTwoLabelAlign.selectPackageList" :key="index" :label="item.packageName" :value="item"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="套餐价格：">
+          <span>{{ packageInfo.packagePrice }}元/月</span>
+        </el-form-item>
+        <el-form-item label="续费时长：" prop="times">
+          <el-select v-model="formThreeLabelAlign.times" placeholder="一个月" @change="changePurchaseTimes" :disabled="selectDisabled">
+            <el-option v-for="(item, index) in formOneLabelAlign.selectTime.list" :key="index" :label="item.label" :value="item"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="开始时间：">
+          <span>{{ packageInfo.currentTime }}</span>
+        </el-form-item>
+        <el-form-item label="结束时间：">
+          <span>{{ packageInfo.endTimeBuy | datetimeFormat }}</span>
+        </el-form-item>
+        <el-form-item label="总价：" style="position: relative;">
+          <span>{{ packageInfo.beforePrice }}</span>
+          <div style="width: 70px;height: 1px;position: absolute;background: #606266;top: 22px;" v-show="showLine"></div>
+          <span style="padding-left: 13px;font-size: 20px;">{{ packageInfo.currentPrice }}</span>
+        </el-form-item>
+        <el-form-item label="账户余额：">
+          <span>{{ packageInfo.accountBalance }}</span>
+          <span style="color: #FF6262;padding-left: 21px;" v-show="warningWords3">余额不足，前往充值</span>
+        </el-form-item>
+        <el-form-item label="登录密码：" prop="password">
+          <el-input type="password" v-model="formThreeLabelAlign.password" placeholder="请输入"></el-input>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button size="small" @click="cancelPurchase('formThreeLabelAlign')">取 消</el-button>
+        <el-button size="small" type="primary" @click="submitPurchase('formThreeLabelAlign')">购 买</el-button>
       </div>
     </el-dialog>
   </div>
