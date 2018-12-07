@@ -4,6 +4,42 @@ import './index.less';
 import Moment from 'moment';
 export default {
   data () {
+    let validateSelect1 = (rule, value, callback) => {
+      let obj = {};
+      obj = this.formOneLabelAlign.id;
+      if (!('label' in obj)) {
+        callback(new Error('请选择续费时长'));
+      } else {
+        callback();
+      }
+    };
+    let validateSelect2 = (rule, value, callback) => {
+      let obj = {};
+      obj = this.formTwoLabelAlign.id;
+      if (!('packageName' in obj)) {
+        callback(new Error('请选择更改的套餐类型'));
+      } else {
+        callback();
+      }
+    };
+    let validateSelect3 = (rule, value, callback) => {
+      let obj = {};
+      obj = this.formThreeLabelAlign.type;
+      if (!('packageName' in obj)) {
+        callback(new Error('请选择购买的套餐类型'));
+      } else {
+        callback();
+      }
+    };
+    let validateSelect4 = (rule, value, callback) => {
+      let obj = {};
+      obj = this.formThreeLabelAlign.times;
+      if (!('label' in obj)) {
+        callback(new Error('请选择购买时长'));
+      } else {
+        callback();
+      }
+    };
     return {
       show: false,
       showLine: false,
@@ -71,6 +107,8 @@ export default {
         packageId: '',
         newPackageId: '',
         packagePrice: '',
+        buyTimes: '',
+        discount: '',
         startTime: '',
         endTime: '',
         currentTime: '',
@@ -79,7 +117,7 @@ export default {
       },
       rules2_1: {
         id: [
-          { required: true, message: '请选择续费时长', trigger: 'change' }
+          { required: true, validator: validateSelect1, trigger: 'change' }
         ],
         password: [
           { required: true, message: '请输入登录密码', trigger: 'blur' }
@@ -87,7 +125,7 @@ export default {
       },
       rules2_2: {
         id: [
-          { required: true, message: '请选择套餐类型', trigger: 'change' }
+          { required: true, validator: validateSelect2, trigger: 'change' }
         ],
         password: [
           { required: true, message: '请输入登录密码', trigger: 'blur' }
@@ -95,10 +133,10 @@ export default {
       },
       rules2_3: {
         type: [
-          { required: true, message: '请选择套餐类型', trigger: 'change' }
+          { required: true, validator: validateSelect3, trigger: 'change' }
         ],
         times: [
-          { required: true, message: '请选择续费时长', trigger: 'change' }
+          { required: true, validator: validateSelect4, trigger: 'change' }
         ],
         password: [
           { required: true, message: '请输入登录密码', trigger: 'blur' }
@@ -118,6 +156,7 @@ export default {
         apiUid: this.$store.getters.apiUid
       };
       this.$api.getUserPackageInfo(params).then(res => {
+        console.log(res);
         if (res.resultCode === '0000') {
           this.havePurchase = true;
           this.notPurchase = false;
@@ -259,6 +298,8 @@ export default {
     // 购买套餐表单里购买时长发生改变时触发
     changePurchaseTimes (value) {
       if (value) {
+        this.packageInfo.buyTimes = value.times;
+        this.packageInfo.discount = value.discount;
         this.packageInfo.endTimeBuy = Moment(this.packageInfo.currentTime).add(value.times, 'M');
         this.packageInfo.beforePrice = '原价¥' + (this.packageInfo.packagePrice * value.times);
         this.packageInfo.currentPrice = '¥' + parseFloat(this.packageInfo.packagePrice * value.times * value.discount).toFixed(1);
@@ -283,6 +324,10 @@ export default {
       this.packageInfo.packagePrice = value.packagePrice;
       this.packageInfo.newPackageId = value.packageId;
       this.packageInfo.rate = value.packageInherentRate;
+      if (this.packageInfo.buyTimes) {
+        this.packageInfo.beforePrice = '原价¥' + (value.packagePrice * this.packageInfo.buyTimes);
+        this.packageInfo.currentPrice = '¥' + parseFloat(value.packagePrice * this.packageInfo.buyTimes * this.packageInfo.discount).toFixed(1);
+      }
     },
     // 弹出的续费表单里点击续费按钮提交
     submitDelayMoney (formName) {
