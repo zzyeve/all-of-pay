@@ -39,8 +39,6 @@ export default {
         this.apiUid = this.$store.getters.apiUid;
         this.getData();
         this.getUserInfo();
-        // this.$store.getters.apiUid
-        // this.fetchUserInfo();
     },
     methods: {
         // 获取用户信息接口
@@ -51,13 +49,16 @@ export default {
         },
         // 请求用户充值接口
         userRechargeMoney () {
+            if (!this.allData.rechargeMoney) {
+                this.$message.warning('请勾选数据');
+                return;
+            }
             let params = {
                 apiUid: this.$store.getters.apiUid,
                 rechargeMoney: this.allData.rechargeMoney,
                 rechargeType: '0'
             };
             this.$api.getUserRecharge(params).then(res => {
-                console.log(res);
                 this.dialogShow = false;
                 this.qrCodeDialog = true;
                 this.returnPage = res;
