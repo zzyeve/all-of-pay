@@ -176,6 +176,10 @@ export const getUserPackageInfo = (params) => {
 export const updateUserPackageInfo = (params) => {
   return axios.post(`${base}/updateUserPackageInfo.action`, params).then(res => res);
 };
+// 账号管理模块--套餐订购
+export const userSubscribuPackage = (params) => {
+  return axios.post(`${base}/userSubscribuPackage.action`, params).then(res => res);
+};
 // 账号管理模块--密码修改
 export const changeUserPassword = (params) => {
   return axios.post(`${base}/changeUserPassword.action`, params).then(res => res);

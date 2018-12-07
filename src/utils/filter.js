@@ -2,7 +2,11 @@ import Vue from 'vue';
 import moment from 'moment';
 // 默认类型转换
 Vue.filter('datetimeFormat', function (value) {
-    return moment(value).format('YYYY-MM-DD HH:MM:SS');
+    if (!value) {
+      return '';
+    } else {
+      return moment(value).format('YYYY-MM-DD HH:MM:SS');
+    }
 });
 // 支付类型转换
 Vue.filter('payTypeSwitch', function (value) {

@@ -7,11 +7,14 @@ export default {
     return {
       show: false,
       showLine: false,
+      selectDisabled: true,
       warningWords: false,
       warningWords2: false,
+      warningWords3: false,
       dialogFormOneVisible: false,
       dialogFormTwoVisible: false,
-      havePurchase: true,
+      dialogFormThreeVisible: false,
+      havePurchase: false,
       notPurchase: false,
       labelPosition: 'right',
       formOneLabelAlign: {
@@ -53,7 +56,13 @@ export default {
         selectPackageList: [],
         password: ''
       },
+      formThreeLabelAlign: {
+        type: {},
+        times: {},
+        password: ''
+      },
       packageInfo: {
+        rate: '',
         beforePrice: '',
         currentPrice: '',
         priceDifferences: '',
@@ -64,6 +73,8 @@ export default {
         packagePrice: '',
         startTime: '',
         endTime: '',
+        currentTime: '',
+        endTimeBuy: '',
         residueDays: ''
       },
       rules2_1: {
@@ -77,6 +88,17 @@ export default {
       rules2_2: {
         id: [
           { required: true, message: '请选择套餐类型', trigger: 'change' }
+        ],
+        password: [
+          { required: true, message: '请输入登录密码', trigger: 'blur' }
+        ]
+      },
+      rules2_3: {
+        type: [
+          { required: true, message: '请选择套餐类型', trigger: 'change' }
+        ],
+        times: [
+          { required: true, message: '请选择续费时长', trigger: 'change' }
         ],
         password: [
           { required: true, message: '请输入登录密码', trigger: 'blur' }
@@ -152,6 +174,28 @@ export default {
         }
       });
     },
+    // 请求套餐订购接口
+    purchasePackage () {
+      let params = {
+        apiUid: this.$store.getters.apiUid,
+        password: this.formThreeLabelAlign.password,
+        newPackageId: this.packageInfo.newPackageId,
+        packageStartTime: Moment(this.packageInfo.currentTime).format('YYYYMMDD HH:mm:ss'),
+        packageExpiryTime: Moment(this.packageInfo.endTimeBuy).format('YYYYMMDD HH:mm:ss'),
+        subscriptAmount: this.packageInfo.currentPrice.substring(1),
+        rate: this.packageInfo.rate
+      };
+      console.log(params.packageExpiryTime);
+      this.$api.userSubscribuPackage(params).then(res => {
+        console.log(res);
+        if (res.resultCode !== '0000') {
+          this.$message.warning(res.resultMsg);
+        } else {
+          this.$message.success(res.resultMsg);
+          this.getUserPackageInformation();
+        }
+      });
+    },
     // 请求用户基本信息查询接口来查找账户的余额
     getUserInfo () {
       let params = {
@@ -167,9 +211,18 @@ export default {
     dialogFormOne () {
       this.dialogFormOneVisible = true;
     },
+    // 点击更改套餐弹出表单
+    dialogFormTwo () {
+      this.dialogFormTwoVisible = true;
+    },
+    // 点击返回购买弹出表单
+    dialogFormThree () {
+      this.dialogFormThreeVisible = true;
+      let cdate = new Date().getTime();
+      this.packageInfo.currentTime = Moment(cdate).format('YYYY-MM-DD HH:mm:ss');
+    },
     // 续费时长改变时触发
     changeTime (value) {
-      console.log(value);
       if (value) {
         this.packageInfo.beforePrice = '原价¥' + (this.packageInfo.packagePrice * value.times);
         this.packageInfo.currentPrice = '¥' + parseFloat(this.packageInfo.packagePrice * value.times * value.discount).toFixed(1);
@@ -187,7 +240,6 @@ export default {
     },
     // 选购套餐类型发生改变时触发
     changePackage (value) {
-      console.log(value);
       if (value) {
         this.show = true;
         this.packageInfo.newPackageId = value.packageId;
@@ -205,16 +257,40 @@ export default {
         this.show = false;
       }
     },
-    // 点击更改套餐弹出表单
-    dialogFormTwo () {
-      this.dialogFormTwoVisible = true;
+    // 购买套餐表单里购买时长发生改变时触发
+    changePurchaseTimes (value) {
+      if (value) {
+        this.packageInfo.endTimeBuy = Moment(this.packageInfo.currentTime).add(value.times, 'M');
+        this.packageInfo.beforePrice = '原价¥' + (this.packageInfo.packagePrice * value.times);
+        this.packageInfo.currentPrice = '¥' + parseFloat(this.packageInfo.packagePrice * value.times * value.discount).toFixed(1);
+        this.showLine = true;
+        if (this.packageInfo.accountBalance < this.packageInfo.currentPrice) {
+          this.warningWords3 = true;
+        } else {
+          this.warningWords3 = false;
+        }
+      } else {
+        this.packageInfo.beforePrice = '';
+        this.packageInfo.currentPrice = '';
+      }
+    },
+    // 购买套餐表单里购买套餐类型发生改变时触发
+    changePurchasePackageType (value) {
+      if (value === '') {
+        this.selectDisabled = true;
+      } else {
+        this.selectDisabled = false;
+      }
+      this.packageInfo.packagePrice = value.packagePrice;
+      this.packageInfo.newPackageId = value.packageId;
+      this.packageInfo.rate = value.packageInherentRate;
     },
     // 弹出的续费表单里点击续费按钮提交
     submitDelayMoney (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.changeOrDelayPackage(this.formOneLabelAlign.password, this.packageInfo.packageId, this.packageInfo.currentPrice.substring(1), '0');
-          this.onlyDelayMoney(formName);
+          this.onlyDelayMoney();
         } else {
           this.$message.warning('请填写内容');
           return false;
@@ -222,19 +298,19 @@ export default {
       });
     },
     // 弹出的续费表单里点击取消按钮取消
-    cancelDelayMoney (formName) {
-      this.onlyDelayMoney(formName);
+    cancelDelayMoney () {
+      this.onlyDelayMoney();
     },
     // 点击续费对话框关闭按钮
-    closeDialogOne (formName) {
-      this.onlyDelayMoney(formName);
+    closeDialogOne () {
+      this.onlyDelayMoney();
     },
     // 弹出的更改套餐表单里点击改套餐按钮提交
     submitChangePackage (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           this.changeOrDelayPackage(this.formTwoLabelAlign.password, this.packageInfo.newPackageId, String(this.packageInfo.priceDifferences), '1');
-          this.onlyChangePackage(formName);
+          this.onlyChangePackage();
         } else {
           this.$message.warning('请填写内容');
           return false;
@@ -242,24 +318,54 @@ export default {
       });
     },
     // 弹出的更改套餐表单里点击取消按钮取消
-    cancelChangePackage (formName) {
-      this.onlyChangePackage(formName);
+    cancelChangePackage () {
+      this.onlyChangePackage();
     },
     // 点击更改套餐对话框关闭按钮
-    closeDialogTwo (formName) {
-      this.onlyChangePackage(formName);
+    closeDialogTwo () {
+      this.onlyChangePackage();
     },
-    // 续费表单专属
-    onlyDelayMoney (formName) {
-      this.$refs[formName].resetFields();
+    // 弹出的购买套餐表单里点击购买按钮提交
+    submitPurchase (formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          this.purchasePackage();
+          this.onlyDelayMoney();
+        } else {
+          this.$message.warning('请填写内容');
+          return false;
+        }
+      });
+    },
+    // 弹出的购买套餐表单里点击取消按钮取消
+    cancelPurchase () {
+      this.onlyDelayMoney();
+    },
+    // 点击购买套餐对话框关闭按钮
+    closeDialogThree () {
+      this.onlyDelayMoney();
+    },
+    // 续费及套餐购买表单专属
+    onlyDelayMoney () {
+      if (this.$refs.formOneLabelAlign) {
+        this.$refs.formOneLabelAlign.resetFields();
+        this.dialogFormOneVisible = false;
+      }
+      if (this.$refs.formThreeLabelAlign) {
+        this.$refs.formThreeLabelAlign.resetFields();
+        this.packageInfo.packagePrice = '';
+        this.selectDisabled = true;
+        this.packageInfo.currentTime = '';
+        this.packageInfo.endTimeBuy = '';
+        this.dialogFormThreeVisible = false;
+      }
       this.showLine = false;
       this.packageInfo.beforePrice = '';
       this.packageInfo.currentPrice = '';
-      this.dialogFormOneVisible = false;
     },
     // 更改套餐表单专属
-    onlyChangePackage (formName) {
-      this.$refs[formName].resetFields();
+    onlyChangePackage () {
+      this.$refs.formTwoLabelAlign.resetFields();
       this.show = false;
       this.packageInfo.priceDifferences = '';
       this.dialogFormTwoVisible = false;
