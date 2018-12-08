@@ -9,7 +9,7 @@ export default {
 			params: {
 				apiUid: "",
 				payType: "",
-				payName: '',
+				userName: '',
 				disabled: '',
 				receviceAccount: "",
 				remark: "",
