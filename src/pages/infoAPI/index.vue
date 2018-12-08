@@ -4,7 +4,7 @@ import './index.less';
 export default {
   data () {
     return {
-      uidName: '535',
+      uidName: this.$store.getters.apiUid,
       tokenId: '62537382736hgfjkquwyeiq12944'
     };
   },
