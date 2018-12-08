@@ -33,9 +33,29 @@
                         <el-input placeholder="请输入内容" v-model="params.accountAmountLimit"></el-input>
                     </el-form-item>
                     <el-form-item label="限时(每日):">
-                        <el-time-picker placeholder="任意时间点" v-model="params.timeLimitStart"></el-time-picker>
+                        <el-time-picker
+                            placeholder="起始时间"
+                            v-model="params.timeLimitStart"
+                            :picker-options="{
+                                start: '00:00:00',
+                                step: '00:01:30',
+                                end: '23:59:59'
+                            }">
+                        </el-time-picker>
+                        <!-- <el-time-picker placeholder="任意时间点" v-model="params.timeLimitStart"></el-time-picker> -->
                         至
-                        <el-time-picker placeholder="任意时间点" v-model="params.timerLimitEnd"></el-time-picker>
+                        <el-time-picker
+                            placeholder="结束时间"
+                            v-model="params.timerLimitEnd"
+                            format="HH:mm:ss"
+                            :picker-options="{
+                                start: '00:00:00',
+                                step: '00:01:30',
+                                end: '23:59:59',
+                                minTime: params.timeLimitStart
+                            }">
+                        </el-time-picker>
+                        <!-- <el-time-picker placeholder="任意时间点" v-model="params.timerLimitEnd"></el-time-picker> -->
                     </el-form-item>
                     <el-form-item label="状态:">
                         <el-radio-group v-model="params.accountStatus" size="small">

@@ -27,10 +27,8 @@ export default {
     };
   },
   created () {
-
   },
   methods: {
-    // 请求测试接口
     interfaceTest () {
       let params = {
         apiUid: this.$store.getters.apiUid,
@@ -39,6 +37,9 @@ export default {
       };
       this.$api.aopInterfaceTest(params).then(res => {
         this.qrCodeDialog = true;
+        // let dw = window.open();
+        // dw.document.open();
+        // dw.document.innertml(res);
         this.returnPage = res;
       });
     },

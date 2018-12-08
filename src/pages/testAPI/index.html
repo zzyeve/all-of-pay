@@ -19,9 +19,12 @@
       <el-button type="primary" size="small" style="margin-left: 145px;" @click="submitForm6('formLabelAlign6')">支付测试</el-button>
     </div>
 
-    <el-dialog :visible.sync="qrCodeDialog" width="100%" class="qrcode">
+    <el-dialog :visible.sync="qrCodeDialog" width="50%" class="qrcode" center>
       <!--<vue-qr :logoSrc="config.logo" :text="config.value" :size="200" :margin="0"></vue-qr>-->
       <div class="qrcode-content" v-html="returnPage"></div>
+      <!-- <div class="qrcode-content">
+        <iframe scrolling="no" frameborder="0" ref="iframe"></iframe>
+      </div> -->
     </el-dialog>
   </div>
   <router-view></router-view>
