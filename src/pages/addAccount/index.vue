@@ -28,6 +28,7 @@ export default {
 			params: {
 				apiUid: '',
 				payId: '',
+				payName: '',
 				payType: '0',
 				receviceAccount: '',
 				remark: '',
@@ -48,6 +49,9 @@ export default {
 				],
 				payId: [
 					{ required: true, message: '请输入支付ID', trigger: 'blur' }
+				],
+				payName: [
+					{ required: true, message: '请输入支付名称', trigger: 'blur' }
 				],
 				accountSort: [
 					{ required: false, validator: checkAccountWeight, trigger: 'blur' }
