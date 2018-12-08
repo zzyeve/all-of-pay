@@ -3,6 +3,7 @@
 import './index.less';
 import VueQr from 'vue-qr';
 // import moment from 'moment';
+let timer; // 计时器
 import {priceList} from '../../utils/selectList.js';
 import Abstract from '../../components/Abstract.vue';
 export default {
@@ -40,6 +41,7 @@ export default {
                 logo: ''
             },
             totalTime: 360,
+            refreshPage: false,
             dateTime: {
                 day: '',
                 hour: '',
@@ -54,7 +56,6 @@ export default {
         this.apiUid = this.$store.getters.apiUid;
         this.getData();
         this.getUserInfo();
-        // this.setTime(360);
     },
     methods: {
         // 获取用户信息接口
@@ -63,6 +64,25 @@ export default {
                 this.userInfo = Object.assign({}, res.userInfoList[0]);
             });
         },
+        // 支付弹窗关闭
+        qrcodeClose() {
+            this.this.allData.rechargeMoney = '';
+            clearTimeout(timer);
+            this.totalTime = 360;
+            this.refreshPage = false;
+        },
+        // 请求用户充值是否成功
+        // queryOrderIsPaySuccess() {
+        //     let params = {
+        //         merchanOrderId: this.userRecharge.orderid
+        //     };
+        //     this.$api.queryOrderIsPaySuccess(params).then(res => {
+        //         if (res.resultCode === '0000') {
+        //             this.$message.success('充值成功');
+        //             this.qrCodeDialog = false;
+        //         }
+        //     })
+        // },
         // 请求用户充值接口
         userRechargeMoney () {
             if (!this.allData.rechargeMoney) {
@@ -78,22 +98,28 @@ export default {
                 this.dialogShow = false;
                 this.qrCodeDialog = true;
                 this.userRecharge = Object.assign({}, this.userRecharge, res);
+                this.setTime();
             });
-
         },
         setTime() {
-            // let _that = this;
-            // // let timer = setInterval(function() {
-            // if (dataTime > 0) {
-            //     _that.dateTime.day = Math.floor(dataTime / (60 * 60 * 24));
-            //     _that.dateTime.hour = Math.floor(dataTime / (60 * 60)) - (_that.dateTime.day * 24);
-            //     _that.dateTime.min = Math.floor(dataTime / 60) - (_that.dateTime.day * 24 * 60) - (_that.dateTime.hour * 60);
-            //     _that.dateTime.second = Math.floor(dataTime) - (_that.dateTime.day * 24 * 60 * 60) - (_that.dateTime.hour * 60 * 60) - (_that.dateTime.min * 60);
-            // }
-            // if (_that.dateTime.min <= 9) _that.dateTime.min = '0' + _that.dateTime.min;
-            // if (_that.dateTime.second <= 9) _that.dateTime.second = '0' + _that.dateTime.second;
-            // dataTime --;
-            // console.log(this.dateTime);
+            if (this.totalTime < 0) {
+                this.refreshPage = true;
+                clearTimeout(timer);
+                return;
+            }
+            let day = parseInt(this.totalTime / 60 / 60 / 24);
+            let hr = parseInt(this.totalTime / 60 / 60 % 24);
+            let min = parseInt(this.totalTime / 60 % 60);
+            let sec = parseInt(this.totalTime % 60);
+            this.dateTime.day = day;
+            this.dateTime.hour = hr > 9 ? hr : '0' + hr;
+            this.dateTime.min = min > 9 ? min : '0' + min;
+            this.dateTime.second = sec > 9 ? sec : '0' + sec;
+            this.totalTime --;
+            const that = this;
+            timer = setTimeout(function() {
+                that.setTime();
+            }, 1000);
         },
         // 获取数据
         getData() {
