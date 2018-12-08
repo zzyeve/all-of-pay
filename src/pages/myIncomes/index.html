@@ -62,7 +62,7 @@
         <el-dialog width="30%" title="充值" :visible.sync="dialogShow">
             <div class="dialog-content">
                 充值金额
-                <el-select v-model="selectTypeId" size="small" @change="selectMoney">
+                <el-select v-model="selectTypeId" size="small">
                     <el-option v-for="(item, index) in priceList"
                         :label="item.label"
                         :value="item.value"
@@ -72,15 +72,14 @@
             </div>
             <div slot="footer" class="dialog-footer">
                 <el-button @click="dialogShow = false" size="small">取 消</el-button>
-                <el-button type="primary" @click="aliPay()" size="small">支付宝充值</el-button>
+                <el-button type="primary" @click="userRechargeMoney()" size="small">支付宝充值</el-button>
             </div>
         </el-dialog>
-
         <el-dialog :visible.sync="qrCodeDialog" width="50%" class="qrcode" @close="qrcodeClose">
             <div class="order-content">
                 <img src="../../assets/img/alipay_top.png" >
                 <div class="img-div">
-                    <vue-qr :logoSrc="userRecharge.logo" :text="userRecharge.qrcodeurl" :size="200" :margin="0"></vue-qr>
+                    <vue-qr :logoSrc="userRecharge.logo" :text="userRecharge.qrcodeurl" :size="200" :margin="0" class="vue-qrcode"></vue-qr>
                     <img src="../../assets/img/alipay_mid.png" style="position: relative;top: -135px;">
                 </div>
                 <h1>￥{{userRecharge.price}}</h1>

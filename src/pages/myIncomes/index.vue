@@ -66,32 +66,32 @@ export default {
         },
         // 支付弹窗关闭
         qrcodeClose() {
-            this.this.allData.rechargeMoney = '';
+            this.selectTypeId = '';
             clearTimeout(timer);
             this.totalTime = 360;
             this.refreshPage = false;
         },
         // 请求用户充值是否成功
-        // queryOrderIsPaySuccess() {
-        //     let params = {
-        //         merchanOrderId: this.userRecharge.orderid
-        //     };
-        //     this.$api.queryOrderIsPaySuccess(params).then(res => {
-        //         if (res.resultCode === '0000') {
-        //             this.$message.success('充值成功');
-        //             this.qrCodeDialog = false;
-        //         }
-        //     })
-        // },
+        queryOrderIsPaySuccess() {
+            let params = {
+                merchanOrderId: this.userRecharge.orderid
+            };
+            this.$api.queryOrderIsPaySuccess(params).then(res => {
+                if (res.resultCode === '0000') {
+                    this.$message.success('充值成功');
+                    this.qrCodeDialog = false;
+                }
+            });
+        },
         // 请求用户充值接口
         userRechargeMoney () {
-            if (!this.allData.rechargeMoney) {
+            if (!this.selectTypeId) {
                 this.$message.warning('请选择数据');
                 return;
             }
             let params = {
                 apiUid: this.$store.getters.apiUid,
-                rechargeMoney: this.allData.rechargeMoney,
+                rechargeMoney: this.selectTypeId,
                 rechargeType: '0'
             };
             this.$api.getUserRecharge(params).then(res => {
@@ -101,6 +101,7 @@ export default {
                 this.setTime();
             });
         },
+        // 定时器
         setTime() {
             if (this.totalTime < 0) {
                 this.refreshPage = true;
@@ -119,6 +120,7 @@ export default {
             const that = this;
             timer = setTimeout(function() {
                 that.setTime();
+                that.queryOrderIsPaySuccess();
             }, 1000);
         },
         // 获取数据
@@ -137,10 +139,6 @@ export default {
         // 跳转到明细页
         goDetail() {
             window.location.href = '#/incomes/detail';
-        },
-        // 监听选择充值金额
-        selectMoney () {
-            this.allData.rechargeMoney = this.selectTypeId;
         },
         // 点击支付宝充值按钮
         aliPay () {
