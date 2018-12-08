@@ -87,6 +87,7 @@ export default {
 		},
 		// 跳转编辑收款账户
 		goEdit(row) {
+			console.log(row);
 			let accountDetail = JSON.stringify(row);
 			window.sessionStorage.setItem("accountDetail", accountDetail);
 			window.location.href = "#/account/edit";
