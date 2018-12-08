@@ -18,17 +18,21 @@
                     <el-form-item label="支付ID:" prop="payId">
                         <el-input disabled placeholder="请输入内容" v-model="params.payId"></el-input>
                     </el-form-item>
+                    <el-form-item label="支付名称:" prop="payName">
+                        <el-input disabled placeholder="请输入内容" v-model="params.payName"></el-input>
+                    </el-form-item>
                     <el-form-item label="备注:">
                         <el-input placeholder="请输入内容" v-model="params.remark"></el-input>
                     </el-form-item>
                     <el-form-item label="排序:" prop="accountSort">
                         <el-input placeholder="请输入内容" v-model="params.accountSort"></el-input>
                     </el-form-item>
+
+                </el-col>
+                <el-col :span="12">
                     <el-form-item label="权重:" prop="accountWeight">
                         <el-input placeholder="请输入内容" v-model="params.accountWeight"></el-input>
                     </el-form-item>
-                </el-col>
-                <el-col :span="12">
                     <el-form-item label="实施网关:">
                         <el-input placeholder="请输入内容" v-model="params.realTimeGateway"></el-input>
                     </el-form-item>
