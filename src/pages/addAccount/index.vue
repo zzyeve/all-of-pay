@@ -28,7 +28,7 @@ export default {
 			params: {
 				apiUid: '',
 				payId: '',
-				payName: '',
+				userName: '',
 				payType: '0',
 				receviceAccount: '',
 				remark: '',
@@ -50,7 +50,7 @@ export default {
 				payId: [
 					{ required: true, message: '请输入支付ID', trigger: 'blur' }
 				],
-				payName: [
+				userName: [
 					{ required: true, message: '请输入支付名称', trigger: 'blur' }
 				],
 				accountSort: [
