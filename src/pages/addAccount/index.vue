@@ -27,6 +27,7 @@ export default {
 		return {
 			params: {
 				apiUid: '',
+				payId: '',
 				payType: '0',
 				receviceAccount: '',
 				remark: '',
@@ -45,6 +46,9 @@ export default {
 				receviceAccount: [
 					{ required: true, message: '请输入收款账户', trigger: 'blur' }
 				],
+				payId: [
+					{ required: true, message: '请输入支付ID', trigger: 'blur' }
+				],
 				accountSort: [
 					{ required: false, validator: checkAccountWeight, trigger: 'blur' }
 				],
@@ -60,26 +64,26 @@ export default {
 	methods: {
 		// 保存按钮
 		saveData() {
-			console.log(this.params.timeLimitStart);
-			console.log(this.params.timerLimitEnd);
-			// this.$refs.params.validate((valid) => {
-			// 	if (valid) {
-			// 		this.params.timeLimitStart = this.params.timeLimitStart ? moment(this.params.timeLimitStart).format('YYYYMMDD HH:mm:ss') : '';
-			// 		this.params.timerLimitEnd = this.params.timerLimitEnd ? moment(this.params.timerLimitEnd).format('YYYYMMDD HH:mm:ss') : '';
-			// 		this.$api.addUserReceviceAccount(this.params).then(res => {
-			// 			if (res.resultCode === '0000') {
-			// 				this.$message.success("新增成功");
-			// 				setTimeout(function() {
-			// 					window.location.href = '#/account';
-			// 				}, 2000);
-			// 			} else {
-			// 				this.$message.error(res.resultMsg);
-			// 			}
-			// 		});
-			// 	} else {
-			// 		this.$message.warning('请填写内容');
-			// 	}
-			// });
+			// console.log(this.params.timeLimitStart);
+			// console.log(this.params.timerLimitEnd);
+			this.$refs.params.validate((valid) => {
+				if (valid) {
+					this.params.timeLimitStart = this.params.timeLimitStart ? moment(this.params.timeLimitStart).format('YYYYMMDD HH:mm:ss') : '';
+					this.params.timerLimitEnd = this.params.timerLimitEnd ? moment(this.params.timerLimitEnd).format('YYYYMMDD HH:mm:ss') : '';
+					this.$api.addUserReceviceAccount(this.params).then(res => {
+						if (res.resultCode === '0000') {
+							this.$message.success("新增成功");
+							setTimeout(function() {
+								window.location.href = '#/account';
+							}, 2000);
+						} else {
+							this.$message.error(res.resultMsg);
+						}
+					});
+				} else {
+					this.$message.warning('请填写内容');
+				}
+			});
 		},
 		tableRowClassName() {
 			return 'table-row-name';

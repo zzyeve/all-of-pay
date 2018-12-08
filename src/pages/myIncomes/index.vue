@@ -2,6 +2,7 @@
 <script>
 import './index.less';
 import VueQr from 'vue-qr';
+// import moment from 'moment';
 import {priceList} from '../../utils/selectList.js';
 import Abstract from '../../components/Abstract.vue';
 export default {
@@ -27,9 +28,23 @@ export default {
                 needAlarm: 'false',
                 userBalance: '0'
             },
-            config: {
-                value: '', // 显示的值、跳转的地址
-                logo: '' // 中间logo的地址
+            // config: {
+            //     value: '', // 显示的值、跳转的地址
+            //     logo: '' // 中间logo的地址
+            // },
+            userRecharge: {
+                istype: '',
+                orderid: '',
+                price: '',
+                qrcodeurl: '',
+                logo: ''
+            },
+            totalTime: 360,
+            dateTime: {
+                day: '',
+                hour: '',
+                min: '',
+                second: ''
             },
             selectTypeId: '',
             priceList: {...priceList}
@@ -39,6 +54,7 @@ export default {
         this.apiUid = this.$store.getters.apiUid;
         this.getData();
         this.getUserInfo();
+        // this.setTime(360);
     },
     methods: {
         // 获取用户信息接口
@@ -61,8 +77,23 @@ export default {
             this.$api.getUserRecharge(params).then(res => {
                 this.dialogShow = false;
                 this.qrCodeDialog = true;
-                this.returnPage = res;
+                this.userRecharge = Object.assign({}, this.userRecharge, res);
             });
+
+        },
+        setTime() {
+            // let _that = this;
+            // // let timer = setInterval(function() {
+            // if (dataTime > 0) {
+            //     _that.dateTime.day = Math.floor(dataTime / (60 * 60 * 24));
+            //     _that.dateTime.hour = Math.floor(dataTime / (60 * 60)) - (_that.dateTime.day * 24);
+            //     _that.dateTime.min = Math.floor(dataTime / 60) - (_that.dateTime.day * 24 * 60) - (_that.dateTime.hour * 60);
+            //     _that.dateTime.second = Math.floor(dataTime) - (_that.dateTime.day * 24 * 60 * 60) - (_that.dateTime.hour * 60 * 60) - (_that.dateTime.min * 60);
+            // }
+            // if (_that.dateTime.min <= 9) _that.dateTime.min = '0' + _that.dateTime.min;
+            // if (_that.dateTime.second <= 9) _that.dateTime.second = '0' + _that.dateTime.second;
+            // dataTime --;
+            // console.log(this.dateTime);
         },
         // 获取数据
         getData() {
