@@ -80,6 +80,7 @@ export default {
                 if (res.resultCode === '0000') {
                     this.$message.success('充值成功');
                     this.qrCodeDialog = false;
+                    this.getUserInfo();
                 }
             });
         },
@@ -95,10 +96,14 @@ export default {
                 rechargeType: '0'
             };
             this.$api.getUserRecharge(params).then(res => {
-                this.dialogShow = false;
-                this.qrCodeDialog = true;
-                this.userRecharge = Object.assign({}, this.userRecharge, res);
-                this.setTime();
+                // if (res.resultCode === '0000') {
+                    this.dialogShow = false;
+                    this.qrCodeDialog = true;
+                    this.userRecharge = Object.assign({}, this.userRecharge, res);
+                    this.setTime();
+                // } else {
+                //     this.$message.error(res.resultMsg);
+                // }
             });
         },
         // 定时器
